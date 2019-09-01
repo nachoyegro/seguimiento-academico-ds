@@ -1,0 +1,10 @@
+Flask
+Flask-Alembic
+Flask-CLI
+Flask-Cors
+Flask-Login
+Flask-Script
+Flask-User
+Flask-WTF
+flask-httpauth
+requests
