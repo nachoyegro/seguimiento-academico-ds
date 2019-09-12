@@ -6,7 +6,7 @@ import json
 from config import app
 
 @app.route('/')
-def hello():
+def home():
     data = DataProvider().retrieve_materiascursadas(username=app.config['USERNAME'], password=app.config['PASSWORD'])
     dataframe = DataTransformer(data).transform_to_dataframe()
     return dataframe

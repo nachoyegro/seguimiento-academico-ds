@@ -1,7 +1,6 @@
 import pandas as pd
 
 class DataTransformer:
-    pass
 
     def __init__(self, data):
         """
