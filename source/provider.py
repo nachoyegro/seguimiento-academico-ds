@@ -19,7 +19,6 @@ class DataProvider:
         else:
             raise Exception
 
-
     def retrieve_alumnos(self, **kwargs):
         """
             :url must be /alumnos, /materias, /carreras...
@@ -29,10 +28,22 @@ class DataProvider:
         headers = {'Authorization': 'Bearer ' + token}
         response = requests.get(app.config['ALUMNOS_URL'], headers=headers)
         if response.status_code == 200:
-            return json.loads(response.text)
+            return response.text
         else:
             raise Exception
 
+    def retrieve_materiascursadas(self, **kwargs):
+        """
+            :url must be /materiascursadas
+            :kwargs
+        """
+        token = self.retrieve_token(**kwargs)
+        headers = {'Authorization': 'Bearer ' + token}
+        response = requests.get(app.config['MATERIASCURSADAS_URL'], headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            raise Exception
         
 
 
