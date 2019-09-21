@@ -1,0 +1,1388 @@
+[
+    {
+        "id": 1,
+        "materia": "FISICA I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 2,
+        "materia": "ELECTRÓNICA ANALÓGICA",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 3,
+        "materia": "INSTRUMENTACIÓN I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 4,
+        "materia": "ALGORITMOS Y PROG. I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-10-31",
+        "resultado": "A"
+    },
+    {
+        "id": 5,
+        "materia": "12 CREDITOS",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 6,
+        "materia": "12 CREDITOS",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 7,
+        "materia": "TÉCNICAS DIGITALES",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-04-21",
+        "resultado": "A"
+    },
+    {
+        "id": 8,
+        "materia": "ECONOMÍA",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 9,
+        "materia": "TALLER DE TRABAJO INTELEC.",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 10,
+        "materia": "TEORÍA DE CIRCUITOS I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 11,
+        "materia": "ANALISIS MATEMATICO I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 12,
+        "materia": "SEGURIDAD INDUSTRIAL",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 13,
+        "materia": "QUÍMICA I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 14,
+        "materia": "DISEÑO DE CONT. DIGITALES",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 15,
+        "materia": "INSTRUMENTOS Y MEDICIONES",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "id": 16,
+        "materia": "ALGEBRA Y GEOMETRIA ANALITICA",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-02-17",
+        "resultado": "A"
+    },
+    {
+        "id": 17,
+        "materia": "ANALISIS MATEMATICO II",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-05-24",
+        "resultado": "A"
+    },
+    {
+        "id": 18,
+        "materia": "ANALISIS MATEMATICO III",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 19,
+        "materia": "FISICA II",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 20,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 21,
+        "materia": "ASPECTOS LEGALES EN LA ING.",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-10-29",
+        "resultado": "A"
+    },
+    {
+        "id": 22,
+        "materia": "COMPUTADORES",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 23,
+        "materia": "COMPUTADORES II",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 24,
+        "materia": "COMUNICACIÓN DE DATOS",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 25,
+        "materia": "CONTROL AUTOMÁTICO I",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 26,
+        "materia": "CONTROL AUTOMÁTICO II",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-10-24",
+        "resultado": "A"
+    },
+    {
+        "id": 27,
+        "materia": "CONTROL DE ROBOTS",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-02-15",
+        "resultado": "A"
+    },
+    {
+        "id": 28,
+        "materia": "ALGEBRA Y GEOMETRIA ANALITICA",
+        "nota": null,
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 29,
+        "materia": "FÍSICA III",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 30,
+        "materia": "INFORMATICA",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 31,
+        "materia": "FORMULACIÓN Y EVALUACIÓN DE PR",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 32,
+        "materia": "LABORATORIO DE AUTOMATIZ. I",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 33,
+        "materia": "LABORATORIO DE AUTOMATIZ. II",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 34,
+        "materia": "MATEMÁTICA AVANZADA",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 35,
+        "materia": "PROBABILIDAD Y ESTADÍSTICA",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 36,
+        "materia": "PROCESOS Y MÁQUINAS IND. I",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 37,
+        "materia": "PROCESOS Y MÁQUINAS IND.II",
+        "nota": "5",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 38,
+        "materia": "SEÑALES Y SISTEMAS",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 39,
+        "materia": "TEORÍA DE LAS TELECOMUNIC.",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 40,
+        "materia": "TÓPICOS DE CONTROL AVANZADO",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 41,
+        "materia": "VISIÓN ARTIFICIAL",
+        "nota": null,
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 42,
+        "materia": "TRABAJO FINAL",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2013-12-13",
+        "resultado": "A"
+    },
+    {
+        "id": 43,
+        "materia": "INGLES I",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-02-19",
+        "resultado": "A"
+    },
+    {
+        "id": 44,
+        "materia": "ANALISIS MATEMATICO I",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 45,
+        "materia": "ANALISIS MATEMATICO I",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 46,
+        "materia": "ANALISIS MATEMATICO II",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 47,
+        "materia": "ANALISIS MATEMATICO II",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 48,
+        "materia": "ANALISIS MATEMATICO III",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 49,
+        "materia": "FISICA I",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 50,
+        "materia": "FISICA II",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 51,
+        "materia": "ÁLGEBRA LINEAL",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 52,
+        "materia": "ÁLGEBRA LINEAL",
+        "nota": "5",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 53,
+        "materia": "ALGORITMOS Y PROG. I",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 54,
+        "materia": "ALGORITMOS Y PROG. I",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "id": 55,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 56,
+        "materia": "ASPECTOS LEGALES EN LA ING.",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-12-31",
+        "resultado": "P"
+    },
+    {
+        "id": 57,
+        "materia": "COMPUTADORES II",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-12-18",
+        "resultado": "P"
+    },
+    {
+        "id": 58,
+        "materia": "COMUNICACIÓN DE DATOS",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "P"
+    },
+    {
+        "id": 59,
+        "materia": "CONTROL AUTOMÁTICO I",
+        "nota": "PA",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-07-16",
+        "resultado": "E"
+    },
+    {
+        "id": 60,
+        "materia": "CONTROL AUTOMÁTICO I",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-09-03",
+        "resultado": "A"
+    },
+    {
+        "id": 61,
+        "materia": "CONTROL AUTOMÁTICO II",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-12-17",
+        "resultado": "U"
+    },
+    {
+        "id": 62,
+        "materia": "CONTROL AUTOMÁTICO II",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-07-04",
+        "resultado": "P"
+    },
+    {
+        "id": 63,
+        "materia": "CONTROL DE ROBOTS",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-12-12",
+        "resultado": "U"
+    },
+    {
+        "id": 64,
+        "materia": "DISEÑO DE CONT. DIGITALES",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-12-23",
+        "resultado": "P"
+    },
+    {
+        "id": 65,
+        "materia": "ELECTRÓNICA ANALÓGICA I",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-07-16",
+        "resultado": "P"
+    },
+    {
+        "id": 66,
+        "materia": "ELECTRÓNICA ANALÓGICA II",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-12-17",
+        "resultado": "U"
+    },
+    {
+        "id": 67,
+        "materia": "ELEMENTOS DE HIGIENE Y SEGUR",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 68,
+        "materia": "FÍSICA III",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "id": 69,
+        "materia": "FORMULACIÓN Y EVALUACIÓN DE PR",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "P"
+    },
+    {
+        "id": 70,
+        "materia": "INSTRUMENTOS Y MEDICIONES",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-07-16",
+        "resultado": "P"
+    },
+    {
+        "id": 71,
+        "materia": "INT. A LA AUTOMAT. Y CONTROL",
+        "nota": "10",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 72,
+        "materia": "LABORATORIO DE AUTOMATIZ. I",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-12-27",
+        "resultado": "P"
+    },
+    {
+        "id": 73,
+        "materia": "LABORATORIO DE AUTOMATIZ. II",
+        "nota": "4",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-12-20",
+        "resultado": "P"
+    },
+    {
+        "id": 74,
+        "materia": "MATEMÁTICA AVANZADA",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 75,
+        "materia": "MATEMÁTICA AVANZADA",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2007-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 76,
+        "materia": "PROBABILIDAD Y ESTADÍSTICA",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 77,
+        "materia": "PROCESOS Y MÁQUINAS IND. I",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-12-27",
+        "resultado": "P"
+    },
+    {
+        "id": 78,
+        "materia": "PROCESOS Y MÁQUINAS IND.II",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-12-14",
+        "resultado": "P"
+    },
+    {
+        "id": 79,
+        "materia": "QUÍMICA I",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 80,
+        "materia": "QUÍMICA I",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 81,
+        "materia": "QUÍMICA I",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2008-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 82,
+        "materia": "REDES NEURONALES Y LOG. DIFUSA",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-07-22",
+        "resultado": "P"
+    },
+    {
+        "id": 83,
+        "materia": "SEM. DE AUTOMATIZ. Y CONTROL.",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-12-21",
+        "resultado": "P"
+    },
+    {
+        "id": 84,
+        "materia": "ALGEBRA Y GEOMETRIA ANALITICA",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 85,
+        "materia": "SEÑALES Y SISTEMAS",
+        "nota": "4",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "P"
+    },
+    {
+        "id": 86,
+        "materia": "INFORMATICA",
+        "nota": "A",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 87,
+        "materia": "SISTEMAS DE REPRESENTACIÓN",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 88,
+        "materia": "SISTEMAS DIGITALES",
+        "nota": "PA",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-07-24",
+        "resultado": "E"
+    },
+    {
+        "id": 89,
+        "materia": "SISTEMAS DIGITALES",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-09-01",
+        "resultado": "A"
+    },
+    {
+        "id": 90,
+        "materia": "TALLER DE TRABAJO INTELEC.",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 91,
+        "materia": "TALLER DE TRABAJO UNIVERSIT.",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 92,
+        "materia": "TÉCNICAS DIGITALES",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-11-27",
+        "resultado": "P"
+    },
+    {
+        "id": 93,
+        "materia": "TEORÍA DE CIRCUITOS I",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-11-27",
+        "resultado": "P"
+    },
+    {
+        "id": 94,
+        "materia": "TEORÍA DE LAS TELECOMUNIC.",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-07-23",
+        "resultado": "P"
+    },
+    {
+        "id": 95,
+        "materia": "VISIÓN ARTIFICIAL",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-07-21",
+        "resultado": "P"
+    },
+    {
+        "id": 96,
+        "materia": "INSTRUMENTACIÓN I",
+        "nota": "5",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-07-04",
+        "resultado": "P"
+    },
+    {
+        "id": 97,
+        "materia": "TRABAJO FINAL",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2018-04-17",
+        "resultado": "A"
+    },
+    {
+        "id": 98,
+        "materia": "Electrónica Industrial",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-12-17",
+        "resultado": "U"
+    },
+    {
+        "id": 99,
+        "materia": "Electrónica Industrial",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2016-02-10",
+        "resultado": "A"
+    },
+    {
+        "id": 100,
+        "materia": "INGLES I",
+        "nota": "A",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "P"
+    },
+    {
+        "id": 101,
+        "materia": "INFORMATICA",
+        "nota": null,
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 102,
+        "materia": "ANALISIS MATEMATICO I",
+        "nota": "6",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 103,
+        "materia": "ANALISIS MATEMATICO II",
+        "nota": "7",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 104,
+        "materia": "ANALISIS MATEMATICO III",
+        "nota": "6",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 105,
+        "materia": "ARQUITECTURA NAVAL I",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 106,
+        "materia": "DIBUJO NAVAL",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 107,
+        "materia": "ELECTROTECNIA GENERAL",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 108,
+        "materia": "ESTABILIDAD I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 109,
+        "materia": "FISICA I",
+        "nota": "7",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 110,
+        "materia": "FISICA II",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 111,
+        "materia": "FISICA II",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 112,
+        "materia": "FISICA II",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 113,
+        "materia": "FISICA II",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 114,
+        "materia": "FISICA II",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "id": 115,
+        "materia": "MECANICA DE LOS FUIDOS",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 116,
+        "materia": "ÁLGEBRA LINEAL",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 117,
+        "materia": "ÁLGEBRA LINEAL",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-07-19",
+        "resultado": "U"
+    },
+    {
+        "id": 118,
+        "materia": "ÁLGEBRA LINEAL",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-07-20",
+        "resultado": "U"
+    },
+    {
+        "id": 119,
+        "materia": "ALGORITMOS Y PROG. I",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 120,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 121,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 122,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 123,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "U"
+    },
+    {
+        "id": 124,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2016-12-22",
+        "resultado": "U"
+    },
+    {
+        "id": 125,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": "PA",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-07-20",
+        "resultado": "E"
+    },
+    {
+        "id": 126,
+        "materia": "ANÁLISIS MATEMÁTICO IV",
+        "nota": "5",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-09-04",
+        "resultado": "A"
+    },
+    {
+        "id": 127,
+        "materia": "ALGEBRA Y GEOMETRIA ANALITICA",
+        "nota": "7",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 128,
+        "materia": "ASPECTOS LEGALES EN LA ING.",
+        "nota": "10",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-12-18",
+        "resultado": "P"
+    },
+    {
+        "id": 129,
+        "materia": "INFORMATICA",
+        "nota": "A",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2009-01-05",
+        "resultado": "P"
+    },
+    {
+        "id": 130,
+        "materia": "COMPUTADORES",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 131,
+        "materia": "FÍSICA III",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "U"
+    },
+    {
+        "id": 132,
+        "materia": "FÍSICA III",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "id": 133,
+        "materia": "FÍSICA III",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2013-07-04",
+        "resultado": "U"
+    },
+    {
+        "id": 134,
+        "materia": "FÍSICA III",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2016-12-19",
+        "resultado": "P"
+    },
+    {
+        "id": 135,
+        "materia": "INSTRUMENTOS Y MEDICIONES",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-12-21",
+        "resultado": "U"
+    },
+    {
+        "id": 136,
+        "materia": "INSTRUMENTOS Y MEDICIONES",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-07-11",
+        "resultado": "U"
+    },
+    {
+        "id": 137,
+        "materia": "MATEMÁTICA AVANZADA",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-12-20",
+        "resultado": "U"
+    },
+    {
+        "id": 138,
+        "materia": "PROBABILIDAD Y ESTADÍSTICA",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 139,
+        "materia": "PROBABILIDAD Y ESTADÍSTICA",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "id": 140,
+        "materia": "QUÍMICA I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 141,
+        "materia": "QUÍMICA I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "id": 142,
+        "materia": "QUÍMICA I",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "id": 143,
+        "materia": "QUÍMICA II",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-07-19",
+        "resultado": "U"
+    },
+    {
+        "id": 144,
+        "materia": "SISTEMAS DE REPRESENTACIÓN",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "id": 145,
+        "materia": "TALLER DE TRABAJO INTELEC.",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "U"
+    },
+    {
+        "id": 146,
+        "materia": "TALLER DE TRABAJO UNIVERSIT.",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "id": 147,
+        "materia": "TALLER DE TRABAJO UNIVERSIT.",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "id": 148,
+        "materia": "TALLER DE TRABAJO UNIVERSIT.",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-12-13",
+        "resultado": "P"
+    },
+    {
+        "id": 149,
+        "materia": "TÉCNICAS DIGITALES",
+        "nota": "6",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "id": 150,
+        "materia": "TEORÍA DE CIRCUITOS I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "id": 151,
+        "materia": "TEORÍA DE CIRCUITOS I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-12-20",
+        "resultado": "U"
+    },
+    {
+        "id": 152,
+        "materia": "INGLES I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2009-01-05",
+        "resultado": "U"
+    },
+    {
+        "id": 153,
+        "materia": "INGLES I",
+        "nota": null,
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "id": 154,
+        "materia": "INGLES I",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-07-19",
+        "resultado": "P"
+    }
+]
