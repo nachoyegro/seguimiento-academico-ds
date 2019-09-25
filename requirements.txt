@@ -8,3 +8,4 @@ Flask-User
 Flask-WTF
 flask-httpauth
 requests
+pandas==0.25.1
