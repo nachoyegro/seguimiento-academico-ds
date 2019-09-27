@@ -1,4 +1,3 @@
-import pytest
 from manipulator import DataManipulator
 from transformer import DataTransformer
 import pandas as pd

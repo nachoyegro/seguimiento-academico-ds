@@ -1,0 +1,30 @@
+language: python
+branches:
+  only:
+    - master
+    - desarrollo
+
+sudo: required
+
+services:
+- docker
+
+env:
+  # You may want to update this to whatever the latest version is, or keep it
+  # the same as your local machines. However, I have only tested it with 1.8.0+.
+  # There should be a time in the future when this is not necessary - it is
+  # explained in more detail below.
+  DOCKER_COMPOSE_VERSION: 1.14.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose up -d
+
+script:
+  - docker exec -it alumnos-ds bash -c "cd source && python app.py tests"
+
+cache:
+  - pip
