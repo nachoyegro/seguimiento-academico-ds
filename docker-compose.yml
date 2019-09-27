@@ -1,0 +1,15 @@
+#Docker compose version
+version: '3'
+services:
+  alumnos-ds:
+    container_name: alumnos-ds
+    #Que siempre haga restart cuando falle. Comentar para q no se levante cada vez q se prende la maquina
+    #restart: always
+    #Que haga build en el directorio actual
+    build: .
+    command: python3 source/app.py runserver
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
