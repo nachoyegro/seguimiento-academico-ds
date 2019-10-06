@@ -19,9 +19,18 @@ args = parser.parse_args()
 
 @app.route('/')
 def home():
-    data = DataProvider().retrieve_materiascursadas(username=app.config['USERNAME'], password=app.config['PASSWORD'])
+    """
+        Token must come as part of the request
+    """
+    dp = DataProvider()
+    token = dp.retrieve_token(username=app.config['USERNAME'], password=app.config['PASSWORD'])
+    data = dp.retrieve_materiascursadas(token)
     dataframe = DataTransformer(data).transform_to_dataframe()
     return dataframe
+
+@app.route('/indiceaprobacion')
+def indice_aprobacion():
+    return json.dumps([{'name': '01/01/2016', 'value': 75.8}, {'name': '01/01/2019', 'value': 90}])
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')

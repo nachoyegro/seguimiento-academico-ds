@@ -19,26 +19,29 @@ class DataProvider:
         else:
             raise Exception
 
-    def retrieve_alumnos(self, **kwargs):
+    def get_headers(self, token):
+        return {'Authorization': 'Bearer ' + token}
+    
+    def retrieve_alumnos(self, token):
         """
             :url must be /alumnos, /materias, /carreras...
             :kwargs
         """
-        token = self.retrieve_token(**kwargs)
-        headers = {'Authorization': 'Bearer ' + token}
+        #token = self.retrieve_token(**kwargs)
+        headers = self.get_headers(token)
         response = requests.get(app.config['ALUMNOS_URL'], headers=headers)
         if response.status_code == 200:
             return response.text
         else:
             raise Exception
 
-    def retrieve_materiascursadas(self, **kwargs):
+    def retrieve_materiascursadas(self, token):
         """
             :url must be /materiascursadas
             :kwargs
         """
-        token = self.retrieve_token(**kwargs)
-        headers = {'Authorization': 'Bearer ' + token}
+        #token = self.retrieve_token(**kwargs)
+        headers = self.get_headers(token)
         response = requests.get(app.config['MATERIASCURSADAS_URL'], headers=headers)
         if response.status_code == 200:
             return response.text
