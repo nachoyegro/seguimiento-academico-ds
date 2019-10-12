@@ -1,4 +1,4 @@
-import pandas as pd
+from pandas.io.json import json_normalize
 
 class DataTransformer:
 
@@ -9,4 +9,4 @@ class DataTransformer:
         self.data = data
 
     def transform_to_dataframe(self):
-        return pd.read_json(self.data)
+        return json_normalize(self.data)

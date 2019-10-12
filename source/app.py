@@ -2,6 +2,7 @@
 from flask import Flask, escape, request
 from provider import DataProvider
 from transformer import DataTransformer
+from manipulator import DataManipulator
 import json
 from config import app
 from unittest import TestLoader, runner
@@ -23,14 +24,24 @@ def home():
         Token must come as part of the request
     """
     dp = DataProvider()
-    token = dp.retrieve_token(username=app.config['USERNAME'], password=app.config['PASSWORD'])
-    data = dp.retrieve_materiascursadas(token)
+    #token = dp.retrieve_token(username=app.config['USERNAME'], password=app.config['PASSWORD'])
+    data = dp.retrieve_materiascursadas()
     dataframe = DataTransformer(data).transform_to_dataframe()
     return dataframe
 
-@app.route('/indiceaprobacion')
-def indice_aprobacion():
-    return json.dumps([{'name': '01/01/2016', 'value': 75.8}, {'name': '01/01/2019', 'value': 90}])
+@app.route('/carreras/<cod_carrera>/materias/<cod_materia>/basicos')
+def datos_basicos_materia(cod_carrera, cod_materia):
+    #TODO: falta token
+    json_data = DataProvider().retrieve_materiascursadas()
+    data = DataTransformer(json_data).transform_to_dataframe()
+    manipulator = DataManipulator()
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
+    df = manipulator.filtrar_alumnos_de_materia_periodo(data, '01040', '2002-10-10', '2019-10-10')
+    aprobados = manipulator.cantidad_alumnos_aprobados_periodo(df, cod_materia, fecha_inicio, fecha_fin)
+    desaprobados = manipulator.cantidad_alumnos_desaprobados_periodo(df, cod_materia, fecha_inicio, fecha_fin)
+    ausentes = manipulator.cantidad_alumnos_ausentes_periodo(df, cod_materia, fecha_inicio, fecha_fin)
+    return json.dumps([{'Materia': cod_materia, 'Aprobados': aprobados, 'Ausentes': ausentes, 'Desaprobados': desaprobados}])
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
