@@ -48,6 +48,14 @@ def datos_basicos_materia(cod_carrera, cod_materia):
                         'Desaprobados': desaprobados,
                         'Faltantes': faltantes}])
 
+@app.route('/carreras/<cod_carrera>/alumnos/<legajo>/porcentajes-areas')
+def porcentajes_areas_alumno(cod_carrera, legajo):
+    json_data = DataProvider().retrieve_materiascursadas()
+    data = DataTransformer(json_data).transform_to_dataframe()
+    manipulator = DataManipulator()
+    return json.dumps([manipulator.porcentajes_aprobadas_por_area(data, legajo)])
+
+
 def runserver():
     app.run(debug=True, host='0.0.0.0')
 
