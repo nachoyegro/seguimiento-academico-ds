@@ -25,8 +25,33 @@ class BaseTest(unittest.TestCase):
         self.assertEqual(len(alumnos), 7)
 
     def test_alumnos_periodo_materia(self):
-        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2004-01-01', '2007-07-01')
-        self.assertEqual(len(alumnos), 3)
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2001-01-01', '2010-10-10')
+        self.assertEqual(len(alumnos), 7)
+
+    def test_cantidad_alumnos_aprobados(self):
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2001-01-01', '2010-10-10')
+        cantidad = self.manipulator.cantidad_alumnos_aprobados(self.dataframe, '628')
+        self.assertEqual(cantidad, 3)
+
+    def test_cantidad_alumnos_desaprobados(self):
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2001-01-01', '2010-10-10')
+        cantidad = self.manipulator.cantidad_alumnos_desaprobados(self.dataframe, '628')
+        self.assertEqual(cantidad, 1)
+
+    def test_cantidad_alumnos_ausentes(self):
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2001-01-01', '2010-10-10')
+        cantidad = self.manipulator.cantidad_alumnos_ausentes(self.dataframe, '628')
+        self.assertEqual(cantidad, 2)
+
+    def test_cantidad_alumnos_pendientes(self):
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2001-01-01', '2010-10-10')
+        cantidad = self.manipulator.cantidad_alumnos_pendientes(self.dataframe, '628')
+        self.assertEqual(cantidad, 1)
+
+    def test_cantidad_alumnos_falta_aprobar(self):
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(self.dataframe, '628', '2001-01-01', '2010-10-10')
+        cantidad = self.manipulator.cantidad_alumnos_falta_aprobar(self.dataframe, '628')
+        self.assertEqual(cantidad, 0)
 
 if __name__ == '__main__':
     unittest.main()

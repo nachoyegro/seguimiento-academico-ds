@@ -37,11 +37,16 @@ def datos_basicos_materia(cod_carrera, cod_materia):
     manipulator = DataManipulator()
     fecha_inicio = request.args.get('inicio')
     fecha_fin = request.args.get('fin')
-    df = manipulator.filtrar_alumnos_de_materia_periodo(data, '01040', '2002-10-10', '2019-10-10')
-    aprobados = manipulator.cantidad_alumnos_aprobados_periodo(df, cod_materia, fecha_inicio, fecha_fin)
-    desaprobados = manipulator.cantidad_alumnos_desaprobados_periodo(df, cod_materia, fecha_inicio, fecha_fin)
-    ausentes = manipulator.cantidad_alumnos_ausentes_periodo(df, cod_materia, fecha_inicio, fecha_fin)
-    return json.dumps([{'Materia': cod_materia, 'Aprobados': aprobados, 'Ausentes': ausentes, 'Desaprobados': desaprobados}])
+    df = manipulator.filtrar_alumnos_de_materia_periodo(data, cod_materia, fecha_inicio, fecha_fin)
+    aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
+    desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
+    ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
+    faltantes = manipulator.cantidad_alumnos_falta_aprobar(df, cod_materia)
+    return json.dumps([{'Materia': cod_materia, 
+                        'Aprobados': aprobados, 
+                        'Ausentes': ausentes, 
+                        'Desaprobados': desaprobados,
+                        'Faltantes': faltantes}])
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')

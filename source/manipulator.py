@@ -28,6 +28,15 @@ class DataManipulator:
         df = df.loc[(df.resultado == 'A') | (df.resultado == 'P')] #A: Regular | P: Acredito
         return df
 
+    def pendientes(self, df, materia):
+        """
+            Obtengo los pendientes en base al resultado, no a la nota
+            :return Dataframe
+        """
+        df = self.filtrar_alumnos_de_materia(df, materia)
+        df = df.loc[(df.resultado == 'E')] #A: Regular | P: Acredito
+        return df
+
     def desaprobados(self, df, materia):
         """
             Obtengo los desaprobados en base al resultado, no a la nota
@@ -69,43 +78,22 @@ class DataManipulator:
         """
         aprobados = self.alumnos_aprobados_materia_series(df, materia)
         totales = self.alumnos_totales_materia_series(df, materia)
+        #Hago la resta 
+        #Me quedo con aquellos que estan como desaprobados/ausentes y no estan en aprobados
         resultado = totales[~totales.isin(aprobados)]
         return resultado
 
-    #APROBADOS
-    def alumnos_aprobados_periodo(self, df, materia, fecha_inicio, fecha_fin):
-        """
-            Obtengo los alumnos que aprobaron la materia en un determinado período
-        """
-        alumnos_df = self.filtrar_alumnos_de_materia_periodo(df, materia, fecha_inicio, fecha_fin)
-        aprobados_df = self.aprobados(alumnos_df, materia)
-        return aprobados_df
+    def cantidad_alumnos_falta_aprobar(self, df, materia):
+        return len(self.alumnos_falta_aprobar_materia_series(df, materia))
 
-    def cantidad_alumnos_aprobados_periodo(self, df, materia, fecha_inicio, fecha_fin):
-        return len(self.alumnos_aprobados_periodo(df, materia, fecha_inicio, fecha_fin))
+    def cantidad_alumnos_aprobados(self, df, materia):
+        return len(self.aprobados(df, materia))
 
-    #DESAPROBADOS
-    def alumnos_desaprobados_periodo(self, df, materia, fecha_inicio, fecha_fin):
-        """
-            Obtengo los alumnos que desaprobaron la materia en un determinado período
-        """
-        alumnos_df = self.filtrar_alumnos_de_materia_periodo(df, materia, fecha_inicio, fecha_fin)
-        desaprobados_df = self.desaprobados(alumnos_df, materia)
-        return desaprobados_df
+    def cantidad_alumnos_desaprobados(self, df, materia):
+        return len(self.desaprobados(df, materia))
 
-    def cantidad_alumnos_desaprobados_periodo(self, df, materia, fecha_inicio, fecha_fin):
-        return len(self.alumnos_desaprobados_periodo(df, materia, fecha_inicio, fecha_fin))
+    def cantidad_alumnos_ausentes(self, df, materia):
+        return len(self.ausentes(df, materia))
 
-    #AUSENTES
-    def alumnos_ausentes_periodo(self, df, materia, fecha_inicio, fecha_fin):
-        """
-            Obtengo los alumnos que quedaron ausente en la materia en un determinado período
-        """
-        alumnos_df = self.filtrar_alumnos_de_materia_periodo(df, materia, fecha_inicio, fecha_fin)
-        ausentes_df = self.ausentes(alumnos_df, materia)
-        return ausentes_df
-
-    def cantidad_alumnos_ausentes_periodo(self, df, materia, fecha_inicio, fecha_fin):
-        return len(self.alumnos_ausentes_periodo(df, materia, fecha_inicio, fecha_fin))
-
-    
+    def cantidad_alumnos_pendientes(self, df, materia):
+        return len(self.pendientes(df, materia))
