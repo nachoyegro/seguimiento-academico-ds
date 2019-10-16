@@ -10,3 +10,4 @@ flask-httpauth
 requests
 pandas==0.25.1
 coverage==4.5.4
+pymemcache
