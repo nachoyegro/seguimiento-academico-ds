@@ -8,7 +8,7 @@ app.config['API_V2_URL'] = app.config['BACKEND_URL'] + '/v2'
 app.config['TOKEN_URL'] = app.config['BACKEND_URL'] + '/token/'
 app.config['ALUMNOS_URL'] = app.config['API_V2_URL'] + '/alumnos/'
 app.config['MATERIASCURSADAS_URL'] = app.config['API_V2_URL'] + '/materiascursadas/'
-
+app.config['SECRET_KEY'] = 'super-secret'
 
 app.config['USERNAME'] = ''
 app.config['PASSWORD'] = ''

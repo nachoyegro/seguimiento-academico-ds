@@ -7,6 +7,7 @@ import json
 from config import app
 from unittest import TestLoader, runner
 from argparse import ArgumentParser
+from jwt_decorator import tiene_jwt
 
 parser = ArgumentParser(prog='App',
                         description='App de Flask')
@@ -16,7 +17,6 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-
 
 @app.route('/')
 def home():
@@ -30,6 +30,7 @@ def home():
     return dataframe
 
 @app.route('/carreras/<cod_carrera>/materias/<cod_materia>/basicos')
+@tiene_jwt
 def datos_basicos_materia(cod_carrera, cod_materia):
     #TODO: falta token
     json_data = DataProvider().retrieve_materiascursadas()
@@ -37,7 +38,10 @@ def datos_basicos_materia(cod_carrera, cod_materia):
     manipulator = DataManipulator()
     fecha_inicio = request.args.get('inicio')
     fecha_fin = request.args.get('fin')
-    df = manipulator.filtrar_alumnos_de_materia_periodo(data, cod_materia, fecha_inicio, fecha_fin)
+    if fecha_inicio and fecha_fin:
+        df = manipulator.filtrar_alumnos_de_materia_periodo(data, cod_materia, fecha_inicio, fecha_fin)
+    else:
+        df = manipulator.filtrar_alumnos_de_materia(data, cod_materia)
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
