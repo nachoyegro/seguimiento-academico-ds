@@ -10,3 +10,8 @@ services:
       - .:/app
     ports:
       - "5000:5000"
+
+networks:
+  default:
+    external:
+      name: alumnos
