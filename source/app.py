@@ -29,27 +29,34 @@ def home():
     dataframe = DataTransformer(data).transform_to_dataframe()
     return dataframe
 
+
 @app.route('/carreras/<cod_carrera>/materias/<cod_materia>/basicos')
 def datos_basicos_materia(cod_carrera, cod_materia):
-    #TODO: falta token
+    # TODO: falta token
+    cod_materia = cod_materia.zfill(5)
     json_data = DataProvider().retrieve_materiascursadas()
     data = DataTransformer(json_data).transform_to_dataframe()
     manipulator = DataManipulator()
     fecha_inicio = request.args.get('inicio')
     fecha_fin = request.args.get('fin')
-    df = manipulator.filtrar_alumnos_de_materia_periodo(data, cod_materia, fecha_inicio, fecha_fin)
+    df = manipulator.filtrar_alumnos_de_materia_periodo(
+        data, cod_materia, fecha_inicio, fecha_fin)
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
     faltantes = manipulator.cantidad_alumnos_falta_aprobar(df, cod_materia)
-    return json.dumps([{'Materia': cod_materia, 
-                        'Aprobados': aprobados, 
-                        'Ausentes': ausentes, 
+    nombre_materia = manipulator.get_nombre_materia(df, cod_materia)
+    return json.dumps([{'Codigo': cod_materia,
+                        'Materia': nombre_materia,
+                        'Aprobados': aprobados,
+                        'Ausentes': ausentes,
                         'Desaprobados': desaprobados,
                         'Faltantes': faltantes}])
 
+
 @app.route('/carreras/<cod_carrera>/alumnos/<legajo>/porcentajes-areas')
 def porcentajes_areas_alumno(cod_carrera, legajo):
+    cod_materia = cod_materia.zfill(5)
     json_data = DataProvider().retrieve_materiascursadas()
     data = DataTransformer(json_data).transform_to_dataframe()
     manipulator = DataManipulator()
@@ -58,6 +65,7 @@ def porcentajes_areas_alumno(cod_carrera, legajo):
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
+
 
 def tests():
     loader = TestLoader()
