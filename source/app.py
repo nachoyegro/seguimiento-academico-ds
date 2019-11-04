@@ -7,6 +7,7 @@ import json
 from config import app
 from unittest import TestLoader, runner
 from argparse import ArgumentParser
+from jwt_decorator import tiene_jwt
 
 parser = ArgumentParser(prog='App',
                         description='App de Flask')
@@ -31,6 +32,7 @@ def home():
 
 
 @app.route('/materias/<cod_materia>/basicos')
+@tiene_jwt
 def datos_basicos_materia(cod_materia):
     # TODO: falta chequear permisos de token (fecha de expiracion y carreras)
     # Proceso los argumentos
