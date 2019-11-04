@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import pandas as pd
 
 
@@ -10,11 +12,26 @@ class DataManipulator:
             :return Dataframe
         """
         df = df.loc[df['materia.codigo'] ==
-                    materia]  # Por ahora lo hago por nombre
+                    materia]
         return df
 
     def filtrar_periodo(self, df, fecha_inicio, fecha_fin):
-        return df.loc[(df.fecha >= fecha_inicio) & (df.fecha <= fecha_fin)]
+        """
+            Se filtra por periodo seleccionado separando los casos correspondientes.
+            Se puede querer filtrar solo "fecha mayor a" o "fecha menor a"
+        """
+        # Si hay fecha de inicio y fecha de fin, se filtra por gte & lte
+        if fecha_inicio and fecha_fin:
+            return df.loc[(df.fecha >= fecha_inicio) & (df.fecha <= fecha_fin)]
+        # Si solo hay fecha de inicio, se filtra por gte
+        elif fecha_inicio:
+            return df.loc[(df.fecha >= fecha_inicio)]
+        # Si solo hay fecha de fin, se filtra por lte
+        elif fecha_fin:
+            return df.loc[(df.fecha <= fecha_fin)]
+        # Si no hay ni fecha de inicio ni fecha de fin, se retorna todo
+        else:
+            return df
 
     def filtrar_alumnos_de_materia_periodo(self, df, materia, fecha_inicio, fecha_fin):
         """
@@ -43,9 +60,6 @@ class DataManipulator:
 
     def filtrar_nucleo(self, df, nucleo):
         return df.loc[df['materia.nucleo'] == nucleo]
-
-    def filtrar_materias_obligatorias(self, df):
-        return df.loc[df['materia.nucleo'] != 'C']
 
     def filtrar_materias_obligatorias(self, df):
         return df.loc[df['materia.nucleo'] != 'C']
@@ -135,37 +149,39 @@ class DataManipulator:
     def total_materias_distintas(self, df):
         return len(pd.unique(df['materia.codigo']))
 
+    """
     def get_nombre_materia(self, df, cod_materia):
         try:
             return df.loc[df['materia.codigo'] == cod_materia)]['materia.materia'].iloc[0]
         except:
             return ''
+    """
 
     def filtrar_materias_obligatorias_area(self, df, area):
-        areas_filtradas=self.filtrar_area(df, area)
-        obligatorias=self.filtrar_materias_obligatorias(areas_filtradas)
+        areas_filtradas = self.filtrar_area(df, area)
+        obligatorias = self.filtrar_materias_obligatorias(areas_filtradas)
         return obligatorias
 
     def total_materias_obligatorias_area(self, df, area):
-        obligatorias=self.filtrar_materias_obligatorias_area(df, area)
-        total_materias_area=self.total_materias_distintas(obligatorias)
+        obligatorias = self.filtrar_materias_obligatorias_area(df, area)
+        total_materias_area = self.total_materias_distintas(obligatorias)
         return total_materias_area
 
     def porcentaje_aprobadas_area(self, df, area, legajo_alumno):
         # Filtro las materias obligatorias de un area
-        materias_obligatorias_area=self.filtrar_materias_obligatorias_area(
+        materias_obligatorias_area = self.filtrar_materias_obligatorias_area(
             df, area)
         # De esas materias, quiero solo las del alumno actual
-        materias_obligatorias_area_alumno=self.filtrar_materias_de_alumno(
+        materias_obligatorias_area_alumno = self.filtrar_materias_de_alumno(
             materias_obligatorias_area, legajo_alumno)
         # De las materias del alumno, quiero solo las que aprobo
-        materias_obligatorias_area_alumno_aprobadas=self.filtrar_aprobados(
+        materias_obligatorias_area_alumno_aprobadas = self.filtrar_aprobados(
             materias_obligatorias_area_alumno)
         # Obtengo el total de materias del area (obligatorias, y no tiene en cuenta las que nunca fueron cursadas)
-        total_materias_obligatorias_area=self.total_materias_distintas(
+        total_materias_obligatorias_area = self.total_materias_distintas(
             materias_obligatorias_area)
         # Obtengo el total de materias del area aprobadas por el alumno
-        total_materias_obligatorias_area_alumno=self.total_materias_distintas(
+        total_materias_obligatorias_area_alumno = self.total_materias_distintas(
             materias_obligatorias_area_alumno_aprobadas)
 
         if total_materias_obligatorias_area:
@@ -177,11 +193,11 @@ class DataManipulator:
         return pd.unique(df['materia.area'])
 
     def porcentajes_aprobadas_por_area(self, df, legajo_alumno):
-        areas=self.areas_unicas(df)
-        result={}
+        areas = self.areas_unicas(df)
+        result = {}
         for area in areas:
             # Si no tiene seteada el Área, no me interesa
             if area:
-                result[area]=self.porcentaje_aprobadas_area(
+                result[area] = self.porcentaje_aprobadas_area(
                     df, area, legajo_alumno)
         return result
