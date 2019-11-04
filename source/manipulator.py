@@ -6,6 +6,14 @@ import pandas as pd
 class DataManipulator:
 
     ########################################### Filtrado ###############################################
+
+    def filtrar_carreras(df, *carreras):
+        """
+            Quiero obtener las materias cursadas de carreras
+            :return Dataframe
+        """
+        return df.loc[df['carrera'].isin(*carreras)]
+
     def filtrar_alumnos_de_materia(self, df, materia):
         """
             Quiero obtener los alumnos de una materia
