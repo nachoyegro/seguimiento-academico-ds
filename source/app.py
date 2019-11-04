@@ -61,16 +61,20 @@ def datos_basicos_materia(cod_materia):
                         'Faltantes': faltantes}])
 
 
-@app.route('/carreras/<cod_carrera>/alumnos/<legajo>/porcentajes-areas')
-def porcentajes_areas_alumno(cod_carrera, legajo):
+@app.route('/alumnos/<legajo>/porcentajes-areas')
+@tiene_jwt
+def porcentajes_areas_alumno(legajo):
     json_data = DataProvider().retrieve_materiascursadas()
-    data = DataTransformer(json_data).transform_to_dataframe()
+    data = DataTransformer().transform_to_dataframe(json_data)
     fecha_inicio = request.args.get('inicio')
     fecha_fin = request.args.get('fin')
     manipulator = DataManipulator()
+    carreras_str = request.args.get('carreras')
+    carreras = carreras_str.split(',') if carreras_str else []
+    df = manipulator.filtrar_carreras(data, carreras)
     df = manipulator.filtrar_periodo(data, fecha_inicio, fecha_fin)
-    df = manipulator.porcentajes_aprobadas_por_area(df, legajo)
-    return json.dumps([])
+    porcentajes = manipulator.porcentajes_aprobadas_por_area(df, legajo)
+    return json.dumps([porcentajes])
 
 
 def runserver():
