@@ -50,9 +50,9 @@ def datos_basicos_materia(cod_materia):
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
     faltantes = manipulator.cantidad_alumnos_falta_aprobar(df, cod_materia)
-    #nombre_materia = manipulator.get_nombre_materia(df, cod_materia)
-    return json.dumps([{'Codigo': cod_materia,
-                        # 'Materia': nombre_materia,
+    nombre = manipulator.get_nombre_materia(df, cod_materia)
+    return json.dumps([{'Materia': cod_materia,
+                        'Nombre': nombre,
                         'Aprobados': aprobados,
                         'Ausentes': ausentes,
                         'Desaprobados': desaprobados,

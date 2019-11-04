@@ -157,13 +157,11 @@ class DataManipulator:
     def total_materias_distintas(self, df):
         return len(pd.unique(df['materia.codigo']))
 
-    """
     def get_nombre_materia(self, df, cod_materia):
         try:
-            return df.loc[df['materia.codigo'] == cod_materia)]['materia.materia'].iloc[0]
+            return df.loc[df['materia.codigo'] == cod_materia]['materia.materia'].iloc[0]
         except:
             return ''
-    """
 
     def filtrar_materias_obligatorias_area(self, df, area):
         areas_filtradas = self.filtrar_area(df, area)
