@@ -7,7 +7,7 @@ class DataManipulator:
 
     ########################################### Filtrado ###############################################
 
-    def filtrar_carreras(df, *carreras):
+    def filtrar_carreras(self, df, *carreras):
         """
             Quiero obtener las materias cursadas de carreras
             :return Dataframe
