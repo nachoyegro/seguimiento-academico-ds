@@ -139,6 +139,9 @@ class DataManipulator:
         resultado = totales[~totales.isin(aprobados)]
         return resultado
 
+    def cantidad_creditos(self, df):
+        return df['materia.creditos'].sum()
+
     def cantidad_alumnos_falta_aprobar(self, df, materia):
         return len(self.alumnos_falta_aprobar_materia_series(df, materia))
 
