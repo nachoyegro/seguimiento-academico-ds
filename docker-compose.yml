@@ -1,13 +1,11 @@
 #Docker compose version
-version: '3'
+version: '3.2'
 services:
   alumnos-ds:
-    container_name: alumnos-ds
+    container_name: seguimiento-academico-ds
     restart: always
-    #Que haga build en el directorio actual
     build: .
     command: python3 source/app.py runserver
-    restart: always
     volumes:
       - .:/app
     ports:

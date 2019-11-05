@@ -18,6 +18,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
+
 @app.route('/')
 def home():
     """
@@ -26,42 +27,59 @@ def home():
     dp = DataProvider()
     #token = dp.retrieve_token(username=app.config['USERNAME'], password=app.config['PASSWORD'])
     data = dp.retrieve_materiascursadas()
-    dataframe = DataTransformer(data).transform_to_dataframe()
+    dataframe = DataTransformer().transform_to_dataframe(data)
     return dataframe
 
-@app.route('/carreras/<cod_carrera>/materias/<cod_materia>/basicos')
+
+@app.route('/materias/<cod_materia>/basicos')
 @tiene_jwt
-def datos_basicos_materia(cod_carrera, cod_materia):
-    #TODO: falta token
-    json_data = DataProvider().retrieve_materiascursadas()
-    data = DataTransformer(json_data).transform_to_dataframe()
-    manipulator = DataManipulator()
+def datos_basicos_materia(cod_materia):
+    # TODO: falta chequear permisos de token (fecha de expiracion y carreras)
+    # Proceso los argumentos
+    cod_materia = cod_materia.zfill(5)
     fecha_inicio = request.args.get('inicio')
     fecha_fin = request.args.get('fin')
-    if fecha_inicio and fecha_fin:
-        df = manipulator.filtrar_alumnos_de_materia_periodo(data, cod_materia, fecha_inicio, fecha_fin)
-    else:
-        df = manipulator.filtrar_alumnos_de_materia(data, cod_materia)
+    carreras_str = request.args.get('carreras')
+    carreras = carreras_str.split(',') if carreras_str else []
+    # Traigo las materias cursadas
+    json_data = DataProvider().retrieve_materiascursadas()
+    data = DataTransformer().transform_to_dataframe(json_data)
+    manipulator = DataManipulator()
+    df = manipulator.filtrar_carreras(data, carreras)
+    df = manipulator.filtrar_alumnos_de_materia_periodo(
+        df, cod_materia, fecha_inicio, fecha_fin)
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
     faltantes = manipulator.cantidad_alumnos_falta_aprobar(df, cod_materia)
-    return json.dumps([{'Materia': cod_materia, 
-                        'Aprobados': aprobados, 
-                        'Ausentes': ausentes, 
+    nombre = manipulator.get_nombre_materia(df, cod_materia)
+    return json.dumps([{'Materia': cod_materia,
+                        'Nombre': nombre,
+                        'Aprobados': aprobados,
+                        'Ausentes': ausentes,
                         'Desaprobados': desaprobados,
                         'Faltantes': faltantes}])
 
-@app.route('/carreras/<cod_carrera>/alumnos/<legajo>/porcentajes-areas')
-def porcentajes_areas_alumno(cod_carrera, legajo):
+
+@app.route('/alumnos/<legajo>/porcentajes-areas')
+@tiene_jwt
+def porcentajes_areas_alumno(legajo):
     json_data = DataProvider().retrieve_materiascursadas()
-    data = DataTransformer(json_data).transform_to_dataframe()
+    data = DataTransformer().transform_to_dataframe(json_data)
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
     manipulator = DataManipulator()
-    return json.dumps([manipulator.porcentajes_aprobadas_por_area(data, legajo)])
+    carreras_str = request.args.get('carreras')
+    carreras = carreras_str.split(',') if carreras_str else []
+    df = manipulator.filtrar_carreras(data, carreras)
+    df = manipulator.filtrar_periodo(data, fecha_inicio, fecha_fin)
+    porcentajes = manipulator.porcentajes_aprobadas_por_area(df, legajo)
+    return json.dumps([porcentajes])
 
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
+
 
 def tests():
     loader = TestLoader()
