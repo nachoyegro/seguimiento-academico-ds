@@ -77,6 +77,40 @@ def porcentajes_areas_alumno(legajo):
     return json.dumps([porcentajes])
 
 
+@app.route('/alumnos/<legajo>/creditos')
+@tiene_jwt
+def creditos_alumno(legajo):
+    json_data = DataProvider().retrieve_materiascursadas()
+    data = DataTransformer().transform_to_dataframe(json_data)
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
+    manipulator = DataManipulator()
+    carreras_str = request.args.get('carreras')
+    carreras = carreras_str.split(',') if carreras_str else []
+    df = manipulator.filtrar_carreras(data, carreras)
+    df = manipulator.filtrar_periodo(data, fecha_inicio, fecha_fin)
+
+    materias_alumno = manipulator.filtrar_materias_de_alumno(df, legajo)
+    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
+    basico = manipulator.filtrar_nucleo(aprobadas, 'B')
+    avanzado = manipulator.filtrar_nucleo(aprobadas, 'A')
+    introductorio = manipulator.filtrar_nucleo(aprobadas, 'I')
+    complementario = manipulator.filtrar_nucleo(aprobadas, 'C')
+
+    creditos_aprobadas = manipulator.cantidad_creditos(aprobadas)
+    creditos_basico = manipulator.cantidad_creditos(basico)
+    creditos_avanzado = manipulator.cantidad_creditos(avanzado)
+    creditos_introductorio = manipulator.cantidad_creditos(introductorio)
+    creditos_complementario = manipulator.cantidad_creditos(complementario)
+
+    return json.dumps([{
+        'Total': creditos_aprobadas,
+        'Basico': creditos_basico,
+        'Avanzado': creditos_avanzado,
+        'Introductorio': creditos_introductorio,
+        'Complementario': creditos_complementario}])
+
+
 def runserver():
     app.run(debug=True, host='0.0.0.0')
 
