@@ -29,7 +29,7 @@ class DataProvider:
             :url must be /alumnos, /materias, /carreras...
             :kwargs
         """
-        #token = self.retrieve_token(**kwargs)
+        # token = self.retrieve_token(**kwargs)
         headers = self.get_headers(token)
         response = requests.get(app.config['ALUMNOS_URL'], headers=headers)
         if response.status_code == 200:
@@ -56,9 +56,9 @@ class DataProvider:
         else:
             # Si no lo tenia, lo traigo y lo guardo para la proxima
             data = self.retrieve_materiascursadas(token, carrera)
-            with open(path, 'w+') as archivo:
-                archivo.write(json.dumps(data))
-                archivo.close()
+            with open(path, 'w+', encoding='utf-8') as archivo:
+                json.dump(json.loads(data), archivo,
+                          ensure_ascii=False, indent=4)
             return json.loads(data)
 
     def retrieve_materiascursadas(self, token, carrera):

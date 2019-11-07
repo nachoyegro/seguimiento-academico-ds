@@ -19,7 +19,7 @@ class DataManipulator:
             Quiero obtener los alumnos de una materia
             :return Dataframe
         """
-        df = df.loc[df['materia.codigo'] ==
+        df = df.loc[df['codigo'] ==
                     materia]
         return df
 
@@ -64,13 +64,13 @@ class DataManipulator:
         return df.loc[(df.resultado == 'E')]  # A: Regular | P: Acredito
 
     def filtrar_area(self, df, area):
-        return df.loc[df['materia.area'] == area]
+        return df.loc[df['area'] == area]
 
     def filtrar_nucleo(self, df, nucleo):
-        return df.loc[df['materia.nucleo'] == nucleo]
+        return df.loc[df['nucleo'] == nucleo]
 
     def filtrar_materias_obligatorias(self, df):
-        return df.loc[df['materia.nucleo'] != 'C']
+        return df.loc[df['nucleo'] != 'C']
 
     def filtrar_materias_de_alumno(self, df, legajo_alumno):
         return df.loc[df['alumno'] == legajo_alumno]
@@ -140,7 +140,7 @@ class DataManipulator:
         return resultado
 
     def cantidad_creditos(self, df):
-        return df['materia.creditos'].sum()
+        return df['creditos'].sum()
 
     def cantidad_alumnos_falta_aprobar(self, df, materia):
         return len(self.alumnos_falta_aprobar_materia_series(df, materia))
@@ -158,11 +158,11 @@ class DataManipulator:
         return len(self.pendientes_de_materia(df, materia))
 
     def total_materias_distintas(self, df):
-        return len(pd.unique(df['materia.codigo']))
+        return len(pd.unique(df['codigo']))
 
     def get_nombre_materia(self, df, cod_materia):
         try:
-            return df.loc[df['materia.codigo'] == cod_materia]['materia.materia'].iloc[0]
+            return df.loc[df['codigo'] == cod_materia]['materia'].iloc[0]
         except:
             return ''
 
@@ -199,7 +199,7 @@ class DataManipulator:
             return 0
 
     def areas_unicas(self, df):
-        return pd.unique(df['materia.area'])
+        return pd.unique(df['area'])
 
     def porcentajes_aprobadas_por_area(self, df, legajo_alumno):
         areas = self.areas_unicas(df)

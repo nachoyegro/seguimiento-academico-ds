@@ -1,0 +1,1234 @@
+[
+    {
+        "materia": "00069",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00355",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00834",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00191",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-10-31",
+        "resultado": "A"
+    },
+    {
+        "materia": "E0086",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "E0052",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00768",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-04-21",
+        "resultado": "A"
+    },
+    {
+        "materia": "00349",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00751",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00777",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00054",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00645",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00628",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00338",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00468",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-08-22",
+        "resultado": "A"
+    },
+    {
+        "materia": "00051",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-02-17",
+        "resultado": "A"
+    },
+    {
+        "materia": "00055",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-05-24",
+        "resultado": "A"
+    },
+    {
+        "materia": "00056",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00070",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2002-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00204",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00216",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-10-29",
+        "resultado": "A"
+    },
+    {
+        "materia": "00273",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00274",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00278",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00292",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00293",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-10-24",
+        "resultado": "A"
+    },
+    {
+        "materia": "00296",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-02-15",
+        "resultado": "A"
+    },
+    {
+        "materia": "00051",
+        "nota": "",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00403",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "90005",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00410",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00498",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00499",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00523",
+        "nota": "6",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00604",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00610",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00611",
+        "nota": "5",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00694",
+        "nota": "7",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00780",
+        "nota": "8",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00799",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00809",
+        "nota": "",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00909",
+        "nota": "9",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2013-12-13",
+        "resultado": "A"
+    },
+    {
+        "materia": "90000",
+        "nota": "A",
+        "alumno": "1",
+        "carrera": "D",
+        "fecha": "2004-02-19",
+        "resultado": "A"
+    },
+    {
+        "materia": "00054",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00054",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00055",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00055",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00056",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00069",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00070",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00188",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00188",
+        "nota": "5",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00191",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00191",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "materia": "00204",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00216",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-12-31",
+        "resultado": "P"
+    },
+    {
+        "materia": "00274",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-12-18",
+        "resultado": "P"
+    },
+    {
+        "materia": "00278",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "P"
+    },
+    {
+        "materia": "00292",
+        "nota": "PA",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-07-16",
+        "resultado": "E"
+    },
+    {
+        "materia": "00292",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-09-03",
+        "resultado": "A"
+    },
+    {
+        "materia": "00293",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-12-17",
+        "resultado": "U"
+    },
+    {
+        "materia": "00293",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-07-04",
+        "resultado": "P"
+    },
+    {
+        "materia": "00296",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-12-12",
+        "resultado": "U"
+    },
+    {
+        "materia": "00338",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-12-23",
+        "resultado": "P"
+    },
+    {
+        "materia": "00356",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-07-16",
+        "resultado": "P"
+    },
+    {
+        "materia": "00357",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-12-17",
+        "resultado": "U"
+    },
+    {
+        "materia": "00364",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00403",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "materia": "00410",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "P"
+    },
+    {
+        "materia": "00468",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-07-16",
+        "resultado": "P"
+    },
+    {
+        "materia": "00471",
+        "nota": "10",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00498",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-12-27",
+        "resultado": "P"
+    },
+    {
+        "materia": "00499",
+        "nota": "4",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-12-20",
+        "resultado": "P"
+    },
+    {
+        "materia": "00523",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00523",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2007-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00604",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00610",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2011-12-27",
+        "resultado": "P"
+    },
+    {
+        "materia": "00611",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-12-14",
+        "resultado": "P"
+    },
+    {
+        "materia": "00628",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00628",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2005-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00628",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2008-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00635",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-07-22",
+        "resultado": "P"
+    },
+    {
+        "materia": "00652",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2012-12-21",
+        "resultado": "P"
+    },
+    {
+        "materia": "00051",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00694",
+        "nota": "4",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "P"
+    },
+    {
+        "materia": "90005",
+        "nota": "A",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00707",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00708",
+        "nota": "PA",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-07-24",
+        "resultado": "E"
+    },
+    {
+        "materia": "00708",
+        "nota": "6",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-09-01",
+        "resultado": "A"
+    },
+    {
+        "materia": "00751",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00752",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00768",
+        "nota": "9",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-11-27",
+        "resultado": "P"
+    },
+    {
+        "materia": "00777",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2009-11-27",
+        "resultado": "P"
+    },
+    {
+        "materia": "00780",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-07-23",
+        "resultado": "P"
+    },
+    {
+        "materia": "00809",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2014-07-21",
+        "resultado": "P"
+    },
+    {
+        "materia": "00834",
+        "nota": "5",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2013-07-04",
+        "resultado": "P"
+    },
+    {
+        "materia": "00909",
+        "nota": "8",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2018-04-17",
+        "resultado": "A"
+    },
+    {
+        "materia": "01502",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2015-12-17",
+        "resultado": "U"
+    },
+    {
+        "materia": "01502",
+        "nota": "7",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2016-02-10",
+        "resultado": "A"
+    },
+    {
+        "materia": "90000",
+        "nota": "A",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "P"
+    },
+    {
+        "materia": "90005",
+        "nota": "",
+        "alumno": "2",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00054",
+        "nota": "6",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00055",
+        "nota": "7",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00056",
+        "nota": "6",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00057",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00062",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00065",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00067",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00069",
+        "nota": "7",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00070",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00070",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00070",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00070",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00070",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "materia": "00076",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00188",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00188",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-07-19",
+        "resultado": "U"
+    },
+    {
+        "materia": "00188",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-07-20",
+        "resultado": "U"
+    },
+    {
+        "materia": "00191",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00204",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00204",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2006-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00204",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2008-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00204",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "00204",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2016-12-22",
+        "resultado": "U"
+    },
+    {
+        "materia": "00204",
+        "nota": "PA",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-07-20",
+        "resultado": "E"
+    },
+    {
+        "materia": "00204",
+        "nota": "5",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-09-04",
+        "resultado": "A"
+    },
+    {
+        "materia": "00051",
+        "nota": "7",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00216",
+        "nota": "10",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-12-18",
+        "resultado": "P"
+    },
+    {
+        "materia": "90005",
+        "nota": "A",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2009-01-05",
+        "resultado": "P"
+    },
+    {
+        "materia": "00273",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2003-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00403",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "00403",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "00403",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2013-07-04",
+        "resultado": "U"
+    },
+    {
+        "materia": "00403",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2016-12-19",
+        "resultado": "P"
+    },
+    {
+        "materia": "00468",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-12-21",
+        "resultado": "U"
+    },
+    {
+        "materia": "00468",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-07-11",
+        "resultado": "U"
+    },
+    {
+        "materia": "00523",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-12-20",
+        "resultado": "U"
+    },
+    {
+        "materia": "00604",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00604",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "materia": "00628",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00628",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2007-07-01",
+        "resultado": "U"
+    },
+    {
+        "materia": "00628",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-07-08",
+        "resultado": "P"
+    },
+    {
+        "materia": "00629",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-07-19",
+        "resultado": "U"
+    },
+    {
+        "materia": "00707",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-07-01",
+        "resultado": "P"
+    },
+    {
+        "materia": "00751",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2010-12-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "00752",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2004-12-15",
+        "resultado": "U"
+    },
+    {
+        "materia": "00752",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "00752",
+        "nota": "9",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-12-13",
+        "resultado": "P"
+    },
+    {
+        "materia": "00768",
+        "nota": "6",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2002-12-15",
+        "resultado": "P"
+    },
+    {
+        "materia": "00777",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "00777",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2018-12-20",
+        "resultado": "U"
+    },
+    {
+        "materia": "90000",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2009-01-05",
+        "resultado": "U"
+    },
+    {
+        "materia": "90000",
+        "nota": "",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2011-07-31",
+        "resultado": "U"
+    },
+    {
+        "materia": "90000",
+        "nota": "8",
+        "alumno": "3",
+        "carrera": "D",
+        "fecha": "2017-07-19",
+        "resultado": "P"
+    }
+]
