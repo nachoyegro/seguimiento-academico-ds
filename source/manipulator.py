@@ -314,3 +314,6 @@ class DataManipulator:
                 result[nucleo] = self.porcentaje_creditos(
                     creditos_nucleo, alumno_nucleo_data)
         return result
+
+    def cantidades_formas_aprobacion(self, df):
+        return df['forma_aprobacion'].value_counts()

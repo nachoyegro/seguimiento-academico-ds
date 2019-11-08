@@ -36,7 +36,8 @@ def get_materiascursadas(request):
     plan = request.args.get('plan')
     # Traigo las cursadas
     cursadas_json = provider.get_materiascursadas(token, carrera)
-    cursadas_data = transformer.transform_to_dataframe(cursadas_json)
+    cursadas_data = transformer.transform_materiascursadas_to_dataframe(
+        cursadas_json)
 
     # Filtro periodo
     df = manipulator.filtrar_periodo(cursadas_data, fecha_inicio, fecha_fin)
@@ -86,34 +87,60 @@ def home():
     return json.dumps(data)
 
 
-@app.route('/materias/<cod_carrera>/<cod_materia>/recursantes')
+@app.route('/materias/<cod_materia>/recursantes')
 @tiene_jwt
-def recursantes_materia(cod_carrera, cod_materia):
+def recursantes_materia(cod_materia):
 
     token = get_token(request)
 
     cod_materia = cod_materia.zfill(5)
+    carrera = request.args.get('carrera')
     dm = DataManipulator()
 
     # Filtro los inscriptos de la carrera y materia
-    inscriptos = DataProvider().get_inscriptos(token, cod_carrera)
-    inscriptos_df = DataTransformer().transform_to_dataframe(inscriptos)
+    inscriptos = DataProvider().get_inscriptos(token, carrera)
+    inscriptos_df = DataTransformer().transform_materiascursadas_to_dataframe(inscriptos)
     inscriptos_df = dm.filtrar_alumnos_de_materia(inscriptos_df, cod_materia)
 
     # Filtro las cursadas de la carrera y materia
-    cursadas = DataProvider().get_materiascursadas(token, cod_carrera)
-    cursadas_df = DataTransformer().transform_to_dataframe(cursadas)
+    cursadas = DataProvider().get_materiascursadas(token, carrera)
+    cursadas_df = DataTransformer().transform_materiascursadas_to_dataframe(cursadas)
     cursadas_df = dm.filtrar_alumnos_de_materia(cursadas_df, cod_materia)
 
-    merge_df = pd.merge(inscriptos_df, cursadas_df, on=['alumno', 'materia'])
+    merge_df = pd.merge(inscriptos_df, cursadas_df, on=['alumno', 'codigo'])
 
-    return merge_df['alumno'].value_counts()
+    return merge_df['alumno'].value_counts().to_dict()
+
+
+@app.route('/materias/<cod_materia>/detalle-aprobados')
+@tiene_jwt
+def detalle_aprobados(cod_materia):
+    token = get_token(request)
+    # Proceso los argumentos
+    cod_materia = cod_materia.zfill(5)
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
+    carreras_str = request.args.get('carreras')
+    carreras = carreras_str.split(',') if carreras_str else []
+
+    provider = DataProvider()
+    manipulator = DataManipulator()
+
+    json_data = provider.get_materiascursadas_multiples_carreras(
+        token, carreras)
+    df = DataTransformer().transform_materiascursadas_to_dataframe(json_data)
+
+    df = manipulator.filtrar_alumnos_de_materia_periodo(
+        df, cod_materia, fecha_inicio, fecha_fin)
+    df = manipulator.filtrar_aprobados(df)
+    detalle_aprobados = manipulator.cantidades_formas_aprobacion(df)
+    return json.dumps(detalle_aprobados.to_dict())
 
 
 @app.route('/materias/<cod_materia>/basicos')
 @tiene_jwt
 def datos_basicos_materia(cod_materia):
-    # TODO: falta chequear permisos de token (fecha de expiracion y carreras)
+    token = get_token(request)
     # Proceso los argumentos
     cod_materia = cod_materia.zfill(5)
     fecha_inicio = request.args.get('inicio')
@@ -121,10 +148,9 @@ def datos_basicos_materia(cod_materia):
     carreras_str = request.args.get('carreras')
     carreras = carreras_str.split(',') if carreras_str else []
     # Traigo las materias cursadas
-    json_data = DataProvider().retrieve_materiascursadas()
-    data = DataTransformer().transform_to_dataframe(json_data)
+    json_data = DataProvider().get_materiascursadas_multiples_carreras(token, carreras)
+    df = DataTransformer().transform_materiascursadas_to_dataframe(json_data)
     manipulator = DataManipulator()
-    df = manipulator.filtrar_carreras(data, carreras)
     df = manipulator.filtrar_alumnos_de_materia_periodo(
         df, cod_materia, fecha_inicio, fecha_fin)
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
