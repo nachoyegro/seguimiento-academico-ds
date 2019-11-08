@@ -153,6 +153,19 @@ def porcentajes_areas_alumno(legajo):
     return json.dumps([porcentajes])
 
 
+@app.route('/alumnos/<legajo>/porcentajes-nucleos')
+@tiene_jwt
+def porcentajes_nucleos_alumno(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+
+    manipulator = DataManipulator()
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    porcentajes = manipulator.porcentajes_aprobadas_nucleos(
+        plan_data, materias_alumno)
+    return json.dumps([porcentajes])
+
+
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
 def porcentajes_creditos_alumno(legajo):
