@@ -19,7 +19,7 @@ class DataManipulator:
             Quiero obtener los alumnos de una materia
             :return Dataframe
         """
-        df = df.loc[df['materia'] ==
+        df = df.loc[df['codigo'] ==
                     materia]
         return df
 
@@ -157,15 +157,21 @@ class DataManipulator:
     def cantidad_alumnos_pendientes(self, df, materia):
         return len(self.pendientes_de_materia(df, materia))
 
-    def total_materias_distintas(self, df):
-        return len(pd.unique(df['materia']))
+    def cantidad_materias_distintas(self, df):
+        return len(pd.unique(df['codigo']))
 
     # TODO: esto hay que sacarlo del plan
     def get_nombre_materia(self, df, cod_materia):
         try:
-            return df.loc[df['materia'] == cod_materia]['materia'].iloc[0]
+            return df.loc[df['codigo'] == cod_materia]['materia'].iloc[0]
         except:
             return ''
+
+    def areas_unicas(self, df):
+        return pd.unique(df['area'])
+
+    def nucleos_unicos(self, df):
+        return pd.unique(df['nucleo'])
 
     def filtrar_materias_obligatorias_area(self, df, area):
         areas_filtradas = self.filtrar_area(df, area)
@@ -174,7 +180,7 @@ class DataManipulator:
 
     def total_materias_obligatorias_area(self, df, area):
         obligatorias = self.filtrar_materias_obligatorias_area(df, area)
-        total_materias_area = self.total_materias_distintas(obligatorias)
+        total_materias_area = self.cantidad_materias_distintas(obligatorias)
         return total_materias_area
 
     def porcentaje_aprobadas_area(self, plan_data, cursadas, area):
@@ -192,18 +198,33 @@ class DataManipulator:
                 materias_obligatorias_area)
 
             # Obtengo el total de materias del area aprobadas por el alumno
-            total_materias_obligatorias_area_alumno = self.total_materias_distintas(
+            total_materias_obligatorias_area_alumno = self.cantidad_materias_distintas(
                 materias_obligatorias_area_alumno_aprobadas)
 
             return (float(total_materias_obligatorias_area_alumno) / total_area) * 100
         else:
             return 0
 
-    def areas_unicas(self, df):
-        return pd.unique(df['area'])
+    def porcentaje_aprobadas_nucleo(self, plan_data, cursadas, nucleo):
+        # Filtro ambos DataFrames por nucleo
+        nucleo_data = self.filtrar_nucleo(plan_data, nucleo)
+        alumno_nucleo_data = self.filtrar_nucleo(
+            cursadas, nucleo)
 
-    def nucleos_unicos(self, df):
-        return pd.unique(df['nucleo'])
+        # Filtro solo las aprobadas del alumno
+        aprobadas_alumno = self.filtrar_aprobados(alumno_nucleo_data)
+
+        # Calculo las materias distintas de ambos DataFrames
+        cantidad_materias_nucleo = self.cantidad_materias_distintas(
+            nucleo_data)
+        cantidad_materias_aprobadas = self.cantidad_materias_distintas(
+            aprobadas_alumno)
+
+        # Calculo el porcentaje
+        if cantidad_materias_nucleo:
+            return (float(cantidad_materias_aprobadas) / cantidad_materias_nucleo) * 100
+        else:
+            return 0
 
     def porcentajes_aprobadas_areas(self, plan_data, cursadas_data):
         """
@@ -216,6 +237,19 @@ class DataManipulator:
             if area:
                 result[area] = self.porcentaje_aprobadas_area(
                     plan_data, cursadas_data, area)
+        return result
+
+    def porcentajes_aprobadas_nucleos(self, plan_data, cursadas_data):
+        """
+            Precondicion: se asume que las materias ya vienen filtradas por alumno/s
+        """
+        nucleos = self.nucleos_unicos(plan_data)
+        result = {}
+        for nucleo in nucleos:
+            # Si no tiene seteada el Área, no me interesa
+            if nucleo:
+                result[nucleo] = self.porcentaje_aprobadas_nucleo(
+                    plan_data, cursadas_data, nucleo)
         return result
 
     def porcentaje_creditos(self, total_creditos, df):
