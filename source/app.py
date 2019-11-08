@@ -20,6 +20,56 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+def get_materiascursadas(request):
+
+    provider = DataProvider()
+    transformer = DataTransformer()
+    manipulator = DataManipulator()
+
+    # Saco el token del request
+    token = get_token(request)
+    # Formateo los args
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
+    # Tiene que ser una sola carrera y un solo plan para calcular creditos
+    carrera = request.args.get('carrera')
+    plan = request.args.get('plan')
+    # Traigo las cursadas
+    cursadas_json = provider.get_materiascursadas(token, carrera)
+    cursadas_data = transformer.transform_to_dataframe(cursadas_json)
+
+    # Filtro periodo
+    df = manipulator.filtrar_periodo(cursadas_data, fecha_inicio, fecha_fin)
+    return df
+
+
+def get_plan(request):
+    provider = DataProvider()
+    transformer = DataTransformer()
+
+    # Saco el token del request
+    token = get_token(request)
+    # Formateo los args
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
+    # Tiene que ser una sola carrera y un solo plan para calcular creditos
+    carrera = request.args.get('carrera')
+    plan = request.args.get('plan')
+    # Traigo el plan
+    plan_json = provider.get_plan(token, carrera, plan)
+    plan_data = transformer.transform_to_dataframe(plan_json)
+    return plan_data
+
+
+def get_materiascursadas_plan(request):
+    transformer = DataTransformer()
+
+    cursadas_data = get_materiascursadas(request)
+    plan_data = get_plan(request)
+    data = transformer.merge_materias_con_plan(cursadas_data, plan_data)
+    return data, cursadas_data, plan_data
+
+
 @app.route('/')
 def home():
     """
@@ -93,72 +143,81 @@ def datos_basicos_materia(cod_materia):
 @app.route('/alumnos/<legajo>/porcentajes-areas')
 @tiene_jwt
 def porcentajes_areas_alumno(legajo):
-    token = get_token(request)
-    fecha_inicio = request.args.get('inicio')
-    fecha_fin = request.args.get('fin')
-    plan = request.args.get('plan')
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
 
     manipulator = DataManipulator()
-    carreras_str = request.args.get('carreras')
-
-    carreras = carreras_str.split(',') if carreras_str else []
-    df = DataProvider().get_materias_cursadas(token, carreras)
-    # TODO: falta concatenarle los planes
-    df = manipulator.filtrar_periodo(df, fecha_inicio, fecha_fin)
-    porcentajes = manipulator.porcentajes_aprobadas_areas(df, legajo)
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    porcentajes = manipulator.porcentajes_aprobadas_areas(
+        plan_data, materias_alumno)
     return json.dumps([porcentajes])
 
 
-@app.route('/alumnos/<legajo>/creditos')
+@app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
-def creditos_alumno(legajo):
-    # Saco el token del request
-    token = get_token(request)
-    # Formateo los args
-    fecha_inicio = request.args.get('inicio')
-    fecha_fin = request.args.get('fin')
-    # Tiene que ser una sola carrera y un solo plan para calcular creditos
-    carrera = request.args.get('carrera')
-    plan = request.args.get('plan')
+def porcentajes_creditos_alumno(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
 
-    # Inicializo los helpers
     manipulator = DataManipulator()
-    provider = DataProvider()
-    transformer = DataTransformer()
-    # Traigo las cursadas
-    cursadas_json = provider.get_materiascursadas(token, carrera)
-    cursadas_data = transformer.transform_to_dataframe(cursadas_json)
-    # Traigo el plan
-    plan_json = provider.get_plan(token, carrera, plan)
-    plan_data = transformer.transform_to_dataframe(plan_json)
-    data = transformer.merge_materias_con_plan(cursadas_data, plan_data)
-
-    # Filtro periodo
-    #df = manipulator.filtrar_carreras(data, carrera)
-    df = manipulator.filtrar_periodo(data, fecha_inicio, fecha_fin)
-
     # Filtro las materias
-    materias_alumno = manipulator.filtrar_materias_de_alumno(df, legajo)
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
     aprobadas = manipulator.filtrar_aprobados(materias_alumno)
 
-    # Filtro los nucleos
-    basico = manipulator.filtrar_nucleo(aprobadas, 'B')
-    avanzado = manipulator.filtrar_nucleo(aprobadas, 'A')
-    introductorio = manipulator.filtrar_nucleo(aprobadas, 'I')
-    complementario = manipulator.filtrar_nucleo(aprobadas, 'C')
+    porcentajes = manipulator.porcentajes_creditos_nucleos(
+        plan_data, aprobadas)
+    return json.dumps([porcentajes])
 
-    # Cuento la cantidad de creditos de los nucleos
-    creditos_aprobadas = manipulator.cantidad_creditos(aprobadas)
-    creditos_basico = manipulator.cantidad_creditos(basico)
-    creditos_avanzado = manipulator.cantidad_creditos(avanzado)
-    creditos_introductorio = manipulator.cantidad_creditos(introductorio)
-    creditos_complementario = manipulator.cantidad_creditos(complementario)
-    return json.dumps([{
-        'Total': creditos_aprobadas,
-        'Basico': creditos_basico,
-        'Avanzado': creditos_avanzado,
-        'Introductorio': creditos_introductorio,
-        'Complementario': creditos_complementario}])
+
+@app.route('/alumnos/<legajo>/porcentajes-creditos-areas')
+@tiene_jwt
+def porcentajes_creditos_areas(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
+
+    porcentajes = manipulator.porcentajes_creditos_areas(
+        plan_data, aprobadas)
+    return json.dumps([porcentajes])
+
+
+@app.route('/alumnos/<legajo>/creditos-nucleos')
+@tiene_jwt
+def creditos_nucleos(legajo):
+    merged_data, _, _ = get_materiascursadas_plan(request)
+
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
+
+    data = manipulator.cantidades_creditos_nucleos(
+        aprobadas, ['B', 'A', 'I', 'C'])
+
+    return json.dumps([data])
+
+
+@app.route('/alumnos/<legajo>/creditos-areas')
+@tiene_jwt
+def creditos_areas(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
+
+    areas = manipulator.areas_unicas(plan_data)
+
+    data = manipulator.cantidades_creditos_areas(aprobadas, areas)
+
+    return json.dumps([data])
 
 
 def runserver():
