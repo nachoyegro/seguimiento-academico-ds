@@ -19,7 +19,7 @@ class DataManipulator:
             Quiero obtener los alumnos de una materia
             :return Dataframe
         """
-        df = df.loc[df['materia.codigo'] ==
+        df = df.loc[df['codigo'] ==
                     materia]
         return df
 
@@ -64,13 +64,13 @@ class DataManipulator:
         return df.loc[(df.resultado == 'E')]  # A: Regular | P: Acredito
 
     def filtrar_area(self, df, area):
-        return df.loc[df['materia.area'] == area]
+        return df.loc[df['area'] == area]
 
     def filtrar_nucleo(self, df, nucleo):
-        return df.loc[df['materia.nucleo'] == nucleo]
+        return df.loc[df['nucleo'] == nucleo]
 
     def filtrar_materias_obligatorias(self, df):
-        return df.loc[df['materia.nucleo'] != 'C']
+        return df.loc[df['nucleo'] != 'C']
 
     def filtrar_materias_de_alumno(self, df, legajo_alumno):
         return df.loc[df['alumno'] == legajo_alumno]
@@ -140,7 +140,7 @@ class DataManipulator:
         return resultado
 
     def cantidad_creditos(self, df):
-        return df['materia.creditos'].sum()
+        return int(df['creditos'].sum())
 
     def cantidad_alumnos_falta_aprobar(self, df, materia):
         return len(self.alumnos_falta_aprobar_materia_series(df, materia))
@@ -157,14 +157,21 @@ class DataManipulator:
     def cantidad_alumnos_pendientes(self, df, materia):
         return len(self.pendientes_de_materia(df, materia))
 
-    def total_materias_distintas(self, df):
-        return len(pd.unique(df['materia.codigo']))
+    def cantidad_materias_distintas(self, df):
+        return len(pd.unique(df['codigo']))
 
+    # TODO: esto hay que sacarlo del plan
     def get_nombre_materia(self, df, cod_materia):
         try:
-            return df.loc[df['materia.codigo'] == cod_materia]['materia.materia'].iloc[0]
+            return df.loc[df['codigo'] == cod_materia]['materia'].iloc[0]
         except:
             return ''
+
+    def areas_unicas(self, df):
+        return pd.unique(df['area'])
+
+    def nucleos_unicos(self, df):
+        return pd.unique(df['nucleo'])
 
     def filtrar_materias_obligatorias_area(self, df, area):
         areas_filtradas = self.filtrar_area(df, area)
@@ -173,40 +180,137 @@ class DataManipulator:
 
     def total_materias_obligatorias_area(self, df, area):
         obligatorias = self.filtrar_materias_obligatorias_area(df, area)
-        total_materias_area = self.total_materias_distintas(obligatorias)
+        total_materias_area = self.cantidad_materias_distintas(obligatorias)
         return total_materias_area
 
-    def porcentaje_aprobadas_area(self, df, area, legajo_alumno):
-        # Filtro las materias obligatorias de un area
-        materias_obligatorias_area = self.filtrar_materias_obligatorias_area(
-            df, area)
-        # De esas materias, quiero solo las del alumno actual
-        materias_obligatorias_area_alumno = self.filtrar_materias_de_alumno(
-            materias_obligatorias_area, legajo_alumno)
-        # De las materias del alumno, quiero solo las que aprobo
-        materias_obligatorias_area_alumno_aprobadas = self.filtrar_aprobados(
-            materias_obligatorias_area_alumno)
-        # Obtengo el total de materias del area (obligatorias, y no tiene en cuenta las que nunca fueron cursadas)
-        total_materias_obligatorias_area = self.total_materias_distintas(
-            materias_obligatorias_area)
-        # Obtengo el total de materias del area aprobadas por el alumno
-        total_materias_obligatorias_area_alumno = self.total_materias_distintas(
-            materias_obligatorias_area_alumno_aprobadas)
+    def porcentaje_aprobadas_area(self, plan_data, cursadas, area):
+        # Calculo el total de materias de un area, en base al plan
+        total_area = self.total_materias_obligatorias_area(plan_data, area)
 
-        if total_materias_obligatorias_area:
-            return (float(total_materias_obligatorias_area_alumno) / total_materias_obligatorias_area) * 100
+        # Si tiene materias esa area
+        if total_area:
+            # Filtro las materias aprobadas del alumno dentro de esa area
+            materias_obligatorias_area = self.filtrar_materias_obligatorias_area(
+                cursadas, area)
+
+            # De las materias del alumno, quiero solo las que aprobo
+            materias_obligatorias_area_alumno_aprobadas = self.filtrar_aprobados(
+                materias_obligatorias_area)
+
+            # Obtengo el total de materias del area aprobadas por el alumno
+            total_materias_obligatorias_area_alumno = self.cantidad_materias_distintas(
+                materias_obligatorias_area_alumno_aprobadas)
+
+            return (float(total_materias_obligatorias_area_alumno) / total_area) * 100
         else:
             return 0
 
-    def areas_unicas(self, df):
-        return pd.unique(df['materia.area'])
+    def porcentaje_aprobadas_nucleo(self, plan_data, cursadas, nucleo):
+        # Filtro ambos DataFrames por nucleo
+        nucleo_data = self.filtrar_nucleo(plan_data, nucleo)
+        alumno_nucleo_data = self.filtrar_nucleo(
+            cursadas, nucleo)
 
-    def porcentajes_aprobadas_por_area(self, df, legajo_alumno):
-        areas = self.areas_unicas(df)
+        # Filtro solo las aprobadas del alumno
+        aprobadas_alumno = self.filtrar_aprobados(alumno_nucleo_data)
+
+        # Calculo las materias distintas de ambos DataFrames
+        cantidad_materias_nucleo = self.cantidad_materias_distintas(
+            nucleo_data)
+        cantidad_materias_aprobadas = self.cantidad_materias_distintas(
+            aprobadas_alumno)
+
+        # Calculo el porcentaje
+        if cantidad_materias_nucleo:
+            return (float(cantidad_materias_aprobadas) / cantidad_materias_nucleo) * 100
+        else:
+            return 0
+
+    def porcentajes_aprobadas_areas(self, plan_data, cursadas_data):
+        """
+            Precondicion: se asume que las materias ya vienen filtradas por alumno/s
+        """
+        areas = self.areas_unicas(plan_data)
         result = {}
         for area in areas:
             # Si no tiene seteada el Área, no me interesa
             if area:
                 result[area] = self.porcentaje_aprobadas_area(
-                    df, area, legajo_alumno)
+                    plan_data, cursadas_data, area)
+        return result
+
+    def porcentajes_aprobadas_nucleos(self, plan_data, cursadas_data):
+        """
+            Precondicion: se asume que las materias ya vienen filtradas por alumno/s
+        """
+        nucleos = self.nucleos_unicos(plan_data)
+        result = {}
+        for nucleo in nucleos:
+            # Si no tiene seteada el Área, no me interesa
+            if nucleo:
+                result[nucleo] = self.porcentaje_aprobadas_nucleo(
+                    plan_data, cursadas_data, nucleo)
+        return result
+
+    def porcentaje_creditos(self, total_creditos, df):
+        if total_creditos:
+            return (float(self.cantidad_creditos(df)) / total_creditos) * 100
+        else:
+            return 0
+
+    def cantidad_creditos_nucleo(self, data, nucleo):
+        nucleo_data = self.filtrar_nucleo(data, nucleo)
+        return self.cantidad_creditos(nucleo_data)
+
+    def cantidades_creditos_nucleos(self, data, nucleos):
+        result = {}
+        for nucleo in nucleos:
+            # Filtro los nucleos
+            result[nucleo] = self.cantidad_creditos_nucleo(data, nucleo)
+        return result
+
+    def cantidad_creditos_area(self, data, area):
+        area_data = self.filtrar_area(data, area)
+        return self.cantidad_creditos(area_data)
+
+    def cantidades_creditos_areas(self, data, areas):
+        result = {}
+        for area in areas:
+            # Filtro las areas
+            result[area] = self.cantidad_creditos_area(data, area)
+        return result
+
+    def porcentajes_creditos_areas(self, plan_data, cursadas_data):
+        """
+            Precondicion: se asume que las cursadas ya estan filtradas por el alumno
+        """
+        result = {}
+        areas = self.areas_unicas(plan_data)
+        for area in areas:
+            area_data = self.filtrar_materias_obligatorias_area(
+                plan_data, area)
+            creditos_area = self.cantidad_creditos(area_data)
+
+            alumno_area_data = self.filtrar_materias_obligatorias_area(
+                cursadas_data, area)
+            result[area] = self.porcentaje_creditos(
+                creditos_area, alumno_area_data)
+        return result
+
+    def porcentajes_creditos_nucleos(self, plan_data, cursadas_data):
+        """
+            Precondicion: se asume que las cursadas ya estan filtradas por el alumno
+        """
+        result = {}
+        nucleos = self.nucleos_unicos(plan_data)
+        for nucleo in nucleos:
+            if nucleo:
+                nucleo_data = self.filtrar_nucleo(
+                    plan_data, nucleo)
+                creditos_nucleo = self.cantidad_creditos(nucleo_data)
+
+                alumno_nucleo_data = self.filtrar_nucleo(
+                    cursadas_data, nucleo)
+                result[nucleo] = self.porcentaje_creditos(
+                    creditos_nucleo, alumno_nucleo_data)
         return result
