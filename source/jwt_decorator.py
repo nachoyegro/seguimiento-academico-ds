@@ -6,14 +6,18 @@ import jwt
 from config import app
 
 
+def get_token(request):
+    return request.headers.get('Authorization').split('Bearer ')[1]
+
+
 def tiene_jwt(f):
     @functools.wraps(f)
     def decorated_function(*args, **kwargs):
         if request.headers.has_key('Authorization'):
             try:
+
                 # Pido el token del request
-                token = request.headers.get(
-                    'Authorization').split('Bearer ')[1]
+                token = get_token(request)
                 # Traigo el payload del token
                 payload = jwt.decode(
                     token, app.config['SECRET_KEY'], algorithms=['HS256'])

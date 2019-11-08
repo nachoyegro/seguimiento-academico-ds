@@ -19,7 +19,7 @@ class DataManipulator:
             Quiero obtener los alumnos de una materia
             :return Dataframe
         """
-        df = df.loc[df['codigo'] ==
+        df = df.loc[df['materia'] ==
                     materia]
         return df
 
@@ -140,7 +140,7 @@ class DataManipulator:
         return resultado
 
     def cantidad_creditos(self, df):
-        return df['creditos'].sum()
+        return int(df['creditos'].sum())
 
     def cantidad_alumnos_falta_aprobar(self, df, materia):
         return len(self.alumnos_falta_aprobar_materia_series(df, materia))
@@ -158,11 +158,12 @@ class DataManipulator:
         return len(self.pendientes_de_materia(df, materia))
 
     def total_materias_distintas(self, df):
-        return len(pd.unique(df['codigo']))
+        return len(pd.unique(df['materia']))
 
+    # TODO: esto hay que sacarlo del plan
     def get_nombre_materia(self, df, cod_materia):
         try:
-            return df.loc[df['codigo'] == cod_materia]['materia'].iloc[0]
+            return df.loc[df['materia'] == cod_materia]['materia'].iloc[0]
         except:
             return ''
 
@@ -176,10 +177,10 @@ class DataManipulator:
         total_materias_area = self.total_materias_distintas(obligatorias)
         return total_materias_area
 
-    def porcentaje_aprobadas_area(self, df, area, legajo_alumno):
+    def porcentaje_aprobadas_area(self, plan, cursadas, area, legajo_alumno):
         # Filtro las materias obligatorias de un area
         materias_obligatorias_area = self.filtrar_materias_obligatorias_area(
-            df, area)
+            cursadas, area)
         # De esas materias, quiero solo las del alumno actual
         materias_obligatorias_area_alumno = self.filtrar_materias_de_alumno(
             materias_obligatorias_area, legajo_alumno)
@@ -201,7 +202,7 @@ class DataManipulator:
     def areas_unicas(self, df):
         return pd.unique(df['area'])
 
-    def porcentajes_aprobadas_por_area(self, df, legajo_alumno):
+    def porcentajes_aprobadas_areas(self, df, legajo_alumno):
         areas = self.areas_unicas(df)
         result = {}
         for area in areas:
