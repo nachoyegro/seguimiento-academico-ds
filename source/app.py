@@ -79,11 +79,11 @@ def home():
     dp = DataProvider()
     token = dp.retrieve_token(
         username=app.config['USERNAME'], password=app.config['PASSWORD'])
-    #data = dp.retrieve_plan(token, 'W', '2019')
-    #data = dp.retrieve_materiascursadas(token, 'W')
-    #data = dp.get_materiascursadas(token, 'W')
+    # data = dp.retrieve_plan(token, 'W', '2019')
+    # data = dp.retrieve_materiascursadas(token, 'W')
+    # data = dp.get_materiascursadas(token, 'W')
     data = dp.get_inscriptos(token, 'W')
-    #dataframe = DataTransformer().transform_to_dataframe(data)
+    # dataframe = DataTransformer().transform_to_dataframe(data)
     return json.dumps(data)
 
 
@@ -134,7 +134,8 @@ def detalle_aprobados(cod_materia):
         df, cod_materia, fecha_inicio, fecha_fin)
     df = manipulator.filtrar_aprobados(df)
     detalle_aprobados = manipulator.cantidades_formas_aprobacion(df)
-    return json.dumps(detalle_aprobados.to_dict())
+    data = detalle_aprobados.to_dict()
+    return json.dumps([{"Tipo": nombre, "Cantidad": valor} for nombre, valor in data.items()])
 
 
 @app.route('/materias/<cod_materia>/basicos')
@@ -171,12 +172,16 @@ def datos_basicos_materia(cod_materia):
 def porcentajes_areas_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
 
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
     manipulator = DataManipulator()
     materias_alumno = manipulator.filtrar_materias_de_alumno(
         merged_data, legajo)
-    porcentajes = manipulator.porcentajes_aprobadas_areas(
+    materias_alumno = manipulator.filtrar_periodo(
+        materias_alumno, fecha_inicio, fecha_fin)
+    data = manipulator.porcentajes_aprobadas_areas(
         plan_data, materias_alumno)
-    return json.dumps([porcentajes])
+    return json.dumps([{"nombre": nombre, "valor": valor} for nombre, valor in data.items()])
 
 
 @app.route('/alumnos/<legajo>/porcentajes-nucleos')
@@ -184,12 +189,16 @@ def porcentajes_areas_alumno(legajo):
 def porcentajes_nucleos_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
 
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
     manipulator = DataManipulator()
     materias_alumno = manipulator.filtrar_materias_de_alumno(
         merged_data, legajo)
-    porcentajes = manipulator.porcentajes_aprobadas_nucleos(
+    materias_alumno = manipulator.filtrar_periodo(
+        materias_alumno, fecha_inicio, fecha_fin)
+    data = manipulator.porcentajes_aprobadas_nucleos(
         plan_data, materias_alumno)
-    return json.dumps([porcentajes])
+    return json.dumps([{"nombre": nombre, "valor": valor} for nombre, valor in data.items()])
 
 
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
