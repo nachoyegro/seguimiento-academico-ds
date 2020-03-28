@@ -176,7 +176,9 @@ def porcentajes_areas_alumno(legajo):
         merged_data, legajo)
     porcentajes = manipulator.porcentajes_aprobadas_areas(
         plan_data, materias_alumno)
-    return json.dumps([porcentajes])
+
+    transformer = DataTransformer()
+    return json.dumps(transformer.transform_to_json_compatible(porcentajes))
 
 
 @app.route('/alumnos/<legajo>/porcentajes-nucleos')
@@ -189,7 +191,8 @@ def porcentajes_nucleos_alumno(legajo):
         merged_data, legajo)
     porcentajes = manipulator.porcentajes_aprobadas_nucleos(
         plan_data, materias_alumno)
-    return json.dumps([porcentajes])
+    transformer = DataTransformer()
+    return json.dumps(transformer.transform_to_json_compatible(porcentajes))
 
 
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')

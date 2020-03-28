@@ -14,3 +14,15 @@ class DataTransformer:
 
     def merge_materias_con_plan(self, materias, plan):
         return pd.merge(materias, plan, on=['codigo'])
+
+    
+    def transform_to_json_compatible(self, data):
+        '''
+            Los datos que vienen como [{'key': 'value'}]
+            son transformados a [{'nombre': 'key', 'valor': 'value' }]
+        '''
+        result = []
+        for key, value in data.items():
+            result.append({'nombre': key, 'valor': value})
+        return result
+    
