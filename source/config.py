@@ -13,6 +13,7 @@ app.config['MATERIASCURSADAS_URL'] = app.config['CARRERAS_URL'] + \
 app.config['INSCRIPCIONES_URL'] = app.config['CARRERAS_URL'] + \
     '/inscripciones/'
 app.config['PLAN_URL'] = app.config['CARRERAS_URL'] + '/planes/{}/'
+app.config['ALUMNOS_CARRERA_URL'] = app.config['CARRERAS_URL'] + '/alumnos/'
 app.config['SECRET_KEY'] = 'super-secret'
 
 app.config['USERNAME'] = ''
