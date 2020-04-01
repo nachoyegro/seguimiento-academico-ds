@@ -201,6 +201,17 @@ def porcentajes_nucleos_alumno(legajo):
     return json.dumps([{"nombre": nombre, "valor": valor} for nombre, valor in data.items()])
 
 
+@app.route('/carreras/<carrera>/alumnos')
+@tiene_jwt
+def alumnos_carrera(carrera):
+    token = get_token(request)
+    transformer = DataTransformer()
+    json_data = DataProvider().get_alumnos_de_carrera(token, carrera)
+    data = transformer.transform_to_dataframe(json_data)
+    inscriptos = DataManipulator().inscriptos_por_carrera(data)['alumno']
+    return json.dumps([{"nombre": transformer.transform_timestamp_to_semester(key), "cantidad": value} for key, value in inscriptos.items()])
+
+
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
 def porcentajes_creditos_alumno(legajo):
@@ -267,6 +278,10 @@ def creditos_areas(legajo):
 
     return json.dumps([data])
 
+
+@app.route('/widget')
+def widget():
+    return json.dumps({'nombre': 'Aprobados', 'valor': 55})
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
