@@ -7,6 +7,10 @@ services:
     build: .
     command: python3 source/app.py runserver
     volumes:
-      - .:/app
+      - .:/code
     ports:
       - "5000:5000"
+networks:
+  default:
+    external:
+      name: seguimiento-academico
