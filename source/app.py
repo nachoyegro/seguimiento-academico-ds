@@ -229,6 +229,17 @@ def cantidades_alumnos_carrera(carrera):
                         for i in range(0, len(cursantes))
                         ])
 
+@app.route('/carreras/<carrera>/cantidades-ingresantes')
+@tiene_jwt
+def cantidades_ingresantes_carrera(carrera):
+    '''
+        Deberia retornar una lista del tipo [{"anio": 2015, "ingresantes": 100}]
+    '''
+    token = get_token(request)
+    provider = DataProvider()
+    ingresantes = provider.get_ingresantes(token, carrera)
+    return json.dumps([{"Cohorte": dato["anio"], "Alumnos ingresantes": dato["cantidad"]} for dato in ingresantes ])
+
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
 def porcentajes_creditos_alumno(legajo):
