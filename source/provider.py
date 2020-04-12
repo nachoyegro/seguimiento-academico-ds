@@ -108,6 +108,42 @@ class DataProvider:
         else:
             return []
 
+    def retrieve_cursantes(self, token, carrera):
+        """
+            Trae los cursantes historicos de una carrera
+        """
+        headers = self.get_headers(token)
+        response = requests.get(
+            app.config['CURSANTES_URL'].format(carrera), headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return []
+
+    def retrieve_ingresantes(self, token, carrera):
+        """
+            Trae los ingresantes historicos de una carrera
+        """
+        headers = self.get_headers(token)
+        response = requests.get(
+            app.config['INGRESANTES_URL'].format(carrera), headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return []
+
+    def retrieve_graduados(self, token, carrera):
+        """
+            Trae los graduados historicos de una carrera
+        """
+        headers = self.get_headers(token)
+        response = requests.get(
+            app.config['GRADUADOS_URL'].format(carrera), headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return []
+
     """
     def get_materiascursadas_con_plan(self, token, carrera, plan):
         
@@ -121,6 +157,18 @@ class DataProvider:
         plan_data = self.retrieve_plan(token, carrera, plan)
         return pd.merge(materiascursadas_data, plan_data, on=['codigo'])
     """
+
+    def get_cursantes(self, token, carrera):
+        data = self.retrieve_cursantes(token, carrera)
+        return json.loads(data)
+
+    def get_ingresantes(self, token, carrera):
+        data = self.retrieve_ingresantes(token, carrera)
+        return json.loads(data)
+
+    def get_graduados(self, token, carrera):
+        data = self.retrieve_graduados(token, carrera)
+        return json.loads(data)
 
     def get_inscriptos(self, token, carrera):
         data = self.retrieve_inscriptos(token, carrera)

@@ -211,6 +211,23 @@ def alumnos_carrera(carrera):
     inscriptos = DataManipulator().inscriptos_por_carrera(data)['alumno']
     return json.dumps([{"nombre": transformer.transform_timestamp_to_semester(key), "cantidad": value} for key, value in inscriptos.items()])
 
+@app.route('/carreras/<carrera>/cantidades-alumnos')
+@tiene_jwt
+def cantidades_alumnos_carrera(carrera):
+    '''
+        Deberia retornar una lista del tipo [{"anio": 2015, "graduados": 2, "cursantes": 200, "ingresantes": 100, "postulantes": 500}]
+    '''
+    token = get_token(request)
+    provider = DataProvider()
+    graduados = provider.get_graduados(token, carrera)
+    ingresantes = provider.get_ingresantes(token, carrera)
+    cursantes = provider.get_cursantes(token, carrera)
+    return json.dumps([{"Cohorte": cursantes[i]["anio"], 
+                        "Graduados": graduados[i]["cantidad"], 
+                        "Cursantes": cursantes[i]["cantidad"], 
+                        "Ingresantes": ingresantes[i]["cantidad"]}
+                        for i in range(0, len(cursantes))
+                        ])
 
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
