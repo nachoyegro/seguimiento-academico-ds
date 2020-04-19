@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import pandas as pd
-
+import numpy as np
 
 class DataManipulator:
 
@@ -318,14 +318,135 @@ class DataManipulator:
     def cantidades_formas_aprobacion(self, df):
         return df['forma_aprobacion'].value_counts()
 
-    def inscriptos_por_carrera(self, dataframe):
+    def agrupar_periodo(self, fecha, periodo):
         #Saco los que no tienen fecha de inscripcion
-        df = dataframe.dropna(subset=['fecha_inscripcion'])
+        df = dataframe.dropna(subset=[fecha])
         #Transformo la columna en date
-        df['fecha_inscripcion'] = pd.to_datetime(df['fecha_inscripcion'])
+        df[fecha] = pd.to_datetime(df[fecha])
         #Agrupo por fechas cada 6 meses
-        df = df.groupby(pd.Grouper(key='fecha_inscripcion', freq='6MS')).count()
+        df = df.groupby(pd.Grouper(key=fecha, freq=periodo)).count()
+        return df
+
+    def inscriptos_por_carrera(self, dataframe):
+        df = self.agrupar_periodo('fecha_inscripcion', '6MS')
         #Saco la columna plan
         df = df.drop(['plan'], axis=1)
         return df
+
+    def fecha_anterior(self, fecha):
+        """
+            Dada una fecha, retorno la misma fecha del año anterior
+        """
+        from datetime import datetime, timedelta
+        return (datetime.strptime(fecha, '%Y-%m-%d') - timedelta(days=365)).strftime('%Y-%m-%d')
+
+    def materias_alumno_hasta(self, df, alumno, fecha):
+        df = df.loc[df.alumno == str(alumno)] #Obtengo los resultados del alumno
+        df = df.loc[df.fecha < fecha] #Obtengo las materias hasta la fecha
+        return df
+
+    def materias_alumno_fecha(self, df, alumno, fecha):
+        df = df.loc[df.alumno == str(alumno)] #Obtengo los resultados del alumno
+        df = df.loc[df.fecha == fecha] #Obtengo las materias de una determinada fecha
+        return df
+
+    def score_alumno_hasta(self, df, alumno, fecha):
+        df = self.materias_alumno_hasta(df, alumno, fecha)
+        df = df.loc[df.fecha > self.fecha_anterior(fecha)] #Filtro las materias del ultimo año anterior a "fecha"
+        df.loc[df.nota == 'A', 'nota'] = 7 #Pongo las aprobadas como si fuese un 7
+        df = df.loc[df.nota != 'PA'] #No me interesan los pendientes de aprobacion
+        df = df.fillna(value=1) #Lleno los austenes con un 1
+        df.nota=df.nota.astype(float)
+        return df.nota.mean()
+
+    def score_alumno_periodo(self, df, alumno, fecha):
+        df = self.materias_alumno_periodo(df, alumno, fecha)
+        return df.nota.mean()
+
+    def materias_alumno_periodo(self, df, alumno, fecha):
+        df = df.loc[df.alumno == str(alumno)] #Obtengo los resultados del alumno
+        df = df.loc[df.fecha_periodo == fecha] #Obtengo las materias de una determinada fecha
+        return df
+
+    def row_periodos(self, row):
+        row['fecha_periodo'] = self.fecha_periodo(row.fecha)
+        row['periodo_semestre'] = self.periodo_semestre(row['fecha_periodo'])
+        return row
+
+    def row_score_periodo(self, row, df, x):
+        row['score_periodo'] = self.score_alumno_periodo(df, row.alumno, row.fecha_periodo)
+        return row
+
+    def aplicar_periodos(self, df):
+        return df.apply(self.row_periodos, axis=1)
+
+    def aplicar_scores(self, df):
+        return df.apply(self.row_score_periodo, args=(df, 2), axis=1)
+
+    def recalcular_notas_faltantes(self, df):
+        df.loc[df.nota == 'A', 'nota'] = 7
+        df = df.loc[df.nota != 'PA'] #No me interesan los pendientes de aprobacion
+        df['nota'] = df.nota.replace("", np.nan)
+        df = df.fillna(value=1) #Lleno los austenes con un 1
+        df.nota=df.nota.astype(float)
+        return df
+
+    def scores_periodos(self, df):
+        """
+            Se asume que ya se calcularon los scores por periodo
+            Es recomendable que ya se haya filtrado por alumno tambien
+        """
+        scores = df[['periodo_semestre', 'score_periodo']].drop_duplicates()
+        return scores.sort_values(['periodo_semestre'], ascending=[1])
+
+    def promedio_alumno_fecha(self, df, alumno, fecha):
+        """
+            Quiero calcular el promedio del alumno en una fecha determinada
+            Se asume que la columna nota del dataframe ya es de tipo float
+            Retorna un numero, que representa el promedio
+
+        """
+        df = self.materias_alumno_fecha(df, alumno, fecha) #Obtengo las materias del alumno hasta la fecha
+        df.nota=df.nota.astype(float)
+        return df.nota.mean()
     
+    def promedio_hasta(self, df, alumno, fecha):
+        """
+            Quiero calcular el promedio del alumno hasta una determinada fecha
+            Retorna un numero, que representa el promedio
+
+        """
+        df = self.materias_alumno_hasta(df, alumno, fecha) #Obtengo las materias del alumno hasta la fecha
+        df.nota=df.nota.astype(float)
+        return df.nota.mean()
+
+    #Dada una fecha, quiero saber a que período pertenece
+    def fecha_periodo(self, fecha_str):
+        """
+            Si la fecha es mayor a octubre:
+                periodo: anio-12-31
+            Si la fecha es menor a Marzo:
+                periodo: anioAnterior-12-31
+            Si la fecha es mayor a marzo y menor a octubre
+                periodo: anio-06-30
+        """
+        from datetime import datetime
+        fecha = datetime.strptime(str(fecha_str), '%Y-%m-%d')
+        if fecha.month > 10:
+            return '{}-12-31'.format(fecha.year)
+        elif fecha.month <= 3:
+            return '{}-12-31'.format(fecha.year - 1)
+        else:
+            return '{}-06-30'.format(fecha.year)
+        return periodo
+
+    #fecha_periodo('2019-02-10') == '2018-12-31'
+
+    def periodo_semestre(self, periodo):
+        from datetime import datetime
+        fecha = datetime.strptime(str(periodo), '%Y-%m-%d')
+        if fecha.month == 12:
+            return '{}-S2'.format(fecha.year)
+        else:
+            return '{}-S1'.format(fecha.year)
+        return periodo
