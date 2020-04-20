@@ -340,6 +340,16 @@ def creditos_areas(legajo):
 
     return json.dumps([data])
 
+@app.route('/alumnos/<legajo>/notas')
+@tiene_jwt
+def notas_alumno(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    return json.dumps([{'Fecha': row['fecha'], 'Materia': row['materia'], 'Plan': row['plan'], 'Nota': row['nota']} for index, row in materias_alumno.iterrows()])
+
 @app.route('/alumnos/<legajo>/scores')
 @tiene_jwt
 def promedios_alumno(legajo):
@@ -355,7 +365,9 @@ def promedios_alumno(legajo):
     # Aplico los scores
     data = manipulator.aplicar_scores(periodos)
     scores = manipulator.scores_periodos(data)
-    return json.dumps([{"nombre": row["periodo_semestre"], "cantidad": row["score_periodo"]} for index,row in scores.iterrows()])
+    return json.dumps([{"nombre": row["periodo_semestre"], "valor": row["score_periodo"]} for index,row in scores.iterrows()])
+
+@app.route('/alumnos/<legajo>/')
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
