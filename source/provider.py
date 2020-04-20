@@ -108,37 +108,37 @@ class DataProvider:
         else:
             return []
 
-    def retrieve_cursantes(self, token, carrera):
+    def retrieve_cursantes(self, token, carrera, anio=None):
         """
             Trae los cursantes historicos de una carrera
         """
         headers = self.get_headers(token)
-        response = requests.get(
-            app.config['CURSANTES_URL'].format(carrera), headers=headers)
+        url = app.config['CURSANTES_URL'].format(carrera) 
+        response = requests.get(url + str(anio) if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
             return []
 
-    def retrieve_ingresantes(self, token, carrera):
+    def retrieve_ingresantes(self, token, carrera, anio=None):
         """
             Trae los ingresantes historicos de una carrera
         """
         headers = self.get_headers(token)
-        response = requests.get(
-            app.config['INGRESANTES_URL'].format(carrera), headers=headers)
+        url = app.config['INGRESANTES_URL'].format(carrera) 
+        response = requests.get(url + str(anio) if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
             return []
 
-    def retrieve_graduados(self, token, carrera):
+    def retrieve_graduados(self, token, carrera, anio=None):
         """
             Trae los graduados historicos de una carrera
         """
         headers = self.get_headers(token)
-        response = requests.get(
-            app.config['GRADUADOS_URL'].format(carrera), headers=headers)
+        url = app.config['GRADUADOS_URL'].format(carrera) 
+        response = requests.get(url + str(anio) if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
@@ -158,20 +158,20 @@ class DataProvider:
         return pd.merge(materiascursadas_data, plan_data, on=['codigo'])
     """
 
-    def get_cursantes(self, token, carrera):
-        data = self.retrieve_cursantes(token, carrera)
+    def get_cursantes(self, token, carrera, anio=None):
+        data = self.retrieve_cursantes(token, carrera, anio)
         return json.loads(data)
 
-    def get_ingresantes(self, token, carrera):
-        data = self.retrieve_ingresantes(token, carrera)
+    def get_ingresantes(self, token, carrera, anio=None):
+        data = self.retrieve_ingresantes(token, carrera, anio)
         return json.loads(data)
 
-    def get_graduados(self, token, carrera):
-        data = self.retrieve_graduados(token, carrera)
+    def get_graduados(self, token, carrera, anio=None):
+        data = self.retrieve_graduados(token, carrera, anio)
         return json.loads(data)
 
-    def get_inscriptos(self, token, carrera):
-        data = self.retrieve_inscriptos(token, carrera)
+    def get_inscriptos(self, token, carrera, anio=None):
+        data = self.retrieve_inscriptos(token, carrera, anio)
         return json.loads(data)
 
     def get_plan(self, token, carrera, plan):

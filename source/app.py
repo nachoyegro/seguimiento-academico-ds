@@ -9,6 +9,7 @@ from unittest import TestLoader, runner
 from argparse import ArgumentParser
 from jwt_decorator import tiene_jwt, get_token
 import pandas as pd
+from datetime import date
 
 parser = ArgumentParser(prog='App',
                         description='App de Flask')
@@ -240,6 +241,39 @@ def cantidades_ingresantes_carrera(carrera):
     ingresantes = provider.get_ingresantes(token, carrera)
     return json.dumps([{"Cohorte": dato["anio"], "Alumnos ingresantes": dato["cantidad"]} for dato in ingresantes ])
 
+
+
+@app.route('/carreras/<carrera>/cursantes-actual')
+@tiene_jwt
+def cantidad_cursantes_actual(carrera):
+    token = get_token(request)
+    provider = DataProvider()
+    anio = date.today().year
+    cursantes = provider.get_cursantes(token, carrera, anio)
+    return json.dumps({'nombre': 'Cursantes del año actual', 'valor': cursantes["cantidad"]})
+
+@app.route('/carreras/<carrera>/ingresantes-actual')
+@tiene_jwt
+def cantidad_ingresantes_actual(carrera):
+    token = get_token(request)
+    provider = DataProvider()
+    anio = date.today().year
+    cursantes = provider.get_ingresantes(token, carrera, anio)
+    return json.dumps({'nombre': 'Ingresantes del año actual', 'valor': cursantes["cantidad"]})
+
+@app.route('/carreras/<carrera>/graduados-total')
+@tiene_jwt
+def cantidad_graduados(carrera):
+    token = get_token(request)
+    provider = DataProvider()
+    anio = date.today().year
+    cursantes = provider.get_graduados(token, carrera, anio)
+    return json.dumps({'nombre': 'Graduados', 'valor': cursantes["cantidad"]})
+
+@app.route('/widget')
+def widget():
+    return json.dumps({'nombre': 'Aprobados', 'valor': 55})
+
 @app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
 def porcentajes_creditos_alumno(legajo):
@@ -306,10 +340,34 @@ def creditos_areas(legajo):
 
     return json.dumps([data])
 
+@app.route('/alumnos/<legajo>/notas')
+@tiene_jwt
+def notas_alumno(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    return json.dumps([{'Fecha': row['fecha'], 'Materia': row['materia'], 'Plan': row['plan'], 'Nota': row['nota']} for index, row in materias_alumno.iterrows()])
 
-@app.route('/widget')
-def widget():
-    return json.dumps({'nombre': 'Aprobados', 'valor': 55})
+@app.route('/alumnos/<legajo>/scores')
+@tiene_jwt
+def promedios_alumno(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    # Recalculo las notas faltantes
+    data_recalculada = manipulator.recalcular_notas_faltantes(materias_alumno)
+    # Aplico periodos a las fechas
+    periodos = manipulator.aplicar_periodos(data_recalculada)
+    # Aplico los scores
+    data = manipulator.aplicar_scores(periodos)
+    scores = manipulator.scores_periodos(data)
+    return json.dumps([{"nombre": row["periodo_semestre"], "valor": row["score_periodo"]} for index,row in scores.iterrows()])
+
+@app.route('/alumnos/<legajo>/')
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
