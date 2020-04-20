@@ -318,9 +318,9 @@ class DataManipulator:
     def cantidades_formas_aprobacion(self, df):
         return df['forma_aprobacion'].value_counts()
 
-    def agrupar_periodo(self, fecha, periodo):
+    def agrupar_periodo(self, df, fecha, periodo):
         #Saco los que no tienen fecha de inscripcion
-        df = dataframe.dropna(subset=[fecha])
+        df = df.dropna(subset=[fecha])
         #Transformo la columna en date
         df[fecha] = pd.to_datetime(df[fecha])
         #Agrupo por fechas cada 6 meses
@@ -328,7 +328,7 @@ class DataManipulator:
         return df
 
     def inscriptos_por_carrera(self, dataframe):
-        df = self.agrupar_periodo('fecha_inscripcion', '6MS')
+        df = self.agrupar_periodo(dataframe, 'fecha_inscripcion', '6MS')
         #Saco la columna plan
         df = df.drop(['plan'], axis=1)
         return df
