@@ -1,9 +1,11 @@
 from pandas.io.json import json_normalize
 import pandas as pd
 
-
 class DataTransformer:
 
+    formas_aprobacion = {'EqE': 'Equivalencia equivalente', 'PC': 'Promocion en otra carrera', 'P': 'Promocion',
+                        'Eq': 'Equivalencia', 'ExE': 'Examen equivalente', 'Ex': 'Examen'}
+    
     def transform_to_dataframe(self, data):
         return json_normalize(data)
 
@@ -63,3 +65,6 @@ class DataTransformer:
         else:
             return '{}-S1'.format(fecha.year)
         return periodo
+
+    def get_forma_aprobacion(self, forma_aprobacion):
+        return self.formas_aprobacion[forma_aprobacion]
