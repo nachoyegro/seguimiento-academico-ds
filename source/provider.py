@@ -41,6 +41,15 @@ class DataProvider:
         else:
             raise Exception
 
+    def retrieve_cantidad_materias_necesarias(self, token, carrera, plan):
+        headers = self.get_headers(token)
+        response = requests.get(app.config['MATERIAS_NECESARIAS_URL'].format(
+            carrera, plan), headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            raise Exception
+
     def retrieve_plan(self, token, carrera, plan):
         """
             Trae el plan de estudios pedido desde el backend
@@ -180,4 +189,8 @@ class DataProvider:
 
     def get_alumnos_de_carrera(self, token, carrera):
         data = self.retrieve_alumnos_de_carrera(token, carrera)
+        return json.loads(data)
+
+    def get_cantidad_materias_necesarias(self, token, carrera, plan):
+        data = self.retrieve_cantidad_materias_necesarias(token, carrera, plan)
         return json.loads(data)

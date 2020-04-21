@@ -226,6 +226,21 @@ class DataManipulator:
         else:
             return 0
 
+    def cantidad_aprobadas(self, cursadas):
+        """
+            Retorna la cantidad de materias aprobadas
+        """
+        # Filtro solo las aprobadas del alumno
+        aprobadas_alumno = self.filtrar_aprobados(cursadas)
+
+        # Calculo las materias distintas
+        cantidad_materias_aprobadas = self.cantidad_materias_distintas(
+            aprobadas_alumno)
+        return cantidad_materias_aprobadas
+
+    def porcentaje_aprobadas(self, aprobadas, total):
+        return (float(aprobadas) / total) * 100
+
     def porcentajes_aprobadas_areas(self, plan_data, cursadas_data):
         """
             Precondicion: se asume que las materias ya vienen filtradas por alumno/s
