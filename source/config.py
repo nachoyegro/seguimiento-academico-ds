@@ -17,6 +17,7 @@ app.config['ALUMNOS_CARRERA_URL'] = app.config['CARRERAS_URL'] + '/alumnos/'
 app.config['CURSANTES_URL'] = app.config['CARRERAS_URL'] + '/cantidad-cursantes/'
 app.config['INGRESANTES_URL'] = app.config['CARRERAS_URL'] + '/cantidad-ingresantes/'
 app.config['GRADUADOS_URL'] = app.config['CARRERAS_URL'] + '/cantidad-graduados/'
+app.config['MATERIAS_NECESARIAS_URL'] = app.config['PLAN_URL'] + 'cantidad-materias-necesarias/'
 app.config['SECRET_KEY'] = 'super-secret'
 
 app.config['USERNAME'] = ''

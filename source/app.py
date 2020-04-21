@@ -44,6 +44,14 @@ def get_materiascursadas(request):
     df = manipulator.filtrar_periodo(cursadas_data, fecha_inicio, fecha_fin)
     return df
 
+def get_cantidad_materias_necesarias(request):
+    provider = DataProvider()
+    # Saco el token del request
+    token = get_token(request)
+    carrera = request.args.get('carrera')
+    plan = request.args.get('plan')
+    return provider.get_cantidad_materias_necesarias(token, carrera, plan)["cantidad"]
+
 
 def get_plan(request):
     provider = DataProvider()
@@ -367,7 +375,19 @@ def promedios_alumno(legajo):
     scores = manipulator.scores_periodos(data)
     return json.dumps([{"nombre": row["periodo_semestre"], "valor": row["score_periodo"]} for index,row in scores.iterrows()])
 
-@app.route('/alumnos/<legajo>/')
+@app.route('/alumnos/<legajo>/porcentaje-carrera')
+@tiene_jwt
+def alumno_porcentaje_carrera(legajo):
+    merged_data, _, plan_data = get_materiascursadas_plan(request)
+    manipulator = DataManipulator()
+    # Filtro las materias
+    materias_alumno = manipulator.filtrar_materias_de_alumno(
+        merged_data, legajo)
+    cantidad_aprobadas = manipulator.cantidad_aprobadas(materias_alumno)
+    cantidad_materias_necesarias = get_cantidad_materias_necesarias(request)
+    porcentaje = manipulator.porcentaje_aprobadas(cantidad_aprobadas, cantidad_materias_necesarias)
+    return json.dumps({'nombre': 'Porcentaje de avance', 'valor': porcentaje})
+    
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')
