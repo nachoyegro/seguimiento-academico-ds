@@ -134,6 +134,7 @@ def detalle_aprobados(cod_materia):
 
     provider = DataProvider()
     manipulator = DataManipulator()
+    transformer = DataTransformer()
 
     json_data = provider.get_materiascursadas_multiples_carreras(
         token, carreras)
@@ -144,7 +145,10 @@ def detalle_aprobados(cod_materia):
     df = manipulator.filtrar_aprobados(df)
     detalle_aprobados = manipulator.cantidades_formas_aprobacion(df)
     data = detalle_aprobados.to_dict()
-    return json.dumps([{"Tipo": nombre, "Cantidad": valor} for nombre, valor in data.items()])
+    resultado = {}
+    for nombre, valor in data.items():
+        resultado[transformer.get_forma_aprobacion(nombre)] = valor
+    return json.dumps([resultado])
 
 
 @app.route('/materias/<cod_materia>/basicos')
@@ -169,7 +173,6 @@ def datos_basicos_materia(cod_materia):
     faltantes = manipulator.cantidad_alumnos_falta_aprobar(df, cod_materia)
     nombre = manipulator.get_nombre_materia(df, cod_materia)
     return json.dumps([{'Materia': cod_materia,
-                        'Nombre': nombre,
                         'Aprobados': aprobados,
                         'Ausentes': ausentes,
                         'Desaprobados': desaprobados,
