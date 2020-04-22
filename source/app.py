@@ -9,7 +9,7 @@ from unittest import TestLoader, runner
 from argparse import ArgumentParser
 from jwt_decorator import tiene_jwt, get_token
 import pandas as pd
-from datetime import date
+from datetime import date, timedelta
 
 parser = ArgumentParser(prog='App',
                         description='App de Flask')
@@ -21,7 +21,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-def get_materiascursadas(request):
+def get_materiascursadas(request, cod_carrera=None, inicio=None, fin=None):
 
     provider = DataProvider()
     transformer = DataTransformer()
@@ -30,10 +30,10 @@ def get_materiascursadas(request):
     # Saco el token del request
     token = get_token(request)
     # Formateo los args
-    fecha_inicio = request.args.get('inicio')
-    fecha_fin = request.args.get('fin')
+    fecha_inicio = inicio or request.args.get('inicio')
+    fecha_fin = fin or request.args.get('fin')
     # Tiene que ser una sola carrera y un solo plan para calcular creditos
-    carrera = request.args.get('carrera')
+    carrera = cod_carrera or request.args.get('carrera')
     plan = request.args.get('plan')
     # Traigo las cursadas
     cursadas_json = provider.get_materiascursadas(token, carrera)
@@ -70,6 +70,22 @@ def get_plan(request):
     plan_data = transformer.transform_to_dataframe(plan_json)
     return plan_data
 
+def get_alumnos_de_materia_periodo(request, cod_materia):
+    # Saco el token del request
+    token = get_token(request)
+    # Proceso los argumentos
+    cod_materia = cod_materia.zfill(5)
+    fecha_inicio = request.args.get('inicio')
+    fecha_fin = request.args.get('fin')
+    carreras_str = request.args.get('carreras')
+    carreras = carreras_str.split(',') if carreras_str else []
+    # Traigo las materias cursadas
+    json_data = DataProvider().get_materiascursadas_multiples_carreras(token, carreras)
+    df = DataTransformer().transform_materiascursadas_to_dataframe(json_data)
+    df = DataManipulator().filtrar_alumnos_de_materia_periodo(
+        df, cod_materia, fecha_inicio, fecha_fin)
+    return df
+
 
 def get_materiascursadas_plan(request):
     transformer = DataTransformer()
@@ -79,6 +95,17 @@ def get_materiascursadas_plan(request):
     data = transformer.merge_materias_con_plan(cursadas_data, plan_data)
     return data, cursadas_data, plan_data
 
+def get_materiascursadas_promedio(request, carrera, inicio=None, fin=None):
+    cursadas_data = get_materiascursadas(request, carrera, inicio, fin)
+
+    transformer = DataTransformer()
+
+    #Obtengo los alumnos de la carrera
+    token = get_token(request) # Saco el token del request
+    alumnos_carrera_json = DataProvider().get_alumnos_de_carrera(token, carrera)
+    alumnos_carrera_df = transformer.transform_to_dataframe(alumnos_carrera_json)
+    data = transformer.merge_materias_con_promedio(cursadas_data, alumnos_carrera_df)
+    return data
 
 @app.route('/')
 def home():
@@ -124,24 +151,10 @@ def recursantes_materia(cod_materia):
 @app.route('/materias/<cod_materia>/detalle-aprobados')
 @tiene_jwt
 def detalle_aprobados(cod_materia):
-    token = get_token(request)
-    # Proceso los argumentos
-    cod_materia = cod_materia.zfill(5)
-    fecha_inicio = request.args.get('inicio')
-    fecha_fin = request.args.get('fin')
-    carreras_str = request.args.get('carreras')
-    carreras = carreras_str.split(',') if carreras_str else []
-
-    provider = DataProvider()
     manipulator = DataManipulator()
     transformer = DataTransformer()
 
-    json_data = provider.get_materiascursadas_multiples_carreras(
-        token, carreras)
-    df = DataTransformer().transform_materiascursadas_to_dataframe(json_data)
-
-    df = manipulator.filtrar_alumnos_de_materia_periodo(
-        df, cod_materia, fecha_inicio, fecha_fin)
+    df = get_alumnos_de_materia_periodo(request, cod_materia)
     df = manipulator.filtrar_aprobados(df)
     detalle_aprobados = manipulator.cantidades_formas_aprobacion(df)
     data = detalle_aprobados.to_dict()
@@ -154,19 +167,8 @@ def detalle_aprobados(cod_materia):
 @app.route('/materias/<cod_materia>/basicos')
 @tiene_jwt
 def datos_basicos_materia(cod_materia):
-    token = get_token(request)
-    # Proceso los argumentos
-    cod_materia = cod_materia.zfill(5)
-    fecha_inicio = request.args.get('inicio')
-    fecha_fin = request.args.get('fin')
-    carreras_str = request.args.get('carreras')
-    carreras = carreras_str.split(',') if carreras_str else []
-    # Traigo las materias cursadas
-    json_data = DataProvider().get_materiascursadas_multiples_carreras(token, carreras)
-    df = DataTransformer().transform_materiascursadas_to_dataframe(json_data)
     manipulator = DataManipulator()
-    df = manipulator.filtrar_alumnos_de_materia_periodo(
-        df, cod_materia, fecha_inicio, fecha_fin)
+    df = get_alumnos_de_materia_periodo(request, cod_materia)
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
@@ -177,6 +179,21 @@ def datos_basicos_materia(cod_materia):
                         'Ausentes': ausentes,
                         'Desaprobados': desaprobados,
                         'Faltantes': faltantes}])
+
+
+
+
+@app.route('/materias/<cod_materia>/dispersion-notas')
+@tiene_jwt
+def dispersion_notas(cod_materia):
+    manipulator = DataManipulator()
+    df = get_alumnos_de_materia_periodo(request, cod_materia)
+    return json.dumps([{ "Avance": 100, "Score": 200},
+                        { "Avance": 120, "Score": 100},
+                        { "Avance": 170, "Score": 300},
+                        { "Avance": 140, "Score": 250},
+                        { "Avance": 150, "Score": 400},
+                        { "Avance": 110, "Score": 280}])
 
 
 @app.route('/alumnos/<legajo>/porcentajes-areas')
@@ -366,17 +383,8 @@ def notas_alumno(legajo):
 def promedios_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
     manipulator = DataManipulator()
-    # Filtro las materias
-    materias_alumno = manipulator.filtrar_materias_de_alumno(
-        merged_data, legajo)
-    # Recalculo las notas faltantes
-    data_recalculada = manipulator.recalcular_notas_faltantes(materias_alumno)
-    # Aplico periodos a las fechas
-    periodos = manipulator.aplicar_periodos(data_recalculada)
-    # Aplico los scores
-    data = manipulator.aplicar_scores(periodos)
-    scores = manipulator.scores_periodos(data)
-    return json.dumps([{"nombre": row["periodo_semestre"], "valor": row["score_periodo"]} for index,row in scores.iterrows()])
+    scores = manipulator.get_scores_alumno(merged_data, legajo)
+    return json.dumps([{"nombre": row["periodo_semestre"], "valor": row["score_periodo"]} for index,row in DataTransformer().transform_scores_unicos(scores).iterrows()])
 
 @app.route('/alumnos/<legajo>/porcentaje-carrera')
 @tiene_jwt
@@ -391,6 +399,16 @@ def alumno_porcentaje_carrera(legajo):
     porcentaje = manipulator.porcentaje_aprobadas(cantidad_aprobadas, cantidad_materias_necesarias)
     return json.dumps({'nombre': 'Porcentaje de avance', 'valor': porcentaje})
     
+@app.route('/carreras/<carrera>/dispersion-score-promedio')
+@tiene_jwt
+def dispersion_score_avance(carrera):
+    fin = date.today()
+    inicio = fin - timedelta(days=365)
+
+    data = get_materiascursadas_promedio(request, carrera, inicio.strftime('%Y-%m-%d'), fin.strftime('%Y-%m-%d'))
+    scores = DataManipulator().get_scores_periodos(data)
+
+    return json.dumps([{"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Score": getattr(row, 'score_periodo')} for row in scores.itertuples()])
 
 def runserver():
     app.run(debug=True, host='0.0.0.0')

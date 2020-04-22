@@ -366,12 +366,15 @@ class DataManipulator:
         return df
 
     def score_alumno_hasta(self, df, alumno, fecha):
+        """
+            Quiero calcular el score del alumno hasta una determinada fecha
+            Se asume que la columna nota del dataframe ya es de tipo float
+            El score consiste en el promedio del ultimo año
+            Retorna un numero, que representa el promedio
+        """
         df = self.materias_alumno_hasta(df, alumno, fecha)
         df = df.loc[df.fecha > self.fecha_anterior(fecha)] #Filtro las materias del ultimo año anterior a "fecha"
-        df.loc[df.nota == 'A', 'nota'] = 7 #Pongo las aprobadas como si fuese un 7
-        df = df.loc[df.nota != 'PA'] #No me interesan los pendientes de aprobacion
-        df = df.fillna(value=1) #Lleno los austenes con un 1
-        df.nota=df.nota.astype(float)
+        df = self.recalcular_notas_faltantes(df)
         return df.nota.mean()
 
     def score_alumno_periodo(self, df, alumno, fecha):
@@ -400,6 +403,7 @@ class DataManipulator:
 
     def recalcular_notas_faltantes(self, df):
         df.loc[df.nota == 'A', 'nota'] = 7
+        df.loc[df.nota == 'R', 'nota'] = 3
         df = df.loc[df.nota != 'PA'] #No me interesan los pendientes de aprobacion
         df['nota'] = df.nota.replace("", np.nan)
         df = df.fillna(value=1) #Lleno los austenes con un 1
@@ -434,6 +438,28 @@ class DataManipulator:
         df = self.materias_alumno_hasta(df, alumno, fecha) #Obtengo las materias del alumno hasta la fecha
         df.nota=df.nota.astype(float)
         return df.nota.mean()
+
+    def get_scores_alumno(self, df, legajo):
+        """ 
+            C
+        """
+        # Filtro las materias
+        materias_alumno = self.filtrar_materias_de_alumno(
+            df, legajo)
+        return self.get_scores_periodos(materias_alumno)
+
+    def get_scores_periodos(self, df):
+        """
+            Calcula los scores por períodos
+
+        """
+        # Recalculo las notas faltantes
+        data_recalculada = self.recalcular_notas_faltantes(df)
+        # Aplico periodos a las fechas
+        periodos = self.aplicar_periodos(data_recalculada)
+        # Aplico los scores
+        data = self.aplicar_scores(periodos)
+        return data
 
     #Dada una fecha, quiero saber a que período pertenece
     def fecha_periodo(self, fecha_str):

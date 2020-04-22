@@ -14,8 +14,15 @@ class DataTransformer:
         materias.rename(columns={'materia': 'codigo'}, inplace=True)
         return materias
 
+    def transform_scores_unicos(self, df):
+        scores = df[['periodo_semestre', 'score_periodo']].drop_duplicates()
+        return scores.sort_values(['periodo_semestre'], ascending=[1])
+
     def merge_materias_con_plan(self, materias, plan):
         return pd.merge(materias, plan, on=['codigo'])
+
+    def merge_materias_con_promedio(self, materias, alumnos):
+        return pd.merge(materias, alumnos, on=['alumno'])
 
     def transform_timestamp_to_date(self, timestamp):
         from datetime import datetime
