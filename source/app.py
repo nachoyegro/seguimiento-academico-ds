@@ -186,14 +186,15 @@ def datos_basicos_materia(cod_materia):
 @app.route('/materias/<cod_materia>/dispersion-notas')
 @tiene_jwt
 def dispersion_notas(cod_materia):
-    manipulator = DataManipulator()
+    transformer = DataTransformer()
+    provider = DataProvider()
+    token = get_token(request) # Saco el token del request
     df = get_alumnos_de_materia_periodo(request, cod_materia)
-    return json.dumps([{ "Avance": 100, "Score": 200},
-                        { "Avance": 120, "Score": 100},
-                        { "Avance": 170, "Score": 300},
-                        { "Avance": 140, "Score": 250},
-                        { "Avance": 150, "Score": 400},
-                        { "Avance": 110, "Score": 280}])
+
+    alumnos_carrera_json = provider.get_alumnos_de_carrera(token, request.args.get('carreras'))
+    alumnos_carrera_df = transformer.transform_to_dataframe(alumnos_carrera_json)
+    data = transformer.merge_materias_con_promedio(df, alumnos_carrera_df)
+    return json.dumps([{"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": getattr(row, 'nota')} for row in data.itertuples()])
 
 
 @app.route('/alumnos/<legajo>/porcentajes-areas')
