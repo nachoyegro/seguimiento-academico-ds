@@ -128,12 +128,21 @@ class DataManipulator:
         alumnos = pd.unique(df['alumno'])
         return pd.Series(alumnos)
 
+    def alumnos_totales_series(self, df):
+        """
+            Obtengo los alumnos totales
+            :return Series
+        """
+        alumnos = pd.unique(df['alumno'])
+        return pd.Series(alumnos)
+
     def alumnos_falta_aprobar_materia_series(self, df, materia):
         """
+            TODO: para saber el total que falta aprobar, necesito el TOTAL de alumnos de la carrera, no de la materia
             Obtengo los alumnos que aun no aprobaron esta materia
         """
         aprobados = self.alumnos_aprobados_materia_series(df, materia)
-        totales = self.alumnos_totales_materia_series(df, materia)
+        totales = self.alumnos_totales_series(df)
         # Hago la resta
         # Me quedo con aquellos que estan como desaprobados/ausentes y no estan en aprobados
         resultado = totales[~totales.isin(aprobados)]
@@ -491,3 +500,13 @@ class DataManipulator:
         else:
             return '{}-S1'.format(fecha.year)
         return periodo
+
+    def get_recursantes(self, cursadas_df, inscriptos_df, cod_materia):
+        #Filtro por materia
+        cursadas_df = self.filtrar_alumnos_de_materia(cursadas_df, cod_materia)
+        inscriptos_df = self.filtrar_alumnos_de_materia(inscriptos_df, cod_materia)
+
+        #Merge por alumno y codigo
+        merge_df = pd.merge(inscriptos_df, cursadas_df, on=['alumno', 'codigo'])
+        recursantes = merge_df['alumno'].value_counts().to_dict()
+        return recursantes

@@ -44,6 +44,12 @@ def get_materiascursadas(request, cod_carrera=None, inicio=None, fin=None):
     df = manipulator.filtrar_periodo(cursadas_data, fecha_inicio, fecha_fin)
     return df
 
+
+def get_alumnos_de_materia_periodo(cod_materia):
+    manipulator = DataManipulator()
+    df = get_materiascursadas()
+    return manipulator.filtrar_alumnos_de_materia(cod_materia)
+
 def get_cantidad_materias_necesarias(request):
     provider = DataProvider()
     # Saco el token del request
@@ -69,23 +75,6 @@ def get_plan(request):
     plan_json = provider.get_plan(token, carrera, plan)
     plan_data = transformer.transform_to_dataframe(plan_json)
     return plan_data
-
-def get_alumnos_de_materia_periodo(request, cod_materia):
-    # Saco el token del request
-    token = get_token(request)
-    # Proceso los argumentos
-    cod_materia = cod_materia.zfill(5)
-    fecha_inicio = request.args.get('inicio')
-    fecha_fin = request.args.get('fin')
-    carreras_str = request.args.get('carreras')
-    carreras = carreras_str.split(',') if carreras_str else []
-    # Traigo las materias cursadas
-    json_data = DataProvider().get_materiascursadas_multiples_carreras(token, carreras)
-    df = DataTransformer().transform_materiascursadas_to_dataframe(json_data)
-    df = DataManipulator().filtrar_alumnos_de_materia_periodo(
-        df, cod_materia, fecha_inicio, fecha_fin)
-    return df
-
 
 def get_materiascursadas_plan(request):
     transformer = DataTransformer()
@@ -136,16 +125,13 @@ def recursantes_materia(cod_materia):
     # Filtro los inscriptos de la carrera y materia
     inscriptos = DataProvider().get_inscriptos(token, carrera)
     inscriptos_df = DataTransformer().transform_materiascursadas_to_dataframe(inscriptos)
-    inscriptos_df = dm.filtrar_alumnos_de_materia(inscriptos_df, cod_materia)
 
     # Filtro las cursadas de la carrera y materia
     cursadas = DataProvider().get_materiascursadas(token, carrera)
     cursadas_df = DataTransformer().transform_materiascursadas_to_dataframe(cursadas)
-    cursadas_df = dm.filtrar_alumnos_de_materia(cursadas_df, cod_materia)
 
-    merge_df = pd.merge(inscriptos_df, cursadas_df, on=['alumno', 'codigo'])
-
-    return merge_df['alumno'].value_counts().to_dict()
+    recursantes = dm.get_recursantes(cursadas_df, inscriptos_df, cod_materia)
+    return recursantes
 
 
 @app.route('/materias/<cod_materia>/detalle-aprobados')
@@ -153,8 +139,7 @@ def recursantes_materia(cod_materia):
 def detalle_aprobados(cod_materia):
     manipulator = DataManipulator()
     transformer = DataTransformer()
-
-    df = get_alumnos_de_materia_periodo(request, cod_materia)
+    df = get_alumnos_de_materia_periodo(cod_materia)
     df = manipulator.filtrar_aprobados(df)
     detalle_aprobados = manipulator.cantidades_formas_aprobacion(df)
     data = detalle_aprobados.to_dict()
@@ -168,7 +153,7 @@ def detalle_aprobados(cod_materia):
 @tiene_jwt
 def datos_basicos_materia(cod_materia):
     manipulator = DataManipulator()
-    df = get_alumnos_de_materia_periodo(request, cod_materia)
+    df = get_materiascursadas()
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
@@ -189,7 +174,7 @@ def dispersion_notas(cod_materia):
     transformer = DataTransformer()
     provider = DataProvider()
     token = get_token(request) # Saco el token del request
-    df = get_alumnos_de_materia_periodo(request, cod_materia)
+    df = get_alumnos_de_materia_periodo(cod_materia)
 
     alumnos_carrera_json = provider.get_alumnos_de_carrera(token, request.args.get('carreras'))
     alumnos_carrera_df = transformer.transform_to_dataframe(alumnos_carrera_json)

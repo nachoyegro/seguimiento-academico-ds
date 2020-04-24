@@ -179,8 +179,8 @@ class DataProvider:
         data = self.retrieve_graduados(token, carrera, anio)
         return json.loads(data)
 
-    def get_inscriptos(self, token, carrera, anio=None):
-        data = self.retrieve_inscriptos(token, carrera, anio)
+    def get_inscriptos(self, token, carrera):
+        data = self.retrieve_inscriptos(token, carrera)
         return json.loads(data)
 
     def get_plan(self, token, carrera, plan):
