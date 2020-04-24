@@ -28,4 +28,31 @@ class MateriaTest(unittest.TestCase):
         """
         recursantes = self.manipulator.get_recursantes(self.df_cursadas, self.df_inscripciones, '90028')
         esperado = {"1": 2, "9": 1}
-        self.assertEqual(recursantes, esperado)
+        self.assertEqual(esperado, recursantes)
+
+
+    def test_detalle_aprobados(self):
+        """
+            Deberia retornar solo una aprobado en ese periodo
+        """
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(
+            self.df_cursadas, '90028', '2001-01-01', '2020-10-10')
+        df = self.manipulator.filtrar_aprobados(alumnos)
+        detalle_aprobados = self.manipulator.cantidades_formas_aprobacion(df)
+        result = detalle_aprobados.to_dict()
+        expected = {"PC": 1}
+        self.assertEqual(expected, result)
+
+    def test_detalle_aprobados_fuera_periodo(self):
+        """
+            Deberia retornar solo una aprobado en ese periodo
+        """
+        alumnos = self.manipulator.filtrar_alumnos_de_materia_periodo(
+            self.df_cursadas, '90028', '2019-01-01', '2020-10-10')
+        df = self.manipulator.filtrar_aprobados(alumnos)
+        detalle_aprobados = self.manipulator.cantidades_formas_aprobacion(df)
+        result = detalle_aprobados.to_dict()
+        expected = {}
+        self.assertEqual(expected, result)
+
+    

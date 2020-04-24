@@ -45,10 +45,10 @@ def get_materiascursadas(request, cod_carrera=None, inicio=None, fin=None):
     return df
 
 
-def get_alumnos_de_materia_periodo(cod_materia):
+def get_alumnos_de_materia_periodo(request, cod_materia):
     manipulator = DataManipulator()
-    df = get_materiascursadas()
-    return manipulator.filtrar_alumnos_de_materia(cod_materia)
+    df = get_materiascursadas(request)
+    return manipulator.filtrar_alumnos_de_materia(df, cod_materia)
 
 def get_cantidad_materias_necesarias(request):
     provider = DataProvider()
@@ -139,7 +139,7 @@ def recursantes_materia(cod_materia):
 def detalle_aprobados(cod_materia):
     manipulator = DataManipulator()
     transformer = DataTransformer()
-    df = get_alumnos_de_materia_periodo(cod_materia)
+    df = get_alumnos_de_materia_periodo(request, cod_materia)
     df = manipulator.filtrar_aprobados(df)
     detalle_aprobados = manipulator.cantidades_formas_aprobacion(df)
     data = detalle_aprobados.to_dict()
@@ -153,7 +153,7 @@ def detalle_aprobados(cod_materia):
 @tiene_jwt
 def datos_basicos_materia(cod_materia):
     manipulator = DataManipulator()
-    df = get_materiascursadas()
+    df = get_materiascursadas(request)
     aprobados = manipulator.cantidad_alumnos_aprobados(df, cod_materia)
     desaprobados = manipulator.cantidad_alumnos_desaprobados(df, cod_materia)
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
@@ -174,9 +174,9 @@ def dispersion_notas(cod_materia):
     transformer = DataTransformer()
     provider = DataProvider()
     token = get_token(request) # Saco el token del request
-    df = get_alumnos_de_materia_periodo(cod_materia)
+    df = get_alumnos_de_materia_periodo(request, cod_materia)
 
-    alumnos_carrera_json = provider.get_alumnos_de_carrera(token, request.args.get('carreras'))
+    alumnos_carrera_json = provider.get_alumnos_de_carrera(token, request.args.get('carrera'))
     alumnos_carrera_df = transformer.transform_to_dataframe(alumnos_carrera_json)
     data = transformer.merge_materias_con_promedio(df, alumnos_carrera_df)
     return json.dumps([{"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": getattr(row, 'nota')} for row in data.itertuples()])
