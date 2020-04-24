@@ -1,0 +1,72 @@
+[
+    {
+        "alumno": "1",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "2",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "3",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "4",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "5",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "6",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "7",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "8",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "9",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    },
+    {
+        "alumno": "10",
+        "fecha_inscripcion": "2011-02-07",
+        "plan": 2011,
+        "promedio": "7",
+        "coeficiente": "7"
+    }
+]
