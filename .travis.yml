@@ -21,6 +21,7 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+  - docker network create seguimiento-academico
   - docker-compose up -d
 
 install:
@@ -30,6 +31,7 @@ script:
   - token=3b3047b4-1a46-4cf4-abfd-e98aeb870d35
   - ci_env="bash <(curl -s https://codecov.io/env)"
   - ci_post_cov="bash <(curl -s https://codecov.io/bash) -t $token"
+  - docker network create seguimiento-academico
   - docker exec -it seguimiento-academico-ds bash -c "cd source && $ci_env && coverage run app.py tests && $ci_post_cov"
 
 after_success:
