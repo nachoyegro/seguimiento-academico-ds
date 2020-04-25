@@ -18,6 +18,11 @@ class AlumnoTest(unittest.TestCase):
         with open('tests/json/api_carreras_plan.json', 'r') as archivo_plan:
             data = json.loads(archivo_plan.read())
             self.df_plan = self.transformer.transform_to_dataframe(data)
+
+        with open('tests/json/api_carrera_planes_anio_cantidad_materias_necesarias.json', 'r') as archivo_plan:
+            data = json.loads(archivo_plan.read())
+            self.cantidad_materias_necesarias = data["cantidad"]
+
         self.dataframe = self.transformer.merge_materias_con_plan(
             self.df_materiascursadas, self.df_plan)
 
@@ -65,4 +70,18 @@ class AlumnoTest(unittest.TestCase):
         # Como en el 2018 tiene un 2, un 7 y un 8, el score de ese semestre deberia ser (2+7+8)/3 = 5.67
         resultado = "%.2f" % scores_unicos[scores_unicos.periodo_semestre == '2018-S2'].score_periodo
         esperado = "5.67"
-        self.assertEqual(esperado, resultado)
+        self.assertEqual(resultado, esperado)
+
+    def test_cantidad_aprobadas(self):
+        materias_alumno = self.manipulator.filtrar_materias_de_alumno(
+            self.dataframe, "1")
+        cantidad_aprobadas = self.manipulator.cantidad_aprobadas(materias_alumno) # Deberian ser 2
+        self.assertEqual(cantidad_aprobadas, 2)
+
+    def test_porcentaje_carrera(self):
+        materias_alumno = self.manipulator.filtrar_materias_de_alumno(
+            self.dataframe, "1")
+        cantidad_aprobadas = self.manipulator.cantidad_aprobadas(materias_alumno) # Deberian ser 2
+
+        porcentaje = self.manipulator.porcentaje_aprobadas(cantidad_aprobadas, self.cantidad_materias_necesarias) # (2/40)*100 = 5
+        self.assertEqual(porcentaje, 5)
