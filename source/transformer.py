@@ -24,13 +24,14 @@ class DataTransformer:
     def merge_materias_con_promedio(self, materias, alumnos):
         return pd.merge(materias, alumnos, on=['alumno'])
 
-    def transform_timestamp_to_date(self, timestamp):
+    def transform_timestamp_to_datetime(self, timestamp):
         from datetime import datetime
         return datetime.strptime(str(timestamp), '%Y-%m-%d %H:%M:%S')
 
     def transform_date_to_semester(self, date):
         """
-            Las fechas que pueden venir son julio o diciembre
+            Las fechas que pueden venir son julio o diciembre.
+            Asi las agrupa Pandas
         """
         if date.month >= 1 and date.month <= 6:
             # Como los datos se agrupan de a 6 meses, el primer semestre lo pone como mes 1
@@ -39,8 +40,11 @@ class DataTransformer:
             return '{}-S2'.format(date.year)
 
     def transform_timestamp_to_semester(self, timestamp):
+        """
+            Dado un timestamp, digo a que semestre pertenece
+        """
         import datetime
-        date = self.transform_timestamp_to_date(timestamp)
+        date = self.transform_timestamp_to_datetime(timestamp)
         semester = self.transform_date_to_semester(date)
         return semester
 
@@ -65,6 +69,11 @@ class DataTransformer:
         return periodo
 
     def periodo_semestre(self, periodo):
+        """
+            Recibe un una fecha agrupada en un periodo.
+            Si el mes que viene es 12, fue agrupada como segundo semestre
+            Sino, es primer semestre
+        """
         from datetime import datetime
         fecha = datetime.strptime(str(periodo), '%Y-%m-%d')
         if fecha.month == 12:
@@ -74,4 +83,7 @@ class DataTransformer:
         return periodo
 
     def get_forma_aprobacion(self, forma_aprobacion):
-        return self.formas_aprobacion[forma_aprobacion]
+        try:
+            return self.formas_aprobacion[forma_aprobacion]
+        except:
+            return None

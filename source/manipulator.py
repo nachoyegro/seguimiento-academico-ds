@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 import numpy as np
+from transformer import DataTransformer
 
 class DataManipulator:
 
@@ -396,8 +397,9 @@ class DataManipulator:
         return df
 
     def row_periodos(self, row):
-        row['fecha_periodo'] = self.fecha_periodo(row.fecha)
-        row['periodo_semestre'] = self.periodo_semestre(row['fecha_periodo'])
+        transformer = DataTransformer()
+        row['fecha_periodo'] = transformer.fecha_periodo(row.fecha)
+        row['periodo_semestre'] = transformer.periodo_semestre(row['fecha_periodo'])
         return row
 
     def row_score_periodo(self, row, df, x):
@@ -469,37 +471,6 @@ class DataManipulator:
         # Aplico los scores
         data = self.aplicar_scores(periodos)
         return data
-
-    #Dada una fecha, quiero saber a que período pertenece
-    def fecha_periodo(self, fecha_str):
-        """
-            Si la fecha es mayor a octubre:
-                periodo: anio-12-31
-            Si la fecha es menor a Marzo:
-                periodo: anioAnterior-12-31
-            Si la fecha es mayor a marzo y menor a octubre
-                periodo: anio-06-30
-        """
-        from datetime import datetime
-        fecha = datetime.strptime(str(fecha_str), '%Y-%m-%d')
-        if fecha.month > 10:
-            return '{}-12-31'.format(fecha.year)
-        elif fecha.month <= 3:
-            return '{}-12-31'.format(fecha.year - 1)
-        else:
-            return '{}-06-30'.format(fecha.year)
-        return periodo
-
-    #fecha_periodo('2019-02-10') == '2018-12-31'
-
-    def periodo_semestre(self, periodo):
-        from datetime import datetime
-        fecha = datetime.strptime(str(periodo), '%Y-%m-%d')
-        if fecha.month == 12:
-            return '{}-S2'.format(fecha.year)
-        else:
-            return '{}-S1'.format(fecha.year)
-        return periodo
 
     def get_recursantes(self, cursadas_df, inscriptos_df, cod_materia):
         #Filtro por materia
