@@ -58,3 +58,11 @@ class AlumnoTest(unittest.TestCase):
         data = self.manipulator.porcentajes_aprobadas_nucleos(
         self.df_plan, filtradas_periodo)
         self.assertEqual("%.2f" % data['I'], '0.00') # Segun el mock, tiene el 0%
+
+    def test_scores(self):
+        scores = self.manipulator.get_scores_alumno(self.dataframe, "1")
+        scores_unicos = self.transformer.transform_scores_unicos(scores)
+        # Como en el 2018 tiene un 2, un 7 y un 8, el score de ese semestre deberia ser (2+7+8)/3 = 5.67
+        resultado = "%.2f" % scores_unicos[scores_unicos.periodo_semestre == '2018-S2'].score_periodo
+        esperado = "5.67"
+        self.assertEqual(esperado, resultado)
