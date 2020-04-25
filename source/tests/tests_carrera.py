@@ -10,7 +10,7 @@ class CarreraTest(unittest.TestCase):
 
     def setUp(self):
         self.manipulator = DataManipulator()
-        transformer = DataTransformer()
+        self.transformer = DataTransformer()
         with open('tests/alumnos_test.json', 'r') as archivo_alumnos:
             data = json.loads(archivo_alumnos.read())
             df_materias = transformer.transform_to_dataframe(data)
