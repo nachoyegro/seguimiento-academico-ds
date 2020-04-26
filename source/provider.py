@@ -22,16 +22,7 @@ class DataProvider:
 
     def get_headers(self, token):
         return {'Authorization': 'Bearer ' + token}
-
-    def retrieve_alumnos(self, token):
-        # token = self.retrieve_token(**kwargs)
-        headers = self.get_headers(token)
-        response = requests.get(app.config['ALUMNOS_URL'], headers=headers)
-        if response.status_code == 200:
-            return response.text
-        else:
-            raise Exception
-
+        
     def retrieve_alumnos_de_carrera(self, token, carrera):
         headers = self.get_headers(token)
         response = requests.get(app.config['ALUMNOS_CARRERA_URL'].format(
