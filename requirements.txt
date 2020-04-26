@@ -8,3 +8,4 @@ requests==2.22.0
 pandas==0.25.1
 coverage==4.5.4
 PyJWT==1.4.2
+http-server-mock==1.5
