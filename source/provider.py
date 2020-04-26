@@ -110,11 +110,11 @@ class DataProvider:
 
     def retrieve_cursantes(self, token, carrera, anio=None):
         """
-            Trae los cursantes historicos de una carrera
+            Trae los cursantes de una carrera
         """
         headers = self.get_headers(token)
         url = app.config['CURSANTES_URL'].format(carrera) 
-        response = requests.get(url + str(anio) if anio else url, headers=headers)
+        response = requests.get(url + str(anio) + '/' if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
@@ -122,11 +122,23 @@ class DataProvider:
 
     def retrieve_ingresantes(self, token, carrera, anio=None):
         """
-            Trae los ingresantes historicos de una carrera
+            Trae los ingresantes de una carrera
         """
         headers = self.get_headers(token)
         url = app.config['INGRESANTES_URL'].format(carrera) 
-        response = requests.get(url + str(anio) if anio else url, headers=headers)
+        response = requests.get(url + str(anio) + '/' if anio else url, headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return []
+
+    def retrieve_postulantes(self, token, carrera, anio=None):
+        """
+            Trae los postulantes de una carrera
+        """
+        headers = self.get_headers(token)
+        url = app.config['POSTULANTES_URL'].format(carrera) 
+        response = requests.get(url + str(anio) + '/' if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
@@ -138,7 +150,7 @@ class DataProvider:
         """
         headers = self.get_headers(token)
         url = app.config['GRADUADOS_URL'].format(carrera) 
-        response = requests.get(url + str(anio) if anio else url, headers=headers)
+        response = requests.get(url + str(anio) + '/' if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
@@ -164,6 +176,10 @@ class DataProvider:
 
     def get_ingresantes(self, token, carrera, anio=None):
         data = self.retrieve_ingresantes(token, carrera, anio)
+        return json.loads(data)
+
+    def get_postulantes(self, token, carrera, anio=None):
+        data = self.retrieve_postulantes(token, carrera, anio)
         return json.loads(data)
 
     def get_graduados(self, token, carrera, anio=None):
