@@ -15,7 +15,7 @@ class AlumnoTest(unittest.TestCase):
             data = json.loads(archivo_alumnos.read())
             self.df_materiascursadas = self.transformer.transform_materiascursadas_to_dataframe(data)
 
-        with open('tests/json/api_carreras_plan.json', 'r') as archivo_plan:
+        with open('tests/json/api_carreras_planes_anio.json', 'r') as archivo_plan:
             data = json.loads(archivo_plan.read())
             self.df_plan = self.transformer.transform_to_dataframe(data)
 

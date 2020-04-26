@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "anio": 2012,
+        "carrera": "W",
+        "materias_necesarias": 40
+    },
+    {
+        "id": 2,
+        "anio": 2015,
+        "carrera": "W",
+        "materias_necesarias": 40
+    },
+    {
+        "id": 3,
+        "anio": 2019,
+        "carrera": "W",
+        "materias_necesarias": 40
+    }
+]

@@ -7,7 +7,7 @@ import json
 from config import app
 from unittest import TestLoader, runner
 from argparse import ArgumentParser
-from jwt_decorator import tiene_jwt, get_token
+from decorators import tiene_jwt, get_token
 import pandas as pd
 from datetime import date, timedelta
 

@@ -4,6 +4,7 @@ import functools
 from flask import abort, request
 import jwt
 from config import app
+from provider import DataProvider
 
 
 def get_token(request):
@@ -33,3 +34,4 @@ def tiene_jwt(f):
             abort(401, 'Se necesita un token')
         return f(*args, **kwargs)
     return decorated_function
+    

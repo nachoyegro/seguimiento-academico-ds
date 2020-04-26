@@ -1,0 +1,19 @@
+#Docker compose version
+version: '3.2'
+services:
+  alumnos-ds:
+    container_name: seguimiento-academico-ds
+    restart: always
+    build: .
+    command: python3 source/app.py runserver
+    volumes:
+      - .:/code
+    ports:
+      - "5000:5000"
+    environment:
+      STAGE: 'test'
+      DEBUG: 'true'
+networks:
+  default:
+    external:
+      name: seguimiento-academico

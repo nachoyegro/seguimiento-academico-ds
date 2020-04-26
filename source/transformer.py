@@ -66,7 +66,6 @@ class DataTransformer:
             return '{}-12-31'.format(fecha.year - 1)
         else:
             return '{}-06-30'.format(fecha.year)
-        return periodo
 
     def periodo_semestre(self, periodo):
         """
@@ -80,7 +79,6 @@ class DataTransformer:
             return '{}-S2'.format(fecha.year)
         else:
             return '{}-S1'.format(fecha.year)
-        return periodo
 
     def get_forma_aprobacion(self, forma_aprobacion):
         try:
