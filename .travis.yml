@@ -10,8 +10,7 @@ services:
 - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.14.0
-  - STAGE="test"
+  - DOCKER_COMPOSE_VERSION=1.14.0 STAGE="test"
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
