@@ -1,5 +1,5 @@
 # app.py - a minimal flask api using flask_restful
-from flask import Flask, escape, request
+from flask import Flask, escape, request, Blueprint
 from provider import DataProvider
 from transformer import DataTransformer
 from manipulator import DataManipulator
@@ -20,6 +20,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
+bp = Blueprint('rutas', __name__)
 
 def get_materiascursadas(request, cod_carrera=None, inicio=None, fin=None):
 
@@ -96,7 +97,7 @@ def get_materiascursadas_promedio(request, carrera, inicio=None, fin=None):
     data = transformer.merge_materias_con_promedio(cursadas_data, alumnos_carrera_df)
     return data
 
-@app.route('/')
+@bp.route('/')
 def home():
     """
         Token must come as part of the request
@@ -112,10 +113,9 @@ def home():
     return json.dumps(data)
 
 
-@app.route('/materias/<cod_materia>/recursantes')
+@bp.route('/materias/<cod_materia>/recursantes')
 @tiene_jwt
 def recursantes_materia(cod_materia):
-
     token = get_token(request)
 
     cod_materia = cod_materia.zfill(5)
@@ -134,7 +134,7 @@ def recursantes_materia(cod_materia):
     return recursantes
 
 
-@app.route('/materias/<cod_materia>/detalle-aprobados')
+@bp.route('/materias/<cod_materia>/detalle-aprobados')
 @tiene_jwt
 def detalle_aprobados(cod_materia):
     manipulator = DataManipulator()
@@ -149,7 +149,7 @@ def detalle_aprobados(cod_materia):
     return json.dumps([resultado])
 
 
-@app.route('/materias/<cod_materia>/basicos')
+@bp.route('/materias/<cod_materia>/basicos')
 @tiene_jwt
 def datos_basicos_materia(cod_materia):
     manipulator = DataManipulator()
@@ -168,7 +168,7 @@ def datos_basicos_materia(cod_materia):
 
 
 
-@app.route('/materias/<cod_materia>/dispersion-notas')
+@bp.route('/materias/<cod_materia>/dispersion-notas')
 @tiene_jwt
 def dispersion_notas(cod_materia):
     transformer = DataTransformer()
@@ -182,7 +182,7 @@ def dispersion_notas(cod_materia):
     return json.dumps([{"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": getattr(row, 'nota')} for row in data.itertuples()])
 
 
-@app.route('/alumnos/<legajo>/porcentajes-areas')
+@bp.route('/alumnos/<legajo>/porcentajes-areas')
 @tiene_jwt
 def porcentajes_areas_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -199,7 +199,7 @@ def porcentajes_areas_alumno(legajo):
     return json.dumps([{"nombre": nombre, "valor": valor} for nombre, valor in data.items()])
 
 
-@app.route('/alumnos/<legajo>/porcentajes-nucleos')
+@bp.route('/alumnos/<legajo>/porcentajes-nucleos')
 @tiene_jwt
 def porcentajes_nucleos_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -216,7 +216,7 @@ def porcentajes_nucleos_alumno(legajo):
     return json.dumps([{"nombre": nombre, "valor": valor} for nombre, valor in data.items()])
 
 
-@app.route('/carreras/<carrera>/alumnos')
+@bp.route('/carreras/<carrera>/alumnos')
 @tiene_jwt
 def alumnos_carrera(carrera):
     token = get_token(request)
@@ -226,7 +226,7 @@ def alumnos_carrera(carrera):
     inscriptos = DataManipulator().inscriptos_por_carrera(data)['alumno']
     return json.dumps([{"nombre": transformer.transform_timestamp_to_semester(key), "cantidad": value} for key, value in inscriptos.items()])
 
-@app.route('/carreras/<carrera>/cantidades-alumnos')
+@bp.route('/carreras/<carrera>/cantidades-alumnos')
 @tiene_jwt
 def cantidades_alumnos_carrera(carrera):
     '''
@@ -244,7 +244,7 @@ def cantidades_alumnos_carrera(carrera):
                         for i in range(0, len(cursantes))
                         ])
 
-@app.route('/carreras/<carrera>/cantidades-ingresantes')
+@bp.route('/carreras/<carrera>/cantidades-ingresantes')
 @tiene_jwt
 def cantidades_ingresantes_carrera(carrera):
     '''
@@ -257,7 +257,7 @@ def cantidades_ingresantes_carrera(carrera):
 
 
 
-@app.route('/carreras/<carrera>/cursantes-actual')
+@bp.route('/carreras/<carrera>/cursantes-actual')
 @tiene_jwt
 def cantidad_cursantes_actual(carrera):
     token = get_token(request)
@@ -266,7 +266,7 @@ def cantidad_cursantes_actual(carrera):
     cursantes = provider.get_cursantes(token, carrera, anio)
     return json.dumps({'nombre': 'Cursantes del año actual', 'valor': cursantes["cantidad"]})
 
-@app.route('/carreras/<carrera>/ingresantes-actual')
+@bp.route('/carreras/<carrera>/ingresantes-actual')
 @tiene_jwt
 def cantidad_ingresantes_actual(carrera):
     token = get_token(request)
@@ -275,7 +275,7 @@ def cantidad_ingresantes_actual(carrera):
     cursantes = provider.get_ingresantes(token, carrera, anio)
     return json.dumps({'nombre': 'Ingresantes del año actual', 'valor': cursantes["cantidad"]})
 
-@app.route('/carreras/<carrera>/graduados-total')
+@bp.route('/carreras/<carrera>/graduados-total')
 @tiene_jwt
 def cantidad_graduados(carrera):
     token = get_token(request)
@@ -284,11 +284,11 @@ def cantidad_graduados(carrera):
     cursantes = provider.get_graduados(token, carrera, anio)
     return json.dumps({'nombre': 'Graduados', 'valor': cursantes["cantidad"]})
 
-@app.route('/widget')
+@bp.route('/widget')
 def widget():
     return json.dumps({'nombre': 'Aprobados', 'valor': 55})
 
-@app.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
+@bp.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
 @tiene_jwt
 def porcentajes_creditos_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -304,7 +304,7 @@ def porcentajes_creditos_alumno(legajo):
     return json.dumps([porcentajes])
 
 
-@app.route('/alumnos/<legajo>/porcentajes-creditos-areas')
+@bp.route('/alumnos/<legajo>/porcentajes-creditos-areas')
 @tiene_jwt
 def porcentajes_creditos_areas(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -320,7 +320,7 @@ def porcentajes_creditos_areas(legajo):
     return json.dumps([porcentajes])
 
 
-@app.route('/alumnos/<legajo>/creditos-nucleos')
+@bp.route('/alumnos/<legajo>/creditos-nucleos')
 @tiene_jwt
 def creditos_nucleos(legajo):
     merged_data, _, _ = get_materiascursadas_plan(request)
@@ -337,7 +337,7 @@ def creditos_nucleos(legajo):
     return json.dumps([data])
 
 
-@app.route('/alumnos/<legajo>/creditos-areas')
+@bp.route('/alumnos/<legajo>/creditos-areas')
 @tiene_jwt
 def creditos_areas(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -354,7 +354,7 @@ def creditos_areas(legajo):
 
     return json.dumps([data])
 
-@app.route('/alumnos/<legajo>/notas')
+@bp.route('/alumnos/<legajo>/notas')
 @tiene_jwt
 def notas_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -364,7 +364,7 @@ def notas_alumno(legajo):
         merged_data, legajo)
     return json.dumps([{'Fecha': row['fecha'], 'Materia': row['materia'], 'Plan': row['plan'], 'Nota': row['nota']} for index, row in materias_alumno.iterrows()])
 
-@app.route('/alumnos/<legajo>/scores')
+@bp.route('/alumnos/<legajo>/scores')
 @tiene_jwt
 def promedios_alumno(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -372,7 +372,7 @@ def promedios_alumno(legajo):
     scores = manipulator.get_scores_alumno(merged_data, legajo)
     return json.dumps([{"nombre": row["periodo_semestre"], "valor": row["score_periodo"]} for index,row in DataTransformer().transform_scores_unicos(scores).iterrows()])
 
-@app.route('/alumnos/<legajo>/porcentaje-carrera')
+@bp.route('/alumnos/<legajo>/porcentaje-carrera')
 @tiene_jwt
 def alumno_porcentaje_carrera(legajo):
     merged_data, _, plan_data = get_materiascursadas_plan(request)
@@ -385,7 +385,7 @@ def alumno_porcentaje_carrera(legajo):
     porcentaje = manipulator.porcentaje_aprobadas(cantidad_aprobadas, cantidad_materias_necesarias)
     return json.dumps({'nombre': 'Porcentaje de avance', 'valor': porcentaje})
     
-@app.route('/carreras/<carrera>/dispersion-score-promedio')
+@bp.route('/carreras/<carrera>/dispersion-score-promedio')
 @tiene_jwt
 def dispersion_score_avance(carrera):
     fin = date.today()
@@ -401,8 +401,9 @@ def runserver():
 
 
 def tests():
+    app.testing = True
     loader = TestLoader()
-    tests = loader.discover('tests/')
+    tests = loader.discover('source/tests/')
     testRunner = runner.TextTestRunner()
     testRunner.run(tests)
 

@@ -11,15 +11,15 @@ class MateriaTest(unittest.TestCase):
     def setUp(self):
         self.manipulator = DataManipulator()
         self.transformer = DataTransformer()
-        with open('tests/json/api_carreras_inscripciones.json', 'r') as archivo_alumnos:
+        with open('source/tests/json/api_carreras_inscripciones.json', 'r') as archivo_alumnos:
             data = json.loads(archivo_alumnos.read())
             self.df_inscripciones = self.transformer.transform_materiascursadas_to_dataframe(data)
 
-        with open('tests/json/api_carreras_materiascursadas.json', 'r') as archivo_alumnos:
+        with open('source/tests/json/api_carreras_materiascursadas.json', 'r') as archivo_alumnos:
             data = json.loads(archivo_alumnos.read())
             self.df_cursadas = self.transformer.transform_materiascursadas_to_dataframe(data)
 
-        with open('tests/json/api_carreras_alumnos.json', 'r') as archivo_alumnos:
+        with open('source/tests/json/api_carreras_alumnos.json', 'r') as archivo_alumnos:
             data = json.loads(archivo_alumnos.read())
             self.df_alumnos = self.transformer.transform_to_dataframe(data)
 

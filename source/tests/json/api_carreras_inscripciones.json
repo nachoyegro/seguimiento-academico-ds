@@ -3,7 +3,7 @@
         "id": 1,
         "materia": "90028",
         "alumno": "1",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "90028-12-CYT1Y2"
     },
@@ -11,7 +11,7 @@
         "id": 2,
         "materia": "80005",
         "alumno": "2",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "80005-09-CYT2"
     },
@@ -19,7 +19,7 @@
         "id": 3,
         "materia": "01313",
         "alumno": "3",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "01313-1-CW"
     },
@@ -27,7 +27,7 @@
         "id": 4,
         "materia": "01307",
         "alumno": "4",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "1307-1-CW"
     },
@@ -35,7 +35,7 @@
         "id": 5,
         "materia": "01312",
         "alumno": "5",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "1312-1-G14"
     },
@@ -43,7 +43,7 @@
         "id": 6,
         "materia": "01033",
         "alumno": "6",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "1033-2-G14"
     },
@@ -51,7 +51,7 @@
         "id": 7,
         "materia": "01039",
         "alumno": "7",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "1039-1-G14"
     },
@@ -59,7 +59,7 @@
         "id": 8,
         "materia": "00054",
         "alumno": "8",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "54-7-G15"
     },
@@ -67,7 +67,7 @@
         "id": 9,
         "materia": "90028",
         "alumno": "9",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "90028-1-G14"
     },
@@ -75,7 +75,7 @@
         "id": 10,
         "materia": "00487",
         "alumno": "10",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-08-08",
         "comision": "487-4-G14"
     }
