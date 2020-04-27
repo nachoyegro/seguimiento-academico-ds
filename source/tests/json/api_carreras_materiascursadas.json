@@ -3,7 +3,7 @@
         "materia": "90000",
         "nota": "8",
         "alumno": "1",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-02-07",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -12,7 +12,7 @@
         "materia": "80005",
         "nota": "7",
         "alumno": "1",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-02-07",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -21,7 +21,7 @@
         "materia": "90028",
         "nota": "2",
         "alumno": "1",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-02-07",
         "resultado": "R",
         "forma_aprobacion": "Ex"
@@ -30,7 +30,7 @@
         "materia": "90028",
         "nota": "3",
         "alumno": "1",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2018-02-07",
         "resultado": "R",
         "forma_aprobacion": "Ex"
@@ -39,7 +39,7 @@
         "materia": "80003",
         "nota": "9",
         "alumno": "2",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-02-07",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -48,7 +48,7 @@
         "materia": "01032",
         "nota": "6",
         "alumno": "2",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-07-23",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -57,7 +57,7 @@
         "materia": "80000",
         "nota": "8",
         "alumno": "2",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-02-07",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -66,7 +66,7 @@
         "materia": "00752",
         "nota": "10",
         "alumno": "3",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2019-02-07",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -75,7 +75,7 @@
         "materia": "90000",
         "nota": "A",
         "alumno": "4",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2014-02-26",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -84,7 +84,7 @@
         "materia": "01033",
         "nota": "",
         "alumno": "4",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2014-07-23",
         "resultado": "U",
         "forma_aprobacion": "P"
@@ -93,7 +93,7 @@
         "materia": "01304",
         "nota": "",
         "alumno": "5",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-12-12",
         "resultado": "U",
         "forma_aprobacion": "P"
@@ -102,7 +102,7 @@
         "materia": "90000",
         "nota": "A",
         "alumno": "6",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -111,7 +111,7 @@
         "materia": "00487",
         "nota": "8",
         "alumno": "7",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -120,7 +120,7 @@
         "materia": "01051",
         "nota": "8",
         "alumno": "8",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -129,7 +129,7 @@
         "materia": "01036",
         "nota": "7",
         "alumno": "8",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -138,7 +138,7 @@
         "materia": "01045",
         "nota": "PA",
         "alumno": "9",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "E",
         "forma_aprobacion": "P"
@@ -147,7 +147,7 @@
         "materia": "90028",
         "nota": "2",
         "alumno": "9",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "R",
         "forma_aprobacion": "Ex"
@@ -156,7 +156,7 @@
         "materia": "01044",
         "nota": "9",
         "alumno": "10",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "P",
         "forma_aprobacion": "PC"
@@ -165,7 +165,7 @@
         "materia": "90028",
         "nota": "1",
         "alumno": "10",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "R",
         "forma_aprobacion": "Ex"
@@ -174,7 +174,7 @@
         "materia": "90028",
         "nota": "A",
         "alumno": "10",
-        "carrera": "W",
+        "carrera": "TEST",
         "fecha": "2013-07-31",
         "resultado": "P",
         "forma_aprobacion": "PC"

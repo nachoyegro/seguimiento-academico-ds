@@ -1,5 +1,5 @@
 # app.py - a minimal flask api using flask_restful
-from flask import Flask, escape, request
+from flask import Flask, escape, request, Blueprint
 from provider import DataProvider
 from transformer import DataTransformer
 from manipulator import DataManipulator
@@ -20,6 +20,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
+app = Blueprint('app', __name__)
 
 def get_materiascursadas(request, cod_carrera=None, inicio=None, fin=None):
 
@@ -115,7 +116,6 @@ def home():
 @app.route('/materias/<cod_materia>/recursantes')
 @tiene_jwt
 def recursantes_materia(cod_materia):
-
     token = get_token(request)
 
     cod_materia = cod_materia.zfill(5)
