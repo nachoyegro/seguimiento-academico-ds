@@ -4,8 +4,9 @@ services:
   alumnos-ds:
     container_name: seguimiento-academico-ds
     restart: always
-    build: .
-    command: coverage run source/app.py tests
+    build: 
+      context: .
+      dockerfile: Dockerfile-test
     volumes:
       - .:/code
     ports:
