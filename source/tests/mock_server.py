@@ -17,84 +17,84 @@ def token():
 
 @mock_app.route("/api/carreras/TEST/alumnos/", methods=["GET"])
 def carrera_alumnos():
-    with open('tests/json/api_carreras_alumnos.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_alumnos.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/planes/2015/cantidad-materias-necesarias/", methods=["GET"])
 def carrera_plan_materias_necesarias():
-    with open('tests/json/api_carrera_planes_anio_cantidad_materias_necesarias.json', 'r') as archivo:
+    with open('source/tests/json/api_carrera_planes_anio_cantidad_materias_necesarias.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
     
 @mock_app.route("/api/carreras/TEST/planes/", methods=["GET"])
 def carrera_planes():
-    with open('tests/json/api_carreras_planes.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_planes.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/planes/2015/", methods=["GET"])
 def carrera_planes_anio():
-    with open('tests/json/api_carreras_planes_anio.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_planes_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/inscripciones/", methods=["GET"])
 def carrera_inscripciones():
-    with open('tests/json/api_carreras_inscripciones.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_inscripciones.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-graduados/", methods=["GET"])
 def carrera_cantidad_graduados():
-    with open('tests/json/api_carreras_cantidad_graduados.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_graduados.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-graduados/2019/", methods=["GET"])
 def carrera_cantidad_graduados_anio():
-    with open('tests/json/api_carreras_cantidad_graduados_anio.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_graduados_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-postulantes/", methods=["GET"])
 def carrera_cantidad_postulantes():
-    with open('tests/json/api_carreras_cantidad_postulantes.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_postulantes.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-postulantes/2019/", methods=["GET"])
 def carrera_cantidad_postulantes_anio():
-    with open('tests/json/api_carreras_cantidad_postulantes_anio.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_postulantes_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-ingresantes/", methods=["GET"])
 def carrera_cantidad_ingresantes():
-    with open('tests/json/api_carreras_cantidad_ingresantes.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_ingresantes.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-ingresantes/2019/", methods=["GET"])
 def carrera_cantidad_ingresantes_anio():
-    with open('tests/json/api_carreras_cantidad_ingresantes_anio.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_ingresantes_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-cursantes/", methods=["GET"])
 def carrera_cantidad_cursantes():
-    with open('tests/json/api_carreras_cantidad_cursantes.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_cursantes.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/cantidad-cursantes/2019/", methods=["GET"])
 def carrera_cantidad_cursantes_anio():
-    with open('tests/json/api_carreras_cantidad_cursantes_anio.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_cantidad_cursantes_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
 
 @mock_app.route("/api/carreras/TEST/materiascursadas/", methods=["GET"])
 def carrera_materiascursadas():
-    with open('tests/json/api_carreras_materiascursadas.json', 'r') as archivo:
+    with open('source/tests/json/api_carreras_materiascursadas.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)

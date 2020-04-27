@@ -11,15 +11,15 @@ class AlumnoTest(unittest.TestCase):
     def setUp(self):
         self.manipulator = DataManipulator()
         self.transformer = DataTransformer()
-        with open('tests/json/api_carreras_materiascursadas.json', 'r') as archivo_alumnos:
+        with open('source/tests/json/api_carreras_materiascursadas.json', 'r') as archivo_alumnos:
             data = json.loads(archivo_alumnos.read())
             self.df_materiascursadas = self.transformer.transform_materiascursadas_to_dataframe(data)
 
-        with open('tests/json/api_carreras_planes_anio.json', 'r') as archivo_plan:
+        with open('source/tests/json/api_carreras_planes_anio.json', 'r') as archivo_plan:
             data = json.loads(archivo_plan.read())
             self.df_plan = self.transformer.transform_to_dataframe(data)
 
-        with open('tests/json/api_carrera_planes_anio_cantidad_materias_necesarias.json', 'r') as archivo_plan:
+        with open('source/tests/json/api_carrera_planes_anio_cantidad_materias_necesarias.json', 'r') as archivo_plan:
             data = json.loads(archivo_plan.read())
             self.cantidad_materias_necesarias = data["cantidad"]
 

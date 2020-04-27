@@ -5,7 +5,7 @@ services:
     container_name: seguimiento-academico-ds
     restart: always
     build: .
-    command: python3 source/app.py runserver
+    command: coverage run source/app.py tests
     volumes:
       - .:/code
     ports:

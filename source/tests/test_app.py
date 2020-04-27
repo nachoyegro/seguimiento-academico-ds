@@ -3,11 +3,11 @@ import json
 import requests
 from provider import DataProvider
 from mock_server import mock_app
-from app import app
+from app import bp
 from flask import Flask
 
 test_app = Flask(__name__)
-test_app.register_blueprint(app)
+test_app.register_blueprint(bp)
 
 class AppTest(unittest.TestCase):
 
