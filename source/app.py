@@ -303,7 +303,7 @@ def alumno_porcentaje_carrera(legajo):
 @tiene_jwt
 def dispersion_score_avance(carrera):
     fin = date.today()
-    inicio = fin - timedelta(days=365)
+    inicio = fin - timedelta(days=int(request.args.get('dias')))
 
     data = get_materiascursadas_promedio(request, carrera, inicio.strftime('%Y-%m-%d'), fin.strftime('%Y-%m-%d'))
     scores = DataManipulator().get_scores_periodos(data)

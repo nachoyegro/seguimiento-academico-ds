@@ -121,14 +121,6 @@ class DataManipulator:
         aprobados = self.aprobados_de_materia(df, materia)
         return pd.Series(pd.unique(aprobados['alumno']))
 
-    def alumnos_totales_materia_series(self, df, materia):
-        """
-            Obtengo los alumnos totales de una materia
-            :return Series
-        """
-        alumnos = pd.unique(df['alumno'])
-        return pd.Series(alumnos)
-
     def alumnos_totales_series(self, df):
         """
             Obtengo los alumnos totales
@@ -148,9 +140,6 @@ class DataManipulator:
         # Me quedo con aquellos que estan como desaprobados/ausentes y no estan en aprobados
         resultado = totales[~totales.isin(aprobados)]
         return resultado
-
-    def cantidad_creditos(self, df):
-        return int(df['creditos'].sum())
 
     def cantidad_alumnos_falta_aprobar(self, df, materia):
         return len(self.alumnos_falta_aprobar_materia_series(df, materia))
@@ -275,69 +264,6 @@ class DataManipulator:
             if nucleo:
                 result[nucleo] = self.porcentaje_aprobadas_nucleo(
                     plan_data, cursadas_data, nucleo)
-        return result
-
-    def porcentaje_creditos(self, total_creditos, df):
-        if total_creditos:
-            return (float(self.cantidad_creditos(df)) / total_creditos) * 100
-        else:
-            return 0
-
-    def cantidad_creditos_nucleo(self, data, nucleo):
-        nucleo_data = self.filtrar_nucleo(data, nucleo)
-        return self.cantidad_creditos(nucleo_data)
-
-    def cantidades_creditos_nucleos(self, data, nucleos):
-        result = {}
-        for nucleo in nucleos:
-            # Filtro los nucleos
-            result[nucleo] = self.cantidad_creditos_nucleo(data, nucleo)
-        return result
-
-    def cantidad_creditos_area(self, data, area):
-        area_data = self.filtrar_area(data, area)
-        return self.cantidad_creditos(area_data)
-
-    def cantidades_creditos_areas(self, data, areas):
-        result = {}
-        for area in areas:
-            # Filtro las areas
-            result[area] = self.cantidad_creditos_area(data, area)
-        return result
-
-    def porcentajes_creditos_areas(self, plan_data, cursadas_data):
-        """
-            Precondicion: se asume que las cursadas ya estan filtradas por el alumno
-        """
-        result = {}
-        areas = self.areas_unicas(plan_data)
-        for area in areas:
-            area_data = self.filtrar_materias_obligatorias_area(
-                plan_data, area)
-            creditos_area = self.cantidad_creditos(area_data)
-
-            alumno_area_data = self.filtrar_materias_obligatorias_area(
-                cursadas_data, area)
-            result[area] = self.porcentaje_creditos(
-                creditos_area, alumno_area_data)
-        return result
-
-    def porcentajes_creditos_nucleos(self, plan_data, cursadas_data):
-        """
-            Precondicion: se asume que las cursadas ya estan filtradas por el alumno
-        """
-        result = {}
-        nucleos = self.nucleos_unicos(plan_data)
-        for nucleo in nucleos:
-            if nucleo:
-                nucleo_data = self.filtrar_nucleo(
-                    plan_data, nucleo)
-                creditos_nucleo = self.cantidad_creditos(nucleo_data)
-
-                alumno_nucleo_data = self.filtrar_nucleo(
-                    cursadas_data, nucleo)
-                result[nucleo] = self.porcentaje_creditos(
-                    creditos_nucleo, alumno_nucleo_data)
         return result
 
     def cantidades_formas_aprobacion(self, df):

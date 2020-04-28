@@ -86,16 +86,6 @@ class DataProvider:
             result = json.loads(data)
         return result
 
-    def get_materiascursadas_multiples_carreras(self, token, carreras):
-        """
-            Concatena las materias cursadas de todas las carreras pedidas
-            return JSON
-        """
-        result = []
-        for carrera in carreras:
-            result += self.get_materiascursadas(token, carrera)
-        return result
-
     def retrieve_materiascursadas(self, token, carrera):
         """
             Trae las materias cursadas desde el backend
