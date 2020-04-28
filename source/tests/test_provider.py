@@ -21,13 +21,13 @@ class ProviderTest(unittest.TestCase):
     def test_get_cantidad_materias_necesarias(self):
         with self.mock_app.run(self.url, self.port):
             token = self.provider.retrieve_token()
-            materias_necesarias = self.provider.get_cantidad_materias_necesarias(token, 'TEST', 2015)
+            materias_necesarias = self.provider.get_cantidad_materias_necesarias(token, 'TEST', 2019)
             self.assertEqual(materias_necesarias['cantidad'], 40)
 
     def test_get_plan(self):
         with self.mock_app.run(self.url, self.port):
             token = self.provider.retrieve_token()
-            materias = self.provider.get_plan(token, 'TEST', 2015)
+            materias = self.provider.get_plan(token, 'TEST', 2019)
             self.assertEqual(len(materias), 59)
 
     def test_get_inscriptos(self):

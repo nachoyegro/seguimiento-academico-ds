@@ -21,7 +21,7 @@ def carrera_alumnos():
         data = json.loads(archivo.read())
     return json.dumps(data)
 
-@mock_app.route("/api/carreras/TEST/planes/2015/cantidad-materias-necesarias/", methods=["GET"])
+@mock_app.route("/api/carreras/TEST/planes/2019/cantidad-materias-necesarias/", methods=["GET"])
 def carrera_plan_materias_necesarias():
     with open('source/tests/json/api_carrera_planes_anio_cantidad_materias_necesarias.json', 'r') as archivo:
         data = json.loads(archivo.read())
@@ -33,7 +33,7 @@ def carrera_planes():
         data = json.loads(archivo.read())
     return json.dumps(data)
 
-@mock_app.route("/api/carreras/TEST/planes/2015/", methods=["GET"])
+@mock_app.route("/api/carreras/TEST/planes/2019/", methods=["GET"])
 def carrera_planes_anio():
     with open('source/tests/json/api_carreras_planes_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
@@ -96,5 +96,23 @@ def carrera_cantidad_cursantes_anio():
 @mock_app.route("/api/carreras/TEST/materiascursadas/", methods=["GET"])
 def carrera_materiascursadas():
     with open('source/tests/json/api_carreras_materiascursadas.json', 'r') as archivo:
+        data = json.loads(archivo.read())
+    return json.dumps(data)
+
+@mock_app.route("/api/carreras/TEST/cantidad-cursantes/<anio>/", methods=["GET"])
+def cantidad_cursantes(anio):
+    with open('source/tests/json/api_carreras_cantidad_cursantes_anio.json', 'r') as archivo:
+        data = json.loads(archivo.read())
+    return json.dumps(data)
+
+@mock_app.route("/api/carreras/TEST/cantidad-ingresantes/<anio>/", methods=["GET"])
+def cantidad_ingresantes(anio):
+    with open('source/tests/json/api_carreras_cantidad_ingresantes_anio.json', 'r') as archivo:
+        data = json.loads(archivo.read())
+    return json.dumps(data)
+
+@mock_app.route("/api/carreras/TEST/cantidad-graduados/<anio>/", methods=["GET"])
+def cantidad_graduados(anio):
+    with open('source/tests/json/api_carreras_cantidad_graduados_anio.json', 'r') as archivo:
         data = json.loads(archivo.read())
     return json.dumps(data)
