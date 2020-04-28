@@ -225,7 +225,7 @@ class AppTest(unittest.TestCase):
     def test_cantidades_alumnos_graduados(self):
         """
             Hago un request con token
-            Deberia retornar [..., {'Cohorte': 2019, 'Graduados': 1, 'Cursantes': 10, 'Ingresantes': 2}]
+            Deberia recibir [..., {'Cohorte': 2019, 'Graduados': 1, 'Cursantes': 10, 'Ingresantes': 2}]
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -239,7 +239,7 @@ class AppTest(unittest.TestCase):
     def test_cantidades_alumnos_ingresantes(self):
         """
             Hago un request con token
-            Deberia retornar [..., {'Cohorte': 2019, 'Graduados': 1, 'Cursantes': 10, 'Ingresantes': 2}]
+            Deberia recibir [..., {'Cohorte': 2019, 'Graduados': 1, 'Cursantes': 10, 'Ingresantes': 2}]
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -253,7 +253,7 @@ class AppTest(unittest.TestCase):
     def test_cantidades_alumnos_cursantes(self):
         """
             Hago un request con token
-            Deberia retornar [..., {'Cohorte': 2019, 'Graduados': 1, 'Cursantes': 10, 'Ingresantes': 2}]
+            Deberia recibir [..., {'Cohorte': 2019, 'Graduados': 1, 'Cursantes': 10, 'Ingresantes': 2}]
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -277,7 +277,7 @@ class AppTest(unittest.TestCase):
     def test_cantidades_ingresantes(self):
         """
             Hago un request con token
-            Deberia retornar [..., {'Cohorte': 2019, 'Alumnos ingresantes': 2}]
+            Deberia recibir [..., {'Cohorte': 2019, 'Alumnos ingresantes': 2}]
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -301,7 +301,7 @@ class AppTest(unittest.TestCase):
     def test_cursantes_actual(self):
         """
             Hago un request con token
-            Deberia retornar {'nombre': 'Cursantes del año actual', 'valor': 10}
+            Deberia recibir {'nombre': 'Cursantes del año actual', 'valor': 10}
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -323,7 +323,7 @@ class AppTest(unittest.TestCase):
     def test_ingresantes_actual(self):
         """
             Hago un request con token
-            Deberia retornar {'nombre': 'Ingresantes del año actual', 'valor': 2}
+            Deberia recibir {'nombre': 'Ingresantes del año actual', 'valor': 2}
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -346,7 +346,7 @@ class AppTest(unittest.TestCase):
     def test_graduados_total(self):
         """
             Hago un request con token
-            Deberia retornar {'nombre': 'Graduados', 'valor': 1}
+            Deberia recibir {'nombre': 'Graduados', 'valor': 1}
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -368,7 +368,7 @@ class AppTest(unittest.TestCase):
     def test_notas(self):
         """
             Hago un request con token
-            Deberia retornar [... {'Fecha': '2018-02-07', 'Materia': 'Inglés II', 'Plan': 2019, 'Nota': '3'}]
+            Deberia recibir [... {'Fecha': '2018-02-07', 'Materia': 'Inglés II', 'Plan': 2019, 'Nota': '3'}]
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -378,3 +378,74 @@ class AppTest(unittest.TestCase):
                 for materia in data:
                     if materia['Materia'] == 'Inglés II' and materia['Fecha'] == '2018-02-07':
                         self.assertEqual(materia['Nota'], '3')
+
+    def test_scores_unauthorized(self):
+        """
+            Hago un request sin token, deberia darme 401
+        """
+        with self.mock_app.run(self.mock_url, self.mock_port):
+            with test_app.test_client() as client:
+                token = self.provider.retrieve_token()
+                response = client.get('/alumnos/1/scores?carrera=TEST&plan=2019')
+                self.assertEqual(response.status_code, 401)
+
+    def test_scores(self):
+        """
+            Hago un request con token
+            Deberia recibir [{'nombre': '2017-S2', 'valor': 3.0}, {'nombre': '2018-S2', 'valor': 5.666666666666667}]
+        """
+        with self.mock_app.run(self.mock_url, self.mock_port):
+            with test_app.test_client() as client:
+                token = self.provider.retrieve_token()
+                response = client.get('/alumnos/1/scores?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
+                data = json.loads(response.get_data())
+                for score in data:
+                    if score['nombre'] == '2017-S2':
+                        self.assertEqual(score['valor'], 3)
+
+    def test_porcentaje_carrera_unauthorized(self):
+        """
+            Hago un request sin token, deberia darme 401
+        """
+        with self.mock_app.run(self.mock_url, self.mock_port):
+            with test_app.test_client() as client:
+                token = self.provider.retrieve_token()
+                response = client.get('/alumnos/1/porcentaje-carrera?carrera=TEST&plan=2019')
+                self.assertEqual(response.status_code, 401)
+
+    def test_porcentaje_carrera(self):
+        """
+            Hago un request con token
+            Deberia recibir {"nombre": "Porcentaje de avance", "valor": 5.0} porque tiene aprobadas 2 de 40
+        """
+        with self.mock_app.run(self.mock_url, self.mock_port):
+            with test_app.test_client() as client:
+                token = self.provider.retrieve_token()
+                response = client.get('/alumnos/1/porcentaje-carrera?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
+                data = json.loads(response.get_data())
+                self.assertEqual(data['valor'], 5)
+
+    def test_dispersion_score_unauthorized(self):
+        """
+            Hago un request sin token, deberia darme 401
+        """
+        with self.mock_app.run(self.mock_url, self.mock_port):
+            with test_app.test_client() as client:
+                token = self.provider.retrieve_token()
+                response = client.get('/carreras/TEST/dispersion-score-promedio?dias=18250')
+                self.assertEqual(response.status_code, 401)
+
+    def test_dispersion_score_carrera(self):
+        """
+            Hago un request con token
+            Si hay datos de los ultimos 365 dias, deberia recibir [... {'Promedio': '7', 'Alumno': '9', 'Score': 2.0}]
+            Como los datos son fijos, este test dejaria de andar en el año 2070
+        """
+        with self.mock_app.run(self.mock_url, self.mock_port):
+            with test_app.test_client() as client:
+                token = self.provider.retrieve_token()
+                response = client.get('/carreras/TEST/dispersion-score-promedio?dias=18250', headers={"Authorization": f"Bearer {token}"})
+                data = json.loads(response.get_data())
+                for alumno in data:
+                    if alumno['Alumno'] == '9':
+                        self.assertEqual(alumno['Score'], 2)
