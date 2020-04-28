@@ -97,22 +97,6 @@ def get_materiascursadas_promedio(request, carrera, inicio=None, fin=None):
     data = transformer.merge_materias_con_promedio(cursadas_data, alumnos_carrera_df)
     return data
 
-@bp.route('/')
-def home():
-    """
-        Token must come as part of the request
-    """
-    dp = DataProvider()
-    token = dp.retrieve_token(
-        username=app.config['USERNAME'], password=app.config['PASSWORD'])
-    # data = dp.retrieve_plan(token, 'W', '2019')
-    # data = dp.retrieve_materiascursadas(token, 'W')
-    # data = dp.get_materiascursadas(token, 'W')
-    data = dp.get_inscriptos(token, 'W')
-    # dataframe = DataTransformer().transform_to_dataframe(data)
-    return json.dumps(data)
-
-
 @bp.route('/materias/<cod_materia>/recursantes')
 @tiene_jwt
 def recursantes_materia(cod_materia):
@@ -248,7 +232,7 @@ def cantidades_alumnos_carrera(carrera):
 @tiene_jwt
 def cantidades_ingresantes_carrera(carrera):
     '''
-        Deberia retornar una lista del tipo [{"anio": 2015, "ingresantes": 100}]
+        Deberia retornar una lista del tipo [{"anio": 2015, "Alumnos ingresantes": 100}]
     '''
     token = get_token(request)
     provider = DataProvider()
@@ -283,76 +267,6 @@ def cantidad_graduados(carrera):
     anio = date.today().year
     cursantes = provider.get_graduados(token, carrera, anio)
     return json.dumps({'nombre': 'Graduados', 'valor': cursantes["cantidad"]})
-
-@bp.route('/widget')
-def widget():
-    return json.dumps({'nombre': 'Aprobados', 'valor': 55})
-
-@bp.route('/alumnos/<legajo>/porcentajes-creditos-nucleos')
-@tiene_jwt
-def porcentajes_creditos_alumno(legajo):
-    merged_data, _, plan_data = get_materiascursadas_plan(request)
-
-    manipulator = DataManipulator()
-    # Filtro las materias
-    materias_alumno = manipulator.filtrar_materias_de_alumno(
-        merged_data, legajo)
-    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
-
-    porcentajes = manipulator.porcentajes_creditos_nucleos(
-        plan_data, aprobadas)
-    return json.dumps([porcentajes])
-
-
-@bp.route('/alumnos/<legajo>/porcentajes-creditos-areas')
-@tiene_jwt
-def porcentajes_creditos_areas(legajo):
-    merged_data, _, plan_data = get_materiascursadas_plan(request)
-
-    manipulator = DataManipulator()
-    # Filtro las materias
-    materias_alumno = manipulator.filtrar_materias_de_alumno(
-        merged_data, legajo)
-    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
-
-    porcentajes = manipulator.porcentajes_creditos_areas(
-        plan_data, aprobadas)
-    return json.dumps([porcentajes])
-
-
-@bp.route('/alumnos/<legajo>/creditos-nucleos')
-@tiene_jwt
-def creditos_nucleos(legajo):
-    merged_data, _, _ = get_materiascursadas_plan(request)
-
-    manipulator = DataManipulator()
-    # Filtro las materias
-    materias_alumno = manipulator.filtrar_materias_de_alumno(
-        merged_data, legajo)
-    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
-
-    data = manipulator.cantidades_creditos_nucleos(
-        aprobadas, ['B', 'A', 'I', 'C'])
-
-    return json.dumps([data])
-
-
-@bp.route('/alumnos/<legajo>/creditos-areas')
-@tiene_jwt
-def creditos_areas(legajo):
-    merged_data, _, plan_data = get_materiascursadas_plan(request)
-
-    manipulator = DataManipulator()
-    # Filtro las materias
-    materias_alumno = manipulator.filtrar_materias_de_alumno(
-        merged_data, legajo)
-    aprobadas = manipulator.filtrar_aprobados(materias_alumno)
-
-    areas = manipulator.areas_unicas(plan_data)
-
-    data = manipulator.cantidades_creditos_areas(aprobadas, areas)
-
-    return json.dumps([data])
 
 @bp.route('/alumnos/<legajo>/notas')
 @tiene_jwt
