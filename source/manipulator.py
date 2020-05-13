@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from transformer import DataTransformer
 
+
 class DataManipulator:
 
     ########################################### Filtrado ###############################################
@@ -270,17 +271,17 @@ class DataManipulator:
         return df['forma_aprobacion'].value_counts()
 
     def agrupar_periodo(self, df, fecha, periodo):
-        #Saco los que no tienen fecha de inscripcion
+        # Saco los que no tienen fecha de inscripcion
         df = df.dropna(subset=[fecha])
-        #Transformo la columna en date
+        # Transformo la columna en date
         df[fecha] = pd.to_datetime(df[fecha])
-        #Agrupo por fechas cada 6 meses
+        # Agrupo por fechas cada 6 meses
         df = df.groupby(pd.Grouper(key=fecha, freq=periodo)).count()
         return df
 
     def inscriptos_por_carrera(self, dataframe):
         df = self.agrupar_periodo(dataframe, 'fecha_inscripcion', '6MS')
-        #Saco la columna plan
+        # Saco la columna plan
         df = df.drop(['plan'], axis=1)
         return df
 
@@ -292,13 +293,16 @@ class DataManipulator:
         return (datetime.strptime(fecha, '%Y-%m-%d') - timedelta(days=365)).strftime('%Y-%m-%d')
 
     def materias_alumno_hasta(self, df, alumno, fecha):
-        df = df.loc[df.alumno == str(alumno)] #Obtengo los resultados del alumno
-        df = df.loc[df.fecha < fecha] #Obtengo las materias hasta la fecha
+        # Obtengo los resultados del alumno
+        df = df.loc[df.alumno == str(alumno)]
+        df = df.loc[df.fecha < fecha]  # Obtengo las materias hasta la fecha
         return df
 
     def materias_alumno_fecha(self, df, alumno, fecha):
-        df = df.loc[df.alumno == str(alumno)] #Obtengo los resultados del alumno
-        df = df.loc[df.fecha == fecha] #Obtengo las materias de una determinada fecha
+        # Obtengo los resultados del alumno
+        df = df.loc[df.alumno == str(alumno)]
+        # Obtengo las materias de una determinada fecha
+        df = df.loc[df.fecha == fecha]
         return df
 
     def score_alumno_hasta(self, df, alumno, fecha):
@@ -309,7 +313,8 @@ class DataManipulator:
             Retorna un numero, que representa el promedio
         """
         df = self.materias_alumno_hasta(df, alumno, fecha)
-        df = df.loc[df.fecha > self.fecha_anterior(fecha)] #Filtro las materias del ultimo año anterior a "fecha"
+        # Filtro las materias del ultimo año anterior a "fecha"
+        df = df.loc[df.fecha > self.fecha_anterior(fecha)]
         df = self.recalcular_notas_faltantes(df)
         return df.nota.mean()
 
@@ -318,18 +323,22 @@ class DataManipulator:
         return df.nota.mean()
 
     def materias_alumno_periodo(self, df, alumno, fecha):
-        df = df.loc[df.alumno == str(alumno)] #Obtengo los resultados del alumno
-        df = df.loc[df.fecha_periodo == fecha] #Obtengo las materias de una determinada fecha
+        # Obtengo los resultados del alumno
+        df = df.loc[df.alumno == str(alumno)]
+        # Obtengo las materias de una determinada fecha
+        df = df.loc[df.fecha_periodo == fecha]
         return df
 
     def row_periodos(self, row):
         transformer = DataTransformer()
         row['fecha_periodo'] = transformer.fecha_periodo(row.fecha)
-        row['periodo_semestre'] = transformer.periodo_semestre(row['fecha_periodo'])
+        row['periodo_semestre'] = transformer.periodo_semestre(
+            row['fecha_periodo'])
         return row
 
     def row_score_periodo(self, row, df, x):
-        row['score_periodo'] = self.score_alumno_periodo(df, row.alumno, row.fecha_periodo)
+        row['score_periodo'] = self.score_alumno_periodo(
+            df, row.alumno, row.fecha_periodo)
         return row
 
     def aplicar_periodos(self, df):
@@ -341,10 +350,11 @@ class DataManipulator:
     def recalcular_notas_faltantes(self, df):
         df.loc[df.nota == 'A', 'nota'] = 7
         df.loc[df.nota == 'R', 'nota'] = 3
-        df = df.loc[df.nota != 'PA'] #No me interesan los pendientes de aprobacion
+        # No me interesan los pendientes de aprobacion
+        df = df.loc[df.nota != 'PA']
         df['nota'] = df.nota.replace("", np.nan)
-        df = df.fillna(value=1) #Lleno los austenes con un 1
-        df.nota=df.nota.astype(float)
+        df = df.fillna(value=1)  # Lleno los austenes con un 1
+        df.nota = df.nota.astype(float)
         return df
 
     def scores_periodos(self, df):
@@ -362,18 +372,20 @@ class DataManipulator:
             Retorna un numero, que representa el promedio
 
         """
-        df = self.materias_alumno_fecha(df, alumno, fecha) #Obtengo las materias del alumno hasta la fecha
-        df.nota=df.nota.astype(float)
+        df = self.materias_alumno_fecha(
+            df, alumno, fecha)  # Obtengo las materias del alumno hasta la fecha
+        df.nota = df.nota.astype(float)
         return df.nota.mean()
-    
+
     def promedio_hasta(self, df, alumno, fecha):
         """
             Quiero calcular el promedio del alumno hasta una determinada fecha
             Retorna un numero, que representa el promedio
 
         """
-        df = self.materias_alumno_hasta(df, alumno, fecha) #Obtengo las materias del alumno hasta la fecha
-        df.nota=df.nota.astype(float)
+        df = self.materias_alumno_hasta(
+            df, alumno, fecha)  # Obtengo las materias del alumno hasta la fecha
+        df.nota = df.nota.astype(float)
         return df.nota.mean()
 
     def get_scores_alumno(self, df, legajo):
@@ -399,11 +411,73 @@ class DataManipulator:
         return data
 
     def get_recursantes(self, cursadas_df, inscriptos_df, cod_materia):
-        #Filtro por materia
+        # Filtro por materia
         cursadas_df = self.filtrar_alumnos_de_materia(cursadas_df, cod_materia)
-        inscriptos_df = self.filtrar_alumnos_de_materia(inscriptos_df, cod_materia)
+        inscriptos_df = self.filtrar_alumnos_de_materia(
+            inscriptos_df, cod_materia)
 
-        #Merge por alumno y codigo
-        merge_df = pd.merge(inscriptos_df, cursadas_df, on=['alumno', 'codigo'])
+        # Merge por alumno y codigo
+        merge_df = pd.merge(inscriptos_df, cursadas_df,
+                            on=['alumno', 'codigo'])
         recursantes = merge_df['alumno'].value_counts().to_dict()
         return recursantes
+
+    # ------ Materias traba
+
+    def aprobados_materia(self, df, cod_materia):
+        # Se asume que ya vienen agrupadas
+        try:
+            aprobados = df.loc[(df.resultado == 'A') &
+                               (df.codigo == cod_materia)]
+            return aprobados.iloc[0]['cantidad']
+        except:
+            return 0
+
+    def desaprobados_materia(self, df, cod_materia):
+        try:
+            # Se asume que ya vienen agrupadas
+            desaprobados = df.loc[(df.resultado == 'R') &
+                                  (df.codigo == cod_materia)]
+            return desaprobados.iloc[0]['cantidad']
+        except:
+            return 0
+
+    def indice_aprobacion(self, df, cod_materia):
+        try:
+            aprobados = self.aprobados_materia(df, cod_materia)
+            desaprobados = self.desaprobados_materia(df, cod_materia)
+            total = aprobados + desaprobados
+            return (aprobados * 100) / total
+        except:
+            return 0
+
+    def transformar_aprobados_desaprobados(self, df):
+        # Los que dicen P los tranformo en A para poder agrupar los aprobados
+        df.loc[df.resultado == 'P', 'resultado'] = 'A'
+        # Los que dicen U los tranformo en R para poder agrupar los aprobados
+        df.loc[df.resultado == 'U', 'resultado'] = 'R'
+        # Los que dicen U los tranformo en R para poder agrupar los aprobados
+        df.loc[df.resultado == '', 'resultado'] = 'R'
+        df = df.loc[df.nota != 'PA']  # Descarto las pendientes
+        return df
+
+    def contar_aprobados_desaprobados(self, df):
+        return df.groupby(['codigo', 'resultado', 'cantidad_obligatoria_de', 'materia']).size().reset_index(name='cantidad')
+
+    def row_totales_aprobados_desaprobados(self, row, df, x):
+        row['indice_aprobacion'] = self.indice_aprobacion(df, row.codigo)
+        return row
+
+    def calcular_totales_aprobados_desaprobados(self):
+        df = df.apply(self.row_totales_aprobados_desaprobados,
+                      args=(df, 2), axis=1)
+        df = df.drop_duplicates(subset=['codigo'], keep='first')
+        return df
+
+    def calcular_materias_traba(self, df):
+        df = self.transformar_aprobados_desaprobados(df)
+        df = self.contar_aprobados_desaprobados(df)
+        df = df.apply(self.row_totales_aprobados_desaprobados,
+                      args=(df, 2), axis=1)
+        df = df.drop_duplicates(subset=['codigo'], keep='first')
+        return df
