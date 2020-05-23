@@ -150,8 +150,7 @@ def datos_basicos_materia(cod_materia):
     ausentes = manipulator.cantidad_alumnos_ausentes(df, cod_materia)
     faltantes = manipulator.cantidad_alumnos_falta_aprobar(df, cod_materia)
     nombre = manipulator.get_nombre_materia(df, cod_materia)
-    return json.dumps([{'Materia': cod_materia,
-                        'Aprobados': aprobados,
+    return json.dumps([{'Aprobados': aprobados,
                         'Ausentes': ausentes,
                         'Desaprobados': desaprobados,
                         'Faltantes': faltantes}])
@@ -222,7 +221,7 @@ def alumnos_carrera(carrera):
 @tiene_jwt
 def cantidades_alumnos_carrera(carrera):
     '''
-        Deberia retornar una lista del tipo [{"anio": 2015, "graduados": 2, "cursantes": 200, "ingresantes": 100, "postulantes": 500}]
+        Deberia retornar una lista del tipo [{"Cohorte": 2015, "Graduados": 2, "Cursantes": 200, "Ingresantes": 100, "postulantes": 500}]
     '''
     token = get_token(request)
     provider = DataProvider()
@@ -241,12 +240,12 @@ def cantidades_alumnos_carrera(carrera):
 @tiene_jwt
 def cantidades_ingresantes_carrera(carrera):
     '''
-        Deberia retornar una lista del tipo [{"anio": 2015, "Alumnos ingresantes": 100}]
+        Deberia retornar una lista del tipo [{"anio": 2015, "Ingresantes": 100}]
     '''
     token = get_token(request)
     provider = DataProvider()
     ingresantes = provider.get_ingresantes(token, carrera)
-    return json.dumps([{"Cohorte": dato["anio"], "Alumnos ingresantes": dato["cantidad"]} for dato in ingresantes])
+    return json.dumps([{"Cohorte": dato["anio"], "Ingresantes": dato["cantidad"]} for dato in ingresantes])
 
 
 @bp.route('/carreras/<carrera>/cursantes-actual')
@@ -335,7 +334,7 @@ def materias_traba(carrera):
     manipulator = DataManipulator()
     # Filtro las materias
     materias = manipulator.calcular_materias_traba(merged_data)
-    return json.dumps([{'Materia': row['materia'], 'Promedio de Aprobación': "%.2f" % row['indice_aprobacion'], 'Obligatorias Anteriores': row['cantidad_obligatoria_de'], 'Score': "%.2f" % calcular_score_materia(row['cantidad_obligatoria_de'], row['indice_aprobacion'])} for index, row in materias.iterrows()])
+    return json.dumps([{'Materia': row['materia'], 'Promedio de Aprobación': "%.2f" % row['indice_aprobacion'], 'Obligatorias dependientes': row['cantidad_obligatoria_de'], 'Score': "%.2f" % calcular_score_materia(row['cantidad_obligatoria_de'], row['indice_aprobacion'])} for index, row in materias.iterrows()])
 
 
 def runserver():
