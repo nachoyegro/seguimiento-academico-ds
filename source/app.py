@@ -310,7 +310,7 @@ def alumno_porcentaje_carrera(legajo):
     cantidad_materias_necesarias = get_cantidad_materias_necesarias(request)
     porcentaje = manipulator.porcentaje_aprobadas(
         cantidad_aprobadas, cantidad_materias_necesarias)
-    return json.dumps({'nombre': 'Porcentaje de avance', 'valor': porcentaje})
+    return json.dumps({'nombre': 'Porcentaje de avance', 'valor': "%.2f" % round(porcentaje, 2)})
 
 
 @bp.route('/carreras/<carrera>/dispersion-score-promedio')
