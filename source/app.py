@@ -169,8 +169,13 @@ def dispersion_notas(cod_materia):
     alumnos_carrera_df = transformer.transform_to_dataframe(
         alumnos_carrera_json)
     data = transformer.merge_materias_con_promedio(df, alumnos_carrera_df)
-    return json.dumps([{"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": getattr(row, 'nota')} for row in data.itertuples()])
-
+    # Itero para generar el json final
+    resultado = []
+    for row in data.itertuples():
+        nota = getattr(row, 'nota')
+        if nota:
+            resultado.append({"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": nota})
+    return json.dumps(resultado)
 
 @bp.route('/alumnos/<legajo>/porcentajes-areas')
 @tiene_jwt
