@@ -36,7 +36,8 @@ class AppTest(unittest.TestCase):
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/recursantes?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
                 data = json.loads(response.get_data())
-                self.assertEqual(data['1'], 2)
+                self.assertEqual(data[0]["Legajo"], 1)
+                self.assertEqual(data[0]["Cantidad"], 2)
 
     def test_detalle_aprobados_unauthorized(self):
         """

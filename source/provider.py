@@ -53,13 +53,13 @@ class DataProvider:
         else:
             raise Exception
 
-    def retrieve_inscriptos(self, token, carrera):
+    def retrieve_inscriptos(self, token, carrera, anio=None, mes=None):
         """
             Trae las inscripciones desde el backend
         """
         headers = self.get_headers(token)
-        response = requests.get(app.config['INSCRIPCIONES_URL'].format(
-            carrera), headers=headers)
+        url = app.config['INSCRIPCIONES_URL'].format(carrera)
+        response = requests.get(url + str(anio) + '/' + str(mes) + '/' if anio else url, headers=headers)
         if response.status_code == 200:
             return response.text
         else:
@@ -176,8 +176,8 @@ class DataProvider:
         data = self.retrieve_graduados(token, carrera, anio)
         return json.loads(data)
 
-    def get_inscriptos(self, token, carrera):
-        data = self.retrieve_inscriptos(token, carrera)
+    def get_inscriptos(self, token, carrera, anio=None, mes=None):
+        data = self.retrieve_inscriptos(token, carrera, anio, mes)
         return json.loads(data)
 
     def get_plan(self, token, carrera, plan):

@@ -111,10 +111,14 @@ def recursantes_materia(cod_materia):
 
     cod_materia = cod_materia.zfill(5)
     carrera = request.args.get('carrera')
+    fecha_fin = request.args.get('fecha')
+    anio = fecha_fin.split('-')[0] if fecha_fin else None
+    mes = fecha_fin.split('-')[1] if fecha_fin else None
+    semestre = 1 if mes and int(mes) <= 6 else 2
     dm = DataManipulator()
 
     # Filtro los inscriptos de la carrera y materia
-    inscriptos = DataProvider().get_inscriptos(token, carrera)
+    inscriptos = DataProvider().get_inscriptos(token, carrera, anio, semestre)
     inscriptos_df = DataTransformer().transform_materiascursadas_to_dataframe(inscriptos)
 
     # Filtro las cursadas de la carrera y materia
@@ -122,7 +126,7 @@ def recursantes_materia(cod_materia):
     cursadas_df = DataTransformer().transform_materiascursadas_to_dataframe(cursadas)
 
     recursantes = dm.get_recursantes(cursadas_df, inscriptos_df, cod_materia)
-    return recursantes
+    return json.dumps([{"Legajo": key , "Cantidad": value} for key, value in recursantes.items()])
 
 
 @bp.route('/materias/<cod_materia>/detalle-aprobados')

@@ -21,8 +21,9 @@ class DataManipulator:
             Quiero obtener los alumnos de una materia
             :return Dataframe
         """
-        df = df.loc[df['codigo'] ==
-                    materia]
+        if not df.empty:
+            df = df.loc[df['codigo'] ==
+                        materia]
         return df
 
     def filtrar_periodo(self, df, fecha_inicio, fecha_fin):
@@ -415,6 +416,10 @@ class DataManipulator:
         cursadas_df = self.filtrar_alumnos_de_materia(cursadas_df, cod_materia)
         inscriptos_df = self.filtrar_alumnos_de_materia(
             inscriptos_df, cod_materia)
+
+        
+        if inscriptos_df.empty or cursadas_df.empty:
+            return {} 
 
         # Merge por alumno y codigo
         merge_df = pd.merge(inscriptos_df, cursadas_df,
