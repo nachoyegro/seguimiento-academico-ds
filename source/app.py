@@ -295,7 +295,7 @@ def notas_alumno(legajo):
     # Filtro las materias
     materias_alumno = manipulator.filtrar_materias_de_alumno(
         merged_data, legajo)
-    return json.dumps([{'Fecha': row['fecha'], 'Materia': row['materia'], 'Plan': row['plan'], 'Nota': row['nota']} for index, row in materias_alumno.iterrows()])
+    return json.dumps([{'Fecha': row['fecha'], 'Materia': row['materia'], 'Plan': row['plan'], 'Nota': row['nota'], 'Resultado': row['resultado'], 'Acta Examen': row['acta_examen'] or '', 'Acta Promocion': row['acta_promocion'] or ''} for index, row in materias_alumno.iterrows()])
 
 
 @bp.route('/alumnos/<legajo>/scores')
@@ -319,7 +319,7 @@ def alumno_porcentaje_carrera(legajo):
     cantidad_materias_necesarias = get_cantidad_materias_necesarias(request)
     porcentaje = manipulator.porcentaje_aprobadas(
         cantidad_aprobadas, cantidad_materias_necesarias)
-    return json.dumps({'nombre': 'Porcentaje de avance', 'valor': "%.2f" % round(porcentaje, 2)})
+    return json.dumps({'nombre': 'Porcentaje de avance en carrera', 'valor': str(round(porcentaje, 2))})
 
 
 @bp.route('/carreras/<carrera>/dispersion-score-promedio')
