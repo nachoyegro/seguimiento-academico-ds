@@ -33,5 +33,12 @@ Es necesario crear una red para que todas las instancias puedan comunicarse
   $ docker network create seguimiento-academico
 ```
 
+Una vez que exista la red, se procede a crear y dejar corriendo la imagen de Docker dentro de un contenedor
+
+```
+  $ docker-compose -f docker-compose.yml up --build -d
+```
+
 ## Levantar el proyecto
 
+Por defecto, la aplicación quedará corriendo en http://localhost:5000
