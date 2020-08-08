@@ -1,0 +1,16 @@
+#Docker compose version
+version: '3.2'
+services:
+  alumnos-ds:
+    container_name: seguimiento-academico-ds
+    restart: always
+    build: .
+    command: gunicorn -w 1 -b :5000 --pythonpath source 'app:app.run_prod()'
+    volumes:
+      - .:/code
+    ports:
+      - "5000:5000"
+networks:
+  default:
+    external:
+      name: seguimiento-academico

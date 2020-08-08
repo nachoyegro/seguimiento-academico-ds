@@ -350,6 +350,10 @@ def runserver():
     app.register_blueprint(bp)
     app.run(debug=True, host='0.0.0.0')
 
+def run_prod():
+    app.register_blueprint(bp)
+    app.run(host='0.0.0.0')
+
 
 def tests():
     app.testing = True
@@ -361,5 +365,6 @@ def tests():
 
 modes = {
     'runserver': runserver,
+    'prod':run_prod,
     'tests': tests
 }[args.mode]()
