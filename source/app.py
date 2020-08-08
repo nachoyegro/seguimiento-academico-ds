@@ -126,7 +126,7 @@ def recursantes_materia(cod_materia):
     cursadas_df = DataTransformer().transform_materiascursadas_to_dataframe(cursadas)
 
     recursantes = dm.get_recursantes(cursadas_df, inscriptos_df, cod_materia)
-    return json.dumps([{"Legajo": key , "Cantidad": value} for key, value in recursantes.items()])
+    return json.dumps([{"Legajo": key, "Cantidad": value} for key, value in recursantes.items()])
 
 
 @bp.route('/materias/<cod_materia>/detalle-aprobados')
@@ -178,8 +178,10 @@ def dispersion_notas(cod_materia):
     for row in data.itertuples():
         nota = getattr(row, 'nota')
         if nota:
-            resultado.append({"Promedio": getattr(row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": nota})
+            resultado.append({"Promedio": getattr(
+                row, 'promedio'), "Alumno": getattr(row, 'alumno'), "Nota": nota})
     return json.dumps(resultado)
+
 
 @bp.route('/alumnos/<legajo>/porcentajes-areas')
 @tiene_jwt
@@ -348,11 +350,7 @@ def materias_traba(carrera):
 
 def runserver():
     app.register_blueprint(bp)
-    app.run(debug=True, host='0.0.0.0')
-
-def run_prod():
-    app.register_blueprint(bp)
-    app.run(host='0.0.0.0')
+    app.run(debug=False, host='0.0.0.0')
 
 
 def tests():
@@ -365,6 +363,5 @@ def tests():
 
 modes = {
     'runserver': runserver,
-    'prod':run_prod,
     'tests': tests
 }[args.mode]()

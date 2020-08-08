@@ -9,8 +9,6 @@
 El objetivo principal de este módulo es de la obtención de los datos mediante una API Rest, la manipulación y el procesamiento de esos datos. Una vez terminado este proceso, sirve los resultados mediante una API Rest, que es consumida por un tercero para su visualización.
 
 
-## Tecnologías usadas
-
 ## Instalación con Docker
 
 Docker
@@ -35,19 +33,5 @@ Es necesario crear una red para que todas las instancias puedan comunicarse
   $ docker network create seguimiento-academico
 ```
 
-### Desarrollo
+## Levantar el proyecto
 
-En el modo desarrollo, la aplicación corre gracias al Web Server de Flask, el cual no está optimizado para producción.
-
-```
-  $ docker-compose -f docker-compose.dev.yml up --build -d
-```
-
-
-### Producción
-
-El deploy para producción tiene algunos aspectos extra, como correr la aplicación con Gunicorn y Nginx para resolver los requests.
-
-```
-  $ docker-compose -f docker-compose.prod.yml up --build -d
-```
