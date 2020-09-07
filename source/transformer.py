@@ -1,11 +1,12 @@
 from pandas.io.json import json_normalize
 import pandas as pd
 
+
 class DataTransformer:
 
     formas_aprobacion = {'EqE': 'Equivalencia equivalente', 'PC': 'Promocion en otra carrera', 'P': 'Promocion',
-                        'Eq': 'Equivalencia', 'ExE': 'Examen equivalente', 'Ex': 'Examen'}
-    
+                         'Eq': 'Equivalencia', 'ExE': 'Examen equivalente', 'Ex': 'Examen'}
+
     def transform_to_dataframe(self, data):
         return json_normalize(data)
 
@@ -48,7 +49,6 @@ class DataTransformer:
         semester = self.transform_date_to_semester(date)
         return semester
 
-    #Dada una fecha, quiero saber a que período pertenece
     def fecha_periodo(self, fecha_str):
         """
             Si la fecha es mayor a octubre:

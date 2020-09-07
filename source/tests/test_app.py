@@ -36,7 +36,8 @@ class AppTest(unittest.TestCase):
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/recursantes?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
                 data = json.loads(response.get_data())
-                self.assertEqual(data['1'], 2)
+                self.assertEqual(data[0]["Legajo"], 1)
+                self.assertEqual(data[0]["Cantidad"], 2)
 
     def test_detalle_aprobados_unauthorized(self):
         """
@@ -277,7 +278,7 @@ class AppTest(unittest.TestCase):
     def test_cantidades_ingresantes(self):
         """
             Hago un request con token
-            Deberia recibir [..., {'Cohorte': 2019, 'Alumnos ingresantes': 2}]
+            Deberia recibir [..., {'Cohorte': 2019, 'Ingresantes': 2}]
         """
         with self.mock_app.run(self.mock_url, self.mock_port):
             with test_app.test_client() as client:
@@ -286,7 +287,7 @@ class AppTest(unittest.TestCase):
                 data = json.loads(response.get_data())
                 for cohorte in data:
                     if cohorte['Cohorte'] == 2019:
-                        self.assertEqual(cohorte['Alumnos ingresantes'], 2)
+                        self.assertEqual(cohorte['Ingresantes'], 2)
 
     def test_cursantes_actual_unauthorized(self):
         """
