@@ -1,6 +1,6 @@
 import requests
 import json
-from config import app
+from config import app, cache
 import os
 from transformer import DataTransformer
 
@@ -66,23 +66,11 @@ class DataProvider:
             raise Exception
 
     def get_materiascursadas(self, token, carrera):
-        """
-            Se encarga de traer las materias cursadas
-            Fijandose primero si ya las tengo localmente
-            Caso contrario, las traigo desde el backend y las guardo local
-            return JSON
-        """
-        path = 'data/materiascursadas_{}.json'.format(carrera)
-        # Si ya lo traje en otro momento
-        if os.path.isfile(path):
-            with open(path, 'r') as archivo:
-                result = json.loads(archivo.read())
+        if cache.get('materias_cursadas'):
+            result = json.loads(cache.get('materias_cursadas'))
         else:
-            # Si no lo tenia, lo traigo y lo guardo para la proxima
             data = self.retrieve_materiascursadas(token, carrera)
-            with open(path, 'w+', encoding='utf-8') as archivo:
-                json.dump(json.loads(data), archivo,
-                          ensure_ascii=False, indent=4)
+            cache.set('materias_cursadas', data)
             result = json.loads(data)
         return result
 
