@@ -4,7 +4,7 @@ import os
 from pymemcache.client.base import Client
 
 #cache = Client('memcached')
-cache = Client('localhost:11211', encoding="utf-8")
+cache = Client('172.18.0.1:11211', encoding="utf-8")
 
 app = Flask(__name__)
 CORS(app)
@@ -13,7 +13,7 @@ if os.getenv('STAGE') == 'test':
     app.config['BACKEND_URL'] = 'http://localhost:8008'
 else:
     #app.config['BACKEND_URL'] = 'http://172.18.0.2:8000'
-    app.config['BACKEND_URL'] = 'http://localhost:8000'
+    app.config['BACKEND_URL'] = 'http://172.18.0.1:8000'
 app.config['API_URL'] = app.config['BACKEND_URL'] + '/api'
 app.config['TOKEN_URL'] = app.config['API_URL'] + '/token/'
 app.config['ALUMNOS_URL'] = app.config['API_URL'] + '/alumnos/'

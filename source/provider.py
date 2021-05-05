@@ -66,11 +66,12 @@ class DataProvider:
             raise Exception
 
     def get_materiascursadas(self, token, carrera):
-        if cache.get('materias_cursadas'):
-            result = json.loads(cache.get('materias_cursadas'))
+        cache_data = cache.get(carrera)
+        if cache_data:
+            result = json.loads(cache_data)
         else:
             data = self.retrieve_materiascursadas(token, carrera)
-            cache.set('materias_cursadas', data)
+            cache.set(carrera, data)
             result = json.loads(data)
         return result
 
