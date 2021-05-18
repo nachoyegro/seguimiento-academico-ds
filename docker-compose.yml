@@ -10,6 +10,17 @@ services:
       - .:/code
     ports:
       - "5000:5000"
+    links:
+      - "memcached:memcached"
+
+  memcached:
+    container_name: memcached
+    image: memcached:1.6.9
+    restart: always
+    ports:
+      - 11211:11211
+    command: -m 200m -I 50m
+    
 networks:
   default:
     external:
