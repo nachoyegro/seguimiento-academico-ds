@@ -71,7 +71,7 @@ class DataProvider:
             result = json.loads(cache_data)
         else:
             data = self.retrieve_materiascursadas(token, carrera)
-            cache.set(carrera, data)
+            cache.set(carrera, json.dumps(data, ensure_ascii=False).encode('utf8'))
             result = json.loads(data)
         return result
 
