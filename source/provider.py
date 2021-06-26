@@ -72,7 +72,7 @@ class DataProvider:
         else:
             data = self.retrieve_materiascursadas(token, carrera)
             cache.set(carrera, json.dumps(data, ensure_ascii=False).encode('utf8'))
-            result = json.loads(data)
+            result = data
         return result
 
     def retrieve_materiascursadas(self, token, carrera):
@@ -83,7 +83,7 @@ class DataProvider:
         response = requests.get(
             app.config['MATERIASCURSADAS_URL'].format(carrera), headers=headers)
         if response.status_code == 200:
-            return response.text
+            return response.json()
         else:
             return []
 
