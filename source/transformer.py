@@ -84,4 +84,4 @@ class DataTransformer:
         try:
             return self.formas_aprobacion[forma_aprobacion]
         except:
-            return None
+            return forma_aprobacion
