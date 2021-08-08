@@ -30,8 +30,11 @@ class TransformerTest(unittest.TestCase):
         self.assertEqual(esperado, resultado)
 
     def test_forma_aprobacion_no_encontrada(self):
+        """
+            Si la forma de aprobación no existe, devuelve la pedida
+        """
         forma_aprobacion = 'Pw'
-        esperado = None
+        esperado = 'Pw'
         resultado = self.transformer.get_forma_aprobacion(forma_aprobacion)
         self.assertEqual(esperado, resultado)
 

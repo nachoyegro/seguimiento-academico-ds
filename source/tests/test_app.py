@@ -35,8 +35,8 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/recursantes?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
-                self.assertEqual(data[0]["Legajo"], 1)
+                data = json.loads(response.data)
+                self.assertEqual(data[0]["Legajo"], '1')
                 self.assertEqual(data[0]["Cantidad"], 2)
 
     def test_detalle_aprobados_unauthorized(self):
@@ -59,7 +59,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/detalle-aprobados?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['Promocion en otra carrera'], 1)
 
     def test_basicos_unauthorized(self):
@@ -81,7 +81,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/basicos?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['Aprobados'], 1)
 
     def test_basicos_ausentes(self):
@@ -93,7 +93,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/basicos?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['Ausentes'], 0)
 
     def test_basicos_desaprobados(self):
@@ -105,7 +105,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/basicos?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['Desaprobados'], 4)
 
     def test_basicos_faltantes(self):
@@ -117,7 +117,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/basicos?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['Faltantes'], 9)
 
 
@@ -140,7 +140,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/materias/90028/dispersion-notas?carrera=TEST', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['Nota'], '2')
 
     def test_porcentajes_areas_unauthorized(self):
@@ -162,7 +162,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/alumnos/1/porcentajes-areas?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for materia in data:
                     if materia['nombre'] == 'Inglés':
                         self.assertEqual("%.2f" % materia['valor'], '50.00')
@@ -186,7 +186,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/alumnos/1/porcentajes-nucleos?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for nucleo in data:
                     if nucleo['nombre'] == 'I':
                         self.assertEqual("%.2f" % nucleo['valor'], '33.33')
@@ -210,7 +210,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/alumnos?plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data[0]['cantidad'], 10)
 
     def test_cantidades_alumnos_unauthorized(self):
@@ -232,7 +232,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/cantidades-alumnos?plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for cohorte in data:
                     if cohorte['Cohorte'] == 2019:
                         self.assertEqual(cohorte['Graduados'], 1)
@@ -246,7 +246,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/cantidades-alumnos', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for cohorte in data:
                     if cohorte['Cohorte'] == 2019:
                         self.assertEqual(cohorte['Ingresantes'], 2)
@@ -260,7 +260,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/cantidades-alumnos', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for cohorte in data:
                     if cohorte['Cohorte'] == 2019:
                         self.assertEqual(cohorte['Cursantes'], 10)
@@ -284,7 +284,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/cantidades-ingresantes', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for cohorte in data:
                     if cohorte['Cohorte'] == 2019:
                         self.assertEqual(cohorte['Ingresantes'], 2)
@@ -308,7 +308,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/cursantes-actual', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data['valor'], 10)
 
     def test_ingresantes_actual_unauthorized(self):
@@ -330,7 +330,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/ingresantes-actual', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data['valor'], 2)
 
 
@@ -353,7 +353,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/graduados-total', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 self.assertEqual(data['valor'], 1)
 
     def test_notas_unauthorized(self):
@@ -375,7 +375,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/alumnos/1/notas?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for materia in data:
                     if materia['Materia'] == 'Inglés II' and materia['Fecha'] == '2018-02-07':
                         self.assertEqual(materia['Nota'], '3')
@@ -399,7 +399,8 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/alumnos/1/scores?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
+                print(data)
                 for score in data:
                     if score['nombre'] == '2017-S2':
                         self.assertEqual(score['valor'], 3)
@@ -423,8 +424,8 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/alumnos/1/porcentaje-carrera?carrera=TEST&plan=2019', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
-                self.assertEqual(data['valor'], 5)
+                data = json.loads(response.data)
+                self.assertEqual(data['valor'], '5.0')
 
     def test_dispersion_score_unauthorized(self):
         """
@@ -446,7 +447,7 @@ class AppTest(unittest.TestCase):
             with test_app.test_client() as client:
                 token = self.provider.retrieve_token()
                 response = client.get('/carreras/TEST/dispersion-score-promedio?dias=18250', headers={"Authorization": f"Bearer {token}"})
-                data = json.loads(response.get_data())
+                data = json.loads(response.data)
                 for alumno in data:
                     if alumno['Alumno'] == '9':
                         self.assertEqual(alumno['Score'], 2)

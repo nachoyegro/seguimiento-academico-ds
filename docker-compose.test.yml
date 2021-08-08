@@ -14,6 +14,12 @@ services:
     environment:
       STAGE: 'test'
       DEBUG: 'true'
+
+  memcached:
+    image: memcached:1.6.9
+    ports:
+      - 11211:11211
+    command: -m 200m -I 50m
 networks:
   default:
     external:
